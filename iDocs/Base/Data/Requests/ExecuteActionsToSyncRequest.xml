@@ -1,0 +1,19 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+	<S:Header>
+		<ServiceContext xmlns="http://context.core.datamodel.fs.documentum.emc.com/" token="#TOKEN#">
+			<Identities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+						password="#PASSWORD#" 
+						repositoryName="#REPOSITORY#" 
+						userName="#USERNAME#" 
+						xsi:type="RepositoryIdentity">
+			</Identities>
+		</ServiceContext>	
+	</S:Header>
+	<S:Body>
+		<ns1:executeAction xmlns:ns1="http://ws.services.dfs.dms.korusconsulting.ru/">
+            <actionPackage>
+				#DATA_OBJECTS#
+			</actionPackage>
+		</ns1:executeAction>
+	</S:Body>
+</S:Envelope>

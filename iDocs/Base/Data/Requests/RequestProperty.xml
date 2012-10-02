@@ -1,0 +1,6 @@
+<ns3:Properties xmlns:ns3="http://properties.core.datamodel.fs.documentum.emc.com/" 
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xsi:type="ns3:StringProperty" 
+                name="#PROPNAME#">
+	<ns3:Value>#PROPVALUE#</ns3:Value>
+</ns3:Properties>

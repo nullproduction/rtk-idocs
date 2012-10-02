@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>ascending</key>
+		<string>no</string>
+		<key>name</key>
+		<string>по дате изменения</string>
+		<key>sortField</key>
+		<string>NSFileModificationDate</string>
+	</dict>
+	<dict>
+		<key>ascending</key>
+		<string>yes</string>
+		<key>name</key>
+		<string>по названию</string>
+		<key>sortField</key>
+		<string>fileName</string>
+	</dict>
+</array>
+</plist>

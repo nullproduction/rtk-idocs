@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<client_settings>
+    <general_settings>
+        <setting name="logoIcon">korus_logo.png</setting>
+        <setting name="logoIconWithName">korus_logo_with_name.png</setting>
+        <setting name="showMajorExecutorErrandSign">1</setting>
+    </general_settings>
+	<dashboards>
+		<dashboard id="0" name="Система электронного документооборота">
+			<item>
+				<property name="id">urgent_tasks</property>
+				<property name="parent_id"></property>	
+				<property name="type">itemORDCategoryGroup</property>	
+				<property name="name">Срочные</property>
+				<property name="dashboard_icon">icon_urgent_tasks_folder.png</property>
+                <property name="block">task</property>
+			</item>
+			<item>
+				<property name="id">on_approvement</property>
+				<property name="parent_id"></property>	
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На утверждение</property>
+				<property name="dashboard_icon">icon_on_approvement_folder.png</property>
+                <property name="block">task</property>
+			</item>	
+			<item>
+				<property name="id">for_signature</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На подписание</property>
+				<property name="dashboard_icon">icon_for_signature_folder.png</property>
+                <property name="block">task</property>
+			</item>	
+			<item>
+				<property name="id">on_agreement</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На согласование</property>
+				<property name="dashboard_icon">icon_on_agreement_folder.png</property>
+                <property name="block">task</property>
+			</item>
+			<item>
+				<property name="id">on_approval</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На рассмотрение</property>
+				<property name="dashboard_icon">icon_on_approval_folder.png</property>
+                <property name="block">task</property>
+			</item>
+			<item>
+				<property name="id">other_tasks</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">Прочие</property>
+				<property name="dashboard_icon">icon_other_tasks_folder.png</property>
+                <property name="block">task</property>
+			</item>
+			<item>
+				<property name="id">on_execution</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На исполнение</property>
+				<property name="dashboard_icon">icon_on_execution_folder.png</property>	
+                <property name="block">task</property>
+			</item>	
+			<item>
+				<property name="id">enquiry_report</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На принятие отчета</property>
+				<property name="dashboard_icon">icon_enquiry_report_folder.png</property>
+                <property name="block">task</property>
+			</item>
+			<item>
+				<property name="id">on_control</property>
+				<property name="parent_id"></property>
+				<property name="type">itemORDCategoryGroup</property>                
+				<property name="name">На контроле</property>
+				<property name="dashboard_icon">icon_on_control_folder.png</property>
+                <property name="block">task</property>
+                <property name="action_templates">
+					<action>
+                        <property name="action_name">Новое поручение</property>
+                        <property name="action_id">kc__mission_mission</property>
+                        <property name="action_type">new_resolution</property>
+                        <property name="color">green</property>
+					</action>
+					<action>
+                        <property name="action_name">Снять с контроля</property>
+                        <property name="action_id">kc__remove_from_control</property>
+                        <property name="action_type">close_task</property>
+                        <property name="color">green</property>
+                        <property name="resultText">Снят с контроля</property>
+                        <property name="isFinal">yes</property>
+					</action>
+                </property>
+			</item>	
+		</dashboard>
+		<dashboard id="1" name="Документы и отчеты">
+			<item>
+				<property name="id">/Public/Аудио и видео/</property> <!-- requires start and ending "/" for folders -->
+                <property name="parent_id"></property>
+                <property name="type">itemWebDavFolder</property>
+				<property name="name">Аудио и видео</property>
+				<property name="dashboard_icon">icon_media_folder.png</property>
+                <property name="block"></property>
+			</item>
+			<item>
+				<property name="id">/Public/Встречи и совещания/</property>
+                <property name="parent_id"></property>
+                <property name="type">itemWebDavFolder</property>
+				<property name="name">Встречи и совещания</property>
+				<property name="dashboard_icon">icon_meetings_folder.png</property> 
+                <property name="block"></property>
+			</item> 
+			<item>
+				<property name="id">/Public/Документы/</property>
+				<property name="parent_id"></property>
+                <property name="type">itemWebDavFolder</property>
+				<property name="name">Документы</property>
+				<property name="dashboard_icon">icon_other_tasks_folder.png</property> 
+                <property name="block"></property>
+			</item>
+			<item>
+				<property name="id">/Public/Командировки/</property>
+                <property name="parent_id"></property>
+                <property name="type">itemWebDavFolder</property>
+				<property name="name">Командировки</property>
+				<property name="dashboard_icon">icon_trips_folder.png</property> 
+                <property name="block"></property>
+			</item> 
+			<item>
+				<property name="id">reports_folder</property>
+				<property name="parent_id"></property>
+				<property name="type">folder</property>                
+				<property name="name">Отчеты</property>
+				<property name="dashboard_icon">icon_enquiry_report_folder.png</property>
+                <property name="block"></property>
+			</item>           
+			<item>
+				<property name="id">/Public/Отчеты/Отчеты по исп. дисциплине/</property>
+				<property name="parent_id">reports_folder</property>
+                <property name="type">itemWebDavFolder</property>  
+				<property name="name">Отчеты по исп. дисциплине</property>
+				<property name="dashboard_icon">icon_enquiry_report_folder.png</property>
+                <property name="block"></property>
+			</item>            
+			<item>
+				<property name="id">/Public/Отчеты/Финансовая отчетность/</property>
+				<property name="parent_id">reports_folder</property>
+                <property name="type">itemWebDavFolder</property> 
+				<property name="name">Финансовая отчетность</property>
+				<property name="dashboard_icon">icon_enquiry_report_folder.png</property>
+                <property name="block"></property>
+			</item>	
+			<item>
+				<property name="id">/Personal/__MY_WEBDAV_DOCUMENTS__/</property>
+				<property name="parent_id"></property>
+                <property name="type">itemWebDavFolder</property>
+				<property name="name">Мои документы</property>
+				<property name="dashboard_icon">icon_other_tasks_folder.png</property> 
+                <property name="block"></property>
+			</item>
+		</dashboard>
+	</dashboards>
+</client_settings>

@@ -1,0 +1,38 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+"AppInfoTitle" = "Общие";
+"AppVersionTitle" = "Версия приложения";
+"DictionariesVersionTitle" = "Версия справочников";
+"ServerRequestTimeoutTitle" = "Время ожидания соединения";
+"ServerRequestTimeout1Min" = "1 мин.";
+"ServerRequestTimeout3Min" = "3 мин.";
+"ServerRequestTimeout5Min" = "5 мин.";
+"ServerRequestTimeout10Min" = "10 мин.";
+"DocInfoPackageSizeTitle" = "Размер пакета данных по документам";
+"DocInfoPackageSize25" = "25 документов";
+"DocInfoPackageSize50" = "50 документов";
+"DocInfoPackageSize75" = "75 документов";
+"DocInfoPackageSize100" = "100 документов";
+"DocInfoPackageSize125" = "125 документов";
+"DocInfoPackageSize150" = "150 документов";
+"DocInfoPackageSize175" = "175 документов";
+"DocInfoPackageSize200" = "200 документов";
+"Use3GNetworkTitle" = "Использовать 3G";
+"SyncOnStartupTitle" = "Синхронизация при запуске";
+
+"InboxModuleSettingsTitle" = "Модуль \"Входящие\"";
+"ORDServerAddressTitle" = "Адрес cервера";
+"ORDServerRepositoryNameTitle" = "Репозитарий";
+"ORDServerUserTitle" = "Логин";
+"ORDServerPasswordTitle" = "Пароль";
+"ORDAttachmentDownloadTypeTitle" = "Тип загрузки вложений";
+"ORDAttachmentDownloadTypeBase64Title" = "Base64";
+"ORDAttachmentDownloadTypeServletTitle" = "Сервлет";
+"SyncORDDictionariesTitle" = "Синхронизация справочников";
+"ORDServerToggleTitle" = "Работать с сервером";
+"ErrandDueDateIntervalTitle" = "Срок исполнения поручения";
+
+"ThemesSettingsTitle" = "Темы";
+"CurrentThemeTitle" = "Текущая тема";
+"ThemeDefaultTitle" = "Основная";
+"ThemeBlueTitle" = "Голубая";

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>по типу</string>
+		<key>sortFields</key>
+		<string>doc.typeName|yes,systemHasDueDate|no,dueDate|yes</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>по дате исполнения </string>
+		<key>sortFields</key>
+		<string>systemHasDueDate|no,dueDate|yes,doc.typeName|no</string>
+	</dict>
+</array>
+</plist>

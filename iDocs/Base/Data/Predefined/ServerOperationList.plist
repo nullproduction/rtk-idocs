@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ActionsSubmitter</key>
+	<string>Отправка на сервер локальных действий</string>
+	<key>AttachmentsLoader</key>
+	<string>Синхронизация вложений</string>
+	<key>ClientSettingsLoader</key>
+	<string>Обновление настроек клиента</string>
+	<key>DataCleaner</key>
+	<string>Удаление локальных данных</string>
+	<key>DataContentLoader</key>
+	<string>Синхронизация данных</string>
+	<key>DictionariesChunkLoader</key>
+	<string>Синхронизация справочников</string>
+	<key>DocInfoLoader</key>
+	<string>Синхронизация документов</string>
+	<key>0</key>
+	<string>не синхронизируется</string>
+	<key>3</key>
+	<string>модуль &quot;Документы и отчеты&quot;</string>
+	<key>1</key>
+	<string>модуль &quot;Настройки клиента&quot;</string>
+	<key>2</key>
+	<string>модуль &quot;Входящие&quot;</string>
+	<key>TaskInfoLoader</key>
+	<string>Синхронизация задач</string>
+	<key>TaskListLoader</key>
+	<string>Загрузка структуры моих задач и документов</string>
+	<key>DocListOnControlLoader</key>
+	<string>Загрузка структуры документов на контроле</string>
+	<key>LoginSubmitter</key>
+	<string>Авторизация клиента на сервере</string>
+</dict>
+</plist>

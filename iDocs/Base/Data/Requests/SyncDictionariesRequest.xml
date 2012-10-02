@@ -1,0 +1,28 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+	<S:Header>
+		<ServiceContext xmlns="http://context.core.datamodel.fs.documentum.emc.com/" token="#TOKEN#">
+			<Identities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+						password="#PASSWORD#" 
+						repositoryName="#REPOSITORY#" 
+						userName="#USERNAME#" 
+						xsi:type="RepositoryIdentity">
+			</Identities>
+		</ServiceContext>	
+	</S:Header>
+	<S:Body>
+		<ns1:syncDictionary xmlns:ns1="http://services.dfs.dms.korusconsulting.ru/"
+                            xmlns:ns2="http://core.datamodel.fs.documentum.emc.com/" 
+                            xmlns:ns3="http://properties.core.datamodel.fs.documentum.emc.com/">
+			<date>
+				<ns2:DataObjects>
+					<ns2:Properties>
+						<ns3:Properties xsi:type="ns3:DateProperty" 
+								name="checkDate" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+							<ns3:Value>#CHECKDATE#</ns3:Value>
+						</ns3:Properties>
+					</ns2:Properties>
+				</ns2:DataObjects>
+			</date>
+		</ns1:syncDictionary>
+	</S:Body>
+</S:Envelope>

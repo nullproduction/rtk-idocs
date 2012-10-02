@@ -1,0 +1,5 @@
+<ns2:DataObjects xmlns:ns2="http://core.datamodel.fs.documentum.emc.com/">
+    <ns2:Properties>
+        #PROPERTIES#
+    </ns2:Properties>
+</ns2:DataObjects>

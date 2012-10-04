@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "HFSUITableViewCell.h"
+#import "iPadDocAttachmentCell.h"
 
 @class iPadDocExecutionCell;
+
 @protocol iPadDocExecutionCellDelegate <NSObject>
 @optional
 - (void)viewErrand:(NSString *)errandId;
 @end
+
+@protocol iPadDocAttachmentCellDelegate;
 
 @interface iPadDocExecutionCell: HFSUITableViewCell {
 	UILabel *errandIdLabel;
@@ -24,8 +28,14 @@
 	UILabel *errandExecutorLabel;	
 	UILabel *errandTextLabel;
 	UILabel *errandDueDateLabel;
+    
+    UIButton* errandAttachmentFiles;
+    id<iPadDocAttachmentCellDelegate> delegate;
+
 }
 
+- (void)setDelegate:(id<iPadDocAttachmentCellDelegate>)newDelegate;
+- (void)setSelection:(id)sender;
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame;
 - (void)setErrandId:(NSString *)errandId;
 - (void)setErrandStatusImage:(NSString *)imageName;
@@ -37,5 +47,7 @@
 - (void)setErrandText:(NSString *)errandText;
 - (void)setErrandDueDate:(NSString *)dueDate withColor:(UIColor *)color;
 - (void)setCurrentErrandStyle:(Boolean)isCurrentErrand;
+
+- (void)setErrandAttachmentFiles;
 
 @end

@@ -153,7 +153,9 @@
         }
         [cell setBackgroundStyleForRow:indexPath.row];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-            
+        
+        [cell setDelegate:self];
+        
         DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:indexPath.row]);
         
         [cell setErrandId:errand.id];
@@ -200,6 +202,8 @@
         
         [cell setErrandText:errand.text];
         
+        [cell setErrandAttachmentFiles];
+        
         NSLog(@"\nerrand id = %@ errand parent_id = %@",errand.id,errand.parentId);
         
         //set errand due date and due date status
@@ -239,6 +243,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"iPadInboxExecutionTab didSelectRowAtIndexPath indexPath.row: %i", indexPath.row);
     if ([filteredErrands count] > indexPath.row) {
+        
+//        iPadDocExecutionCell *cell = (iPadDocExecutionCell *)[tableView cellForRowAtIndexPath:indexPath];
+//        [cell setSelection:nil];
+//        
 		if (delegate != nil && [delegate respondsToSelector:@selector(showErrand:usingMode:)]) {
 			DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:indexPath.row]);
             
@@ -257,6 +265,16 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc. that aren't in use.
 }
+
+
+#pragma mark custom methods - delegate implementation
+- (void)showAttachmentWithFileName:(NSString *)attachmentFileName andName:(NSString *)attachmentName {
+	NSLog(@"iPadInboxExecutionTab showAttachmentWithFileName:%@ andName:%@", attachmentFileName, attachmentName);
+	if (delegate != nil && [delegate respondsToSelector:@selector(showAttachmentWithFileName:andName:)]) {
+		[delegate showAttachmentWithFileName:attachmentFileName andName:attachmentName];
+	}
+}
+
 
 - (void)dealloc {
     [docEntity release];

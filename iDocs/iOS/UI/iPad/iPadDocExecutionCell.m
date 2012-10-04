@@ -11,6 +11,7 @@
 #import "iPadThemeBuildHelper.h"
 #import "CoreDataProxy.h"
 #import "ClientSettingsDataEntity.h"
+
 @implementation iPadDocExecutionCell
 
 - (id)initWithStyle:(UITableViewCellStyle)UITableViewCellStyle reuseIdentifier:(NSString *)reuseIdentifier {
@@ -62,14 +63,22 @@
 		errandTextLabel.backgroundColor = [UIColor clearColor];
 		errandTextLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;		
 		[[self contentView] addSubview:errandTextLabel];	
-		
+		        
 		errandDueDateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		errandDueDateLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
 		errandDueDateLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
 		errandDueDateLabel.backgroundColor = [UIColor clearColor];
 		errandDueDateLabel.autoresizingMask = UIViewAutoresizingNone;			
 		[[self contentView] addSubview:errandDueDateLabel];			
+        
+        errandAttachmentFiles = [[UIButton alloc] initWithFrame:CGRectZero];
+        errandAttachmentFiles.backgroundColor = [UIColor clearColor];
+        errandAttachmentFiles.autoresizingMask = UIViewAutoresizingNone;
+		errandAttachmentFiles.contentMode = UIViewContentModeCenter;
+        errandAttachmentFiles.hidden = YES;
+        [[self contentView] addSubview:errandAttachmentFiles];
     }
+    
     return self;
 }
 
@@ -86,31 +95,38 @@
 	errandExecutorLabel.frame = [[cellFrames objectAtIndex:4] CGRectValue];
 	errandTextLabel.frame = [[cellFrames objectAtIndex:5] CGRectValue];
 	errandDueDateLabel.frame = [[cellFrames objectAtIndex:6] CGRectValue];
+    
+    errandAttachmentFiles.frame = [[cellFrames objectAtIndex:7] CGRectValue];
+
 }
 
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame {
-	CGRect c0Frame, c1Frame, c2Frame, c3Frame, c4Frame, c5Frame, c6Frame;
+	CGRect c0Frame, c1Frame, c2Frame, c3Frame, c4Frame, c5Frame, c6Frame, c7Frame;
     
     ClientSettingsDataEntity *settingsEntity = [[ClientSettingsDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
     if ([settingsEntity showMajorExecutorErrandSign] == NO) {
         CGRectDivide(rowFrame, &c0Frame, &c1Frame, 70.0f, CGRectMinXEdge);
-        CGRectDivide(c1Frame, &c1Frame, &c2Frame, 55.0f, CGRectMinXEdge);
-        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 111.0f, CGRectMinXEdge);
+        CGRectDivide(c1Frame, &c1Frame, &c2Frame, 50.0f, CGRectMinXEdge);
+        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 110.0f, CGRectMinXEdge);
         CGRectDivide(c3Frame, &c3Frame, &c4Frame, 0.0f, CGRectMinXEdge);
-        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 123.0f, CGRectMinXEdge);
-	
-        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, c5Frame.size.width - 136.0f, c5Frame.size.height);
-        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 136.0f, c5Frame.size.height);
-	} 
+        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 120.0f, CGRectMinXEdge);
+        
+        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
+        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
+        
+        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
+	}
     else {
         CGRectDivide(rowFrame, &c0Frame, &c1Frame, 70.0f, CGRectMinXEdge);
-        CGRectDivide(c1Frame, &c1Frame, &c2Frame, 55.0f, CGRectMinXEdge);
-        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 111.0f, CGRectMinXEdge);
-        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 55.0f, CGRectMinXEdge);
-        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 123.0f, CGRectMinXEdge);
+        CGRectDivide(c1Frame, &c1Frame, &c2Frame, 50.0f, CGRectMinXEdge);
+        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 110.0f, CGRectMinXEdge);
+        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 0.0f, CGRectMinXEdge);
+        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 120.0f, CGRectMinXEdge);
         
-        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, c5Frame.size.width - 136.0f, c5Frame.size.height);
-        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 136.0f, c5Frame.size.height);        
+        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
+        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
+        
+        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
     }
         
     [settingsEntity release];
@@ -122,7 +138,10 @@
 			[NSValue valueWithCGRect:CGRectInset(c3Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c4Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c5Frame, 5.0f, 0.0f)],
-			[NSValue valueWithCGRect:CGRectInset(c6Frame, 5.0f, 0.0f)], nil];
+			[NSValue valueWithCGRect:CGRectInset(c6Frame, 5.0f, 0.0f)],
+            
+			[NSValue valueWithCGRect:CGRectInset(c7Frame, 5.0f, 0.0f)],
+            nil];
 }
 
 - (void)setErrandId:(NSString *)errandId {
@@ -179,7 +198,33 @@
     [super setSelected:selected animated:animated];	
 }
 
-- (void)dealloc {	
+
+- (void)setDelegate:(id<iPadDocAttachmentCellDelegate>)newDelegate {
+	delegate = newDelegate;
+}
+
+- (void)setSelection:(id)sender {
+	if (delegate != nil && [delegate respondsToSelector:@selector(showAttachmentWithFileName:andName:)]) {
+        // !HACK
+		[delegate showAttachmentWithFileName:@"0901b21180099f00_0901b21180099f3e.TIF" andName:@"tiffff.TIF"];
+	}
+}
+
+- (void)setErrandAttachmentFiles {
+    UIImage *buttonImage = [UIImage imageNamed:@"blue_task_attachment_icon.png"];
+    [errandAttachmentFiles addTarget:self action:@selector(showAttachmentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [errandAttachmentFiles setImage:[buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
+    errandAttachmentFiles.hidden = NO;
+}
+
+
+- (void)showAttachmentButtonPressed {
+	NSLog(@"iPadDocExecutionCell showAttachmentButtonPressed");
+    [self setSelection: nil];
+}
+
+
+- (void)dealloc {
 	[errandIdLabel release];
 	[errandStatusImage release];
 	[errandNumberLabel release];
@@ -188,6 +233,9 @@
 	[errandExecutorLabel release];
 	[errandTextLabel release];
 	[errandDueDateLabel release];
+    
+    [errandAttachmentFiles release];
+    
     [super dealloc];
 }
 @end

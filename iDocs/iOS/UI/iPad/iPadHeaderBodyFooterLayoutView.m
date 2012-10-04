@@ -25,13 +25,14 @@ typedef enum {
 
 @implementation iPadHeaderBodyFooterLayoutView
 
-@synthesize headerPanel, bodyPanel, footerPanel, showHeader, showFooter;
+@synthesize headerPanel, bodyPanel, footerPanel, showHeader, showFooter, bottomBarPanel, showBottomBarPanel;
 
 - (id)init {
 	if ((self = [super init])) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		showHeader = YES;
 		showFooter = YES;
+		showBottomBarPanel = NO;
 		
 		bodyBack = [[iPadPanelBodyBackgroundView alloc] initWithPrefix:@"modal_popup_background" suffix:@"_body" tileSize:60.0f];
         [self addSubview:bodyBack];
@@ -48,6 +49,9 @@ typedef enum {
 		footerPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 		[self addSubview:footerPanel];
 		
+		bottomBarPanel = [[UIView alloc] init];
+		bottomBarPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self addSubview:bottomBarPanel];
 	}
 	return self;
 }
@@ -56,15 +60,18 @@ typedef enum {
 	[super layoutSubviews];
 	float headerHeight = showHeader ? 63.0f : 0.0f;
 	float footerHeight = showFooter ? 71.0f : 0.0f;
+	float bottomBarHeight = showBottomBarPanel ? 50.0f : 0.0f;
 	float marginSize = 15.0f;
 	
 	headerPanel.frame = CGRectMake(0.0f, 0.0f, self.bounds.size.width, headerHeight);
 	
-	CGRect bodyFrame = CGRectMake(marginSize, headerHeight, self.bounds.size.width - marginSize * 2, self.bounds.size.height - marginSize - headerHeight - footerHeight);
+	CGRect bodyFrame = CGRectMake(marginSize, headerHeight, self.bounds.size.width - marginSize * 2, self.bounds.size.height - marginSize - headerHeight - footerHeight- (showBottomBarPanel ? 50 : 0));
 	bodyBack.frame = bodyFrame;
 	bodyPanel.frame = CGRectInset(bodyFrame, 5.0f, 5.0f);
 	
 	footerPanel.frame = CGRectMake(0.0f, headerHeight + bodyFrame.size.height, self.bounds.size.width, footerHeight);
+	bottomBarPanel.frame = CGRectMake(marginSize, headerHeight + bodyFrame.size.height, self.bounds.size.width - marginSize * 2, bottomBarHeight);
+    
 }
 
 - (HFSUIButton *)preparePanelButtonWithCaption:(NSString *)caption 
@@ -154,6 +161,8 @@ typedef enum {
 	[headerPanel release];
 	[bodyPanel release];
 	[footerPanel release];
+    
+    [bottomBarPanel release];
 	
     [super dealloc];
 }

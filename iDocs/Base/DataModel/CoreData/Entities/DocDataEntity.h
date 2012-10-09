@@ -57,6 +57,7 @@
 
 - (DocErrand *)createDocErrand;
 - (NSArray *)selectErrandsForDocWithId:(NSString *)docId;
+- (NSDictionary *)selectChildErrandsForDocWithId:(NSString *)docId;
 - (NSArray *)sortErrands:(NSArray *)errands;
 - (DocErrand *)selectErrandWithId:(NSString *)errandId inDocWithId:(NSString *)docId;
 - (void)deleteErrandsForDocWithId:(NSString *)docId;

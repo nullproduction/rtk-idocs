@@ -15,6 +15,13 @@
 - (void)viewErrand:(NSString *)errandId;
 @end
 
+@interface OpenTreeButton : UIButton
+
+@property (nonatomic,strong) NSIndexPath *rowPath;
+
+@end
+
+
 @interface iPadDocExecutionCell: HFSUITableViewCell {
 	UILabel *errandIdLabel;
 	UIImageView *errandStatusImage;
@@ -24,6 +31,7 @@
 	UILabel *errandExecutorLabel;	
 	UILabel *errandTextLabel;
 	UILabel *errandDueDateLabel;
+    OpenTreeButton *errandOpenTreeButton;
 }
 
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame;
@@ -37,5 +45,9 @@
 - (void)setErrandText:(NSString *)errandText;
 - (void)setErrandDueDate:(NSString *)dueDate withColor:(UIColor *)color;
 - (void)setCurrentErrandStyle:(Boolean)isCurrentErrand;
+- (void)setErrandOpenTreeButtonActive:(BOOL)active;
+- (void)setErrandOpenTreeButtonActionWithTarget:(id)target andAction:(SEL)selector;
+- (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath;
+- (OpenTreeButton*) getErrandOpenTreeButton;
 
 @end

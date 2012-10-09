@@ -160,6 +160,10 @@
     NSString *currentErrandId = self.loadedItem.systemCurrentErrandId;
 	[executionTab loadTabDataWithErrands:[docEntity selectErrandsForDocWithId:self.loadedItem.doc.id] 
                       andCurrentErrandId:currentErrandId];
+    [executionTab loadChildErrands:[docEntity selectChildErrandsForDocWithId:self.loadedItem.doc.id]];
+    
+    [executionTab setErrandTableView:body];
+    
 	[self hideTabs];
 	[self deselectButtons];	
 	executionTab.view.hidden = NO;

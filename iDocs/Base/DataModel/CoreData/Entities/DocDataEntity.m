@@ -273,12 +273,45 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
 }
 
 - (NSArray *)selectErrandsForDocWithId:(NSString *)docId {	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@", docId];
+	//NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@",docId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@ AND parentId = %@",docId,docId];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"systemSortIndex" ascending:YES];
     NSArray *items = [context executeFetchRequestWithPredicate:predicate 
                                                  andEntityName:constDocErrandEntity 
                                             andSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 	return items;	
+}
+
+- (NSDictionary *)selectChildErrandsForDocWithId:(NSString *)docId {
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@",docId];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"systemSortIndex" ascending:YES];
+    NSArray *items = [context executeFetchRequestWithPredicate:predicate
+                                                 andEntityName:constDocErrandEntity
+                                            andSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSMutableDictionary *dictWithChilds = [[NSMutableDictionary alloc] init];
+    
+    for (DocErrand *currentErrand in items)
+    {
+        NSMutableArray *errandsArray = [dictWithChilds objectForKey:currentErrand.parentId];
+        
+        if(errandsArray != nil)
+        {
+            [errandsArray addObject:currentErrand];
+        }
+        else
+        {
+            errandsArray = [[[NSMutableArray alloc] init] autorelease];
+            [errandsArray addObject:currentErrand];
+        }
+        
+        [dictWithChilds setObject:errandsArray forKey:currentErrand.parentId];
+    }
+    
+    NSDictionary *returnDict = [NSDictionary dictionaryWithDictionary:dictWithChilds];
+    
+    [dictWithChilds release];
+    
+	return returnDict;
 }
 
 - (NSArray *)sortErrands:(NSArray *)errands {

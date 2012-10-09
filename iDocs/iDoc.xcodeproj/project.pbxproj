@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7584D2AB14EA751800A6143B /* ActionSubmitterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */; };
+		83ADDEFD161F0F4400729702 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFB161F0F4400729702 /* minus.png */; };
+		83ADDEFE161F0F4400729702 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFC161F0F4400729702 /* plus.png */; };
 		83B448011619E2BA003E6D7E /* ActionToSyncDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447B61619E2B9003E6D7E /* ActionToSyncDataEntity.m */; };
 		83B448021619E2BA003E6D7E /* ClientSettingsDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447B81619E2B9003E6D7E /* ClientSettingsDataEntity.m */; };
 		83B448031619E2BA003E6D7E /* DictionaryBaseDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447BA1619E2B9003E6D7E /* DictionaryBaseDataEntity.m */; };
@@ -524,6 +526,8 @@
 /* Begin PBXFileReference section */
 		7584D2A814EA751800A6143B /* ActionSubmitterOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSubmitterOperation.h; sourceTree = "<group>"; };
 		7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSubmitterOperation.m; sourceTree = "<group>"; };
+		83ADDEFB161F0F4400729702 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = minus.png; path = iOS/minus.png; sourceTree = "<group>"; };
+		83ADDEFC161F0F4400729702 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = iOS/plus.png; sourceTree = "<group>"; };
 		83B447B51619E2B9003E6D7E /* ActionToSyncDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionToSyncDataEntity.h; sourceTree = "<group>"; };
 		83B447B61619E2B9003E6D7E /* ActionToSyncDataEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionToSyncDataEntity.m; sourceTree = "<group>"; };
 		83B447B71619E2B9003E6D7E /* ClientSettingsDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientSettingsDataEntity.h; sourceTree = "<group>"; };
@@ -2071,6 +2075,8 @@
 		DD0692B513694FA3001427D7 /* DEFAULT */ = {
 			isa = PBXGroup;
 			children = (
+				83ADDEFB161F0F4400729702 /* minus.png */,
+				83ADDEFC161F0F4400729702 /* plus.png */,
 				DD33A6BD14D7CD6A00BAFC1E /* DEFAULT_Info_iDoc.plist */,
 				DD33A6B514D7CD6A00BAFC1E /* DEFAULT_ClientSettings_Sample.xml */,
 				DD33A6B614D7CD6A00BAFC1E /* DEFAULT_Icon-72.png */,
@@ -2755,6 +2761,8 @@
 				DD33A85F14D8041000BAFC1E /* DEFAULT_Icon@2x.png in Resources */,
 				DD0DA19D14D807EA00CB9A0B /* DEFAULT_ORD_InAppSettings.bundle in Resources */,
 				DD0DA19E14D8119700CB9A0B /* DEFAULT_Settings.bundle in Resources */,
+				83ADDEFD161F0F4400729702 /* minus.png in Resources */,
+				83ADDEFE161F0F4400729702 /* plus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

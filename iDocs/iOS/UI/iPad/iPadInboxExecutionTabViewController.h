@@ -14,6 +14,7 @@
 #import "DocDataEntity.h"
 
 @class iPadInboxExecutionTabViewController;
+@class OpenTreeButton;
 @protocol iPadInboxExecutionTabViewControllerDelegate <NSObject>
 @optional
 - (void)showErrand:(DocErrand *)errand usingMode:(int)mode;
@@ -26,6 +27,7 @@
 	NSArray *errands;
     NSString *currentErrandId;
 	NSMutableArray *filteredErrands;
+    NSDictionary *childErrandDictionary;
 	
 	id<iPadInboxExecutionTabViewControllerDelegate> delegate;
 
@@ -35,4 +37,7 @@
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel;
 - (void)setDelegate:(id<iPadInboxExecutionTabViewControllerDelegate>)newDelegate;
 - (void)loadTabDataWithErrands:(NSArray *)newErrands andCurrentErrandId:(NSString *)newCurrentErrandId;
+- (void)loadChildErrands:(NSDictionary*)childErrands;
+- (void)inserChildsToTree:(OpenTreeButton*)sender;
+- (void)setErrandTableView:(UIView *)placeholderPanel;
 @end

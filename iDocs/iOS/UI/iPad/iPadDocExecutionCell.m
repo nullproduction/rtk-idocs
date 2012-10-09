@@ -11,6 +11,37 @@
 #import "iPadThemeBuildHelper.h"
 #import "CoreDataProxy.h"
 #import "ClientSettingsDataEntity.h"
+#import <QuartzCore/QuartzCore.h>
+
+@implementation OpenTreeButton
+
+@synthesize rowPath;
+
+- (id) initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    
+    if(self)
+    {
+        [self setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageNamed:@"minus.png"] forState:UIControlStateSelected];
+        self.hidden = YES;
+        self.enabled = NO;
+        self.autoresizingMask = UIViewAutoresizingNone;
+        [self setShowsTouchWhenHighlighted:YES];
+    }
+    
+    return self;
+}
+
+- (void) dealloc
+{
+    [rowPath release];
+    [super dealloc];
+}
+
+@end
+
 @implementation iPadDocExecutionCell
 
 - (id)initWithStyle:(UITableViewCellStyle)UITableViewCellStyle reuseIdentifier:(NSString *)reuseIdentifier {
@@ -26,7 +57,10 @@
 		errandStatusImage.contentMode = UIViewContentModeCenter;
 		errandStatusImage.backgroundColor = [UIColor clearColor];
 		errandStatusImage.autoresizingMask = UIViewAutoresizingNone;		
-		[[self contentView] addSubview:errandStatusImage];
+		//[[self contentView] addSubview:errandStatusImage];
+        
+        errandOpenTreeButton = [[OpenTreeButton alloc] initWithFrame:CGRectZero];
+        [[self contentView] addSubview:errandOpenTreeButton];
         
 		errandNumberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		errandNumberLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
@@ -79,7 +113,8 @@
 	
 	NSArray *cellFrames = [iPadDocExecutionCell prepareCellFrames:self.bounds];
 	
-	errandStatusImage.frame = [[cellFrames objectAtIndex:0] CGRectValue];
+    errandOpenTreeButton.frame = [[cellFrames objectAtIndex:0] CGRectValue];
+	//errandStatusImage.frame = [[cellFrames objectAtIndex:0] CGRectValue];
 	errandNumberLabel.frame = [[cellFrames objectAtIndex:1] CGRectValue];
 	errandAuthorLabel.frame = [[cellFrames objectAtIndex:2] CGRectValue];
     errandMajorExecutorImage.frame = [[cellFrames objectAtIndex:3] CGRectValue];
@@ -175,6 +210,27 @@
         (isCurrentErrand) ? [UIFont boldSystemFontOfSize:constMediumFontSize] : [UIFont systemFontOfSize:constMediumFontSize];	
 }
 
+- (void)setErrandOpenTreeButtonActive:(BOOL)active
+{
+    [errandOpenTreeButton setEnabled:active];
+    [errandOpenTreeButton setHidden:!active];
+}
+
+- (void)setErrandOpenTreeButtonActionWithTarget:(id)target andAction:(SEL)selector
+{
+    [errandOpenTreeButton addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath
+{
+    [errandOpenTreeButton setRowPath:indexPath];
+}
+
+- (OpenTreeButton*) getErrandOpenTreeButton
+{
+    return errandOpenTreeButton;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];	
 }
@@ -188,6 +244,7 @@
 	[errandExecutorLabel release];
 	[errandTextLabel release];
 	[errandDueDateLabel release];
+    [errandOpenTreeButton release];
     [super dealloc];
 }
 @end

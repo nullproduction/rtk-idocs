@@ -150,7 +150,13 @@
     }
 }
 
-- (void)addErrandsToDocEntity:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record {        
+- (void)addErrandsToDocEntity:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record {
+    
+    NSLog(@"%@",record);
+    
+    SMXMLElement *reportsSection = [record descendantWithPath:@"Reports"];
+    NSArray *reports = [reportsSection childrenNamed:@"DataObjects"];
+    
     SMXMLElement *dictionariesSection = [record descendantWithPath:@"Dictionaries"];
     NSArray *dictionaries = [dictionariesSection childrenNamed:@"DataObjects"];
     

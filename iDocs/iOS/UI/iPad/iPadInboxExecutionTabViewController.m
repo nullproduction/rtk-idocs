@@ -127,7 +127,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	int numberOfRowsInSection = [filteredErrands count];
-    return numberOfRowsInSection + 3;//для обеспечения доступности нижних знАчимых ячеек
+    return numberOfRowsInSection + 3; //для обеспечения доступности нижних знАчимых ячеек
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,9 +200,16 @@
         [cell setErrandExecutorName:executorNamesList];
         [cell setNumberOfLinesForErrandExecutorLabel:([executors count] > 0) ? [executors count] : 1];
         
-        [cell setErrandText:errand.text];
-        
-        [cell setErrandAttachmentFiles];
+        NSArray* atmt = [errand.doc.attachments allObjects];
+        if( atmt.count ) {
+            DocAttachment* doc = [atmt objectAtIndex:0];
+            [cell setErrandText:[doc description]];
+            [cell setErrandAttachmentFiles];
+        }
+
+        else {
+            [cell setErrandText:errand.text];
+        }
         
         NSLog(@"\nerrand id = %@ errand parent_id = %@",errand.id,errand.parentId);
         

@@ -29,34 +29,40 @@
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel {
 	NSLog(@"iPadInboxExecutionTab init");	
 	if ((self = [super initWithNibName:nil bundle:nil])) {
-		
-		iPadInboxExecutionTabLayoutView *container = [[iPadInboxExecutionTabLayoutView alloc] init];
-		container.frame = placeholderPanel.bounds;
-		self.view = container;
-		
-		[container.tableFilterButton addTarget:self action:@selector(setOnlyMyTasksFilter:) forControlEvents:UIControlEventTouchUpInside];
-		
-		errandsTableView = [[UITableView alloc] initWithFrame:container.tablePlaceholder.bounds style:UITableViewStylePlain];
-		errandsTableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-		
-		errandsTableView.backgroundColor = [UIColor clearColor];
-		
-		errandsTableView.rowHeight = constInboxTabCellHeight;
-		errandsTableView.scrollEnabled = YES;
-		errandsTableView.dataSource = self;		
-		errandsTableView.delegate = self;
-		executionTableSectionHeight = constTaskPanelTablesSectionHeight;
-		[container.tablePlaceholder addSubview:errandsTableView];
-		
-		[placeholderPanel addSubview:container];
-		
-		[container release];
         
+        [self setErrandTableView:placeholderPanel];
          docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
 	}
 	return self;
 }
 
+- (void)setErrandTableView:(UIView *)placeholderPanel
+{
+    if (errandsTableView != nil)
+        [errandsTableView release];
+    
+    iPadInboxExecutionTabLayoutView *container = [[iPadInboxExecutionTabLayoutView alloc] init];
+    container.frame = placeholderPanel.bounds;
+    self.view = container;
+    
+    [container.tableFilterButton addTarget:self action:@selector(setOnlyMyTasksFilter:) forControlEvents:UIControlEventTouchUpInside];
+    
+    errandsTableView = [[UITableView alloc] initWithFrame:container.tablePlaceholder.bounds style:UITableViewStylePlain];
+    errandsTableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    
+    errandsTableView.backgroundColor = [UIColor clearColor];
+    
+    errandsTableView.rowHeight = constInboxTabCellHeight;
+    errandsTableView.scrollEnabled = YES;
+    errandsTableView.dataSource = self;
+    errandsTableView.delegate = self;
+    executionTableSectionHeight = constTaskPanelTablesSectionHeight;
+    [container.tablePlaceholder addSubview:errandsTableView];
+    
+    [placeholderPanel addSubview:container];
+    
+    [container release];
+}
 
 #pragma mark custom methods - load data
 - (void)loadTabDataWithErrands:(NSArray *)newErrands andCurrentErrandId:(NSString *)newCurrentErrandId {
@@ -69,6 +75,15 @@
     HFSUIButton *tableFilterButton = ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton;
 	[tableFilterButton setSelected:YES];
 	[self showErrandsUsingOwnedFilter:[tableFilterButton isSelected]];
+}
+
+- (void) loadChildErrands:(NSDictionary *)childErrands
+{
+    NSLog(@"iPadInboxExecutionTab loadChildsForErrands:AT Consulting Dev");
+    
+    childErrandDictionary = childErrands;
+    
+    [childErrandDictionary retain];
 }
 
 #pragma mark custom methods - panel behavior
@@ -127,7 +142,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	int numberOfRowsInSection = [filteredErrands count];
-    return numberOfRowsInSection + 3; //для обеспечения доступности нижних знАчимых ячеек
+    return numberOfRowsInSection;//для обеспечения доступности нижних знАчимых ячеек
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,6 +165,10 @@
         iPadDocExecutionCell *cell = (iPadDocExecutionCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[iPadDocExecutionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        }
+        else
+        {
+            
         }
         [cell setBackgroundStyleForRow:indexPath.row];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -182,6 +201,18 @@
         [cell setErrandNumber:errand.number];
         [cell setErrandAuthorName:errand.authorName];
         
+        if([[childErrandDictionary objectForKey:errand.id] count] > 0)
+        {
+            [cell setErrandOpenTreeButtonActive:YES];
+            [cell setErrandOpenTreeButtonActionWithTarget:self andAction:@selector(inserChildsToTree:)];
+            [cell setErrandOpenTreeButtonIndexPath:indexPath];
+        }
+        else
+        {
+            [cell setErrandOpenTreeButtonActive:NO];
+            [cell setErrandOpenTreeButtonIndexPath:nil];
+        }
+        
         imageName = nil;
         NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
         if ([executors count] == 1 && [errand.status intValue] != constErrandStatusProject) {
@@ -210,8 +241,6 @@
         else {
             [cell setErrandText:errand.text];
         }
-        
-        NSLog(@"\nerrand id = %@ errand parent_id = %@",errand.id,errand.parentId);
         
         //set errand due date and due date status
         NSDate *dueDate = errand.dueDate;
@@ -266,6 +295,54 @@
 
 
 #pragma mark other methods
+
+- (void)inserChildsToTree:(OpenTreeButton *)sender
+{
+    //get current erran whose button was pressed
+    DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:sender.rowPath.row]);
+    //loading child objects for selected errand
+    NSArray *objectsToInsert = [childErrandDictionary objectForKey:errand.id];
+    //array of index path's for uitableview animation
+    NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+    
+    for (int i = 0;i<objectsToInsert.count;i++)
+    {
+        //calculate index for inserting/deleting object.
+        int newObjectIndex = i+sender.rowPath.row+1;
+        NSIndexPath *currentIndexPath = [NSIndexPath indexPathForRow:newObjectIndex inSection:sender.rowPath.section];
+        
+        if(!sender.selected)
+        {
+            //if inserts object -> add new objects to data model
+            [filteredErrands insertObject:[objectsToInsert objectAtIndex:i] atIndex:newObjectIndex];
+            [arrayOfIndexPaths addObject:currentIndexPath];
+        }
+        else
+        {
+            /*** This section needs for recursive deleting rows(objects) in uitableview.if we're closed the root errand and its child was opened -> close whole tree ***/
+            iPadDocExecutionCell *cell = (iPadDocExecutionCell*)[errandsTableView cellForRowAtIndexPath:currentIndexPath];
+            OpenTreeButton *objectOTB = [cell getErrandOpenTreeButton];
+            
+            if(objectOTB.selected)
+                [self inserChildsToTree:objectOTB];
+            /*** End's of recursive section ***/
+            
+            [filteredErrands removeObject:[objectsToInsert objectAtIndex:i]];
+            [arrayOfIndexPaths addObject:currentIndexPath];
+        }
+    }
+    
+    [errandsTableView beginUpdates];
+    
+    (!sender.selected) ? [errandsTableView insertRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade] : [errandsTableView deleteRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    
+    [errandsTableView endUpdates];
+    
+    [sender setSelected:!sender.selected];
+    
+    [arrayOfIndexPaths release];
+}
+
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxExecutionTab didReceiveMemoryWarning");		
     // Releases the iPadSearchFilter if it doesn't have a superview.
@@ -286,6 +363,7 @@
 - (void)dealloc {
     [docEntity release];
 	[errands release];
+    [childErrandDictionary release];
 	[filteredErrands release];
 	[errandsTableView release];
 	[super dealloc];

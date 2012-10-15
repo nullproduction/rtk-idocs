@@ -25,17 +25,17 @@
 		tableFilterPlaceholder = [[UIView alloc] init];
 		tableFilterPlaceholder.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
 		
-		tableFilterButton = 
-            [HFSUIButton prepareButtonWithIconForNormalState:[iPadThemeBuildHelper nameForImage:@"icon_mark_check_4.png"] 
-                                        iconForSelectedState:[iPadThemeBuildHelper nameForImage:@"icon_mark_check_3.png"] 
-                                                     caption:NSLocalizedString(@"OwnErrandsTitle", nil)
-                                                captionColor:[iPadThemeBuildHelper commonTextFontColor2]
-                                          captionShadowColor:nil];
-        tableFilterButton.buttonTitle.font = [UIFont systemFontOfSize:constMediumFontSize];
-		tableFilterButton.buttonTitle.textAlignment = UITextAlignmentCenter;
-		tableFilterButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//		tableFilterButton = 
+//            [HFSUIButton prepareButtonWithIconForNormalState:[iPadThemeBuildHelper nameForImage:@"icon_mark_check_4.png"] 
+//                                        iconForSelectedState:[iPadThemeBuildHelper nameForImage:@"icon_mark_check_3.png"] 
+//                                                     caption:NSLocalizedString(@"OwnErrandsTitle", nil)
+//                                                captionColor:[iPadThemeBuildHelper commonTextFontColor2]
+//                                          captionShadowColor:nil];
+//        tableFilterButton.buttonTitle.font = [UIFont systemFontOfSize:constMediumFontSize];
+//		tableFilterButton.buttonTitle.textAlignment = UITextAlignmentCenter;
+//		tableFilterButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 		
-		[tableFilterPlaceholder addSubview:tableFilterButton];
+		//[tableFilterPlaceholder addSubview:tableFilterButton];
 		
 		[self addSubview:tableFilterPlaceholder];
 		

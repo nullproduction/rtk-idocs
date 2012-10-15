@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "HFSUITableViewCell.h"
+#import "iPadDocAttachmentCell.h"
 
 @class iPadDocExecutionCell;
+
 @protocol iPadDocExecutionCellDelegate <NSObject>
 @optional
 - (void)viewErrand:(NSString *)errandId;
@@ -21,6 +23,7 @@
 
 @end
 
+@protocol iPadDocAttachmentCellDelegate;
 
 @interface iPadDocExecutionCell: HFSUITableViewCell {
 	UILabel *errandIdLabel;
@@ -31,9 +34,17 @@
 	UILabel *errandExecutorLabel;	
 	UILabel *errandTextLabel;
 	UILabel *errandDueDateLabel;
+
     OpenTreeButton *errandOpenTreeButton;
+
+    
+    UIButton* errandAttachmentFiles;
+    id<iPadDocAttachmentCellDelegate> delegate;
+
 }
 
+- (void)setDelegate:(id<iPadDocAttachmentCellDelegate>)newDelegate;
+- (void)setSelection:(id)sender;
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame;
 - (void)setErrandId:(NSString *)errandId;
 - (void)setErrandStatusImage:(NSString *)imageName;
@@ -49,5 +60,7 @@
 - (void)setErrandOpenTreeButtonActionWithTarget:(id)target andAction:(SEL)selector;
 - (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath;
 - (OpenTreeButton*) getErrandOpenTreeButton;
+
+- (void)setErrandAttachmentFiles;
 
 @end

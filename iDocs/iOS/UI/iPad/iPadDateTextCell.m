@@ -47,7 +47,7 @@
 	titleLabel.text = title;
 }
 
-- (NSString *)value{
+- (NSString *)value {
 	return dateTextLabel.text;
 }
 

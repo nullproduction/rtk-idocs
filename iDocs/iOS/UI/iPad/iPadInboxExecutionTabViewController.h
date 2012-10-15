@@ -12,15 +12,19 @@
 #import "DocErrand.h"
 #import "ActionToSync.h"
 #import "DocDataEntity.h"
+#import "iPadAttachmentViewController.h"
+#import "iPadDocAttachmentCell.h"
 
 @class iPadInboxExecutionTabViewController;
 @class OpenTreeButton;
+
 @protocol iPadInboxExecutionTabViewControllerDelegate <NSObject>
 @optional
 - (void)showErrand:(DocErrand *)errand usingMode:(int)mode;
+- (void)showAttachmentWithFileName:(NSString *)attachmentFileName andName:(NSString *)attachmentName;
 @end
 
-@interface iPadInboxExecutionTabViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface iPadInboxExecutionTabViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource, iPadDocAttachmentCellDelegate> {
 	UITableView *errandsTableView;
 	float executionTableSectionHeight;
 	
@@ -32,6 +36,7 @@
 	id<iPadInboxExecutionTabViewControllerDelegate> delegate;
 
     DocDataEntity *docEntity;
+    
 }
 
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel;

@@ -239,7 +239,7 @@
         [cell setNumberOfLinesForErrandExecutorLabel:([executors count] > 0) ? [executors count] : 1];
         
         [cell setErrandText:errand.text];
-        
+  
         [cell setErrandAttachmentFiles];
         
         //set errand due date and due date status

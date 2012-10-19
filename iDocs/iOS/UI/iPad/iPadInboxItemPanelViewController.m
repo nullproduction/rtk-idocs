@@ -93,6 +93,37 @@
 	NSLog(@"iPadInboxItemPanel loadItem");
     [self removeCurrentItem];
     self.loadedItem = item;
+    
+    NSLog(@" ------- loadItem ------ start");
+        
+    NSLog(@"item.name [%@] item.dueDate [%@] item.id [%@] item.type [%@] isViewed [%@]", item.name, [item.dueDate description], [item.id description], item.type, [item.isViewed description]);
+    NSLog(@"item.systemCurrentErrandId [%@] item.systemActionResultText [%@] item.systemActionIsProcessed [%@] ", [item.systemCurrentErrandId description], [item.systemActionResultText description], [item.systemActionIsProcessed description]);
+    NSLog(@"item.systemSyncStatus [%@] systemUpdateDate [%@] systemHasDueDate [%@]", [item.systemSyncStatus description], [item.systemUpdateDate description], [item.systemHasDueDate description]);
+    
+    for( DashboardItem* item_ in item.dashboardItems ) {
+        NSLog(@"DashboardItem [%@]", [item_ description]);
+    }
+    
+    for( TaskAction* item_ in item.actions ) {
+        NSLog(@"TaskAction [%@]", [item_ description]);
+        NSLog(@"TaskAction.name [%@]", item_.name);
+        NSLog(@"TaskAction.resultText [%@]", item_.resultText);
+    }
+    
+    NSLog(@"item.doc [%@]", [item.doc description]);
+    NSLog(@"item.doc.desc [%@]", [item.doc.desc description]);
+    NSLog(@"item.doc.typeName [%@]", [item.doc.typeName description]);
+    NSLog(@"item.doc.ownerName [%@]", [item.doc.ownerName description]);
+    
+    for( DocErrand* item_ in item.doc.errands ) {
+        NSLog(@"DocErrand [%@]", [item_ description]);
+        NSLog(@"DocErrand report [%@]", [item_.report description]);
+        NSLog(@"DocErrand authorName [%@]", [item_.authorName description]);
+        NSLog(@"DocErrand text [%@]", [item_.text description]);
+        NSLog(@"DocErrand executors [%@]", [item_.executors description]);
+    }
+    NSLog(@" ------- loadItem ------ finish");
+
     [self enableButtons];
     [self attachmentsButtonPressed];
 }

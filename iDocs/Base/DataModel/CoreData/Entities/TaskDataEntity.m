@@ -65,7 +65,7 @@
     return task;
 }
 
-- (Task *)selectTaskById:(NSString *)taskId {	
+- (Task *)selectTaskById:(NSString *)taskId {
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id = %@", taskId];
     NSArray *items = [context executeFetchRequestWithPredicate:predicate andEntityName:constTaskEntity andSortDescriptors:nil];
 	return ([items count] == 1) ? (Task *)[items objectAtIndex:0] : nil;	

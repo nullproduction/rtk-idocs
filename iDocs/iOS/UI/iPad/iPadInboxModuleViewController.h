@@ -17,6 +17,8 @@
 #import "iPadTaskActionListViewController.h"
 #import "iPadInboxModuleActionButtonsLayoutView.h"
 #import "iPadListSortViewController.h"
+#import "iPadResolutionReportsListViewController.h"
+#import "iPadResolutionPanelViewController.h"
 #import "Task.h"
 #import "Doc.h"
 #import "iDocAppDelegate.h"
@@ -28,6 +30,7 @@
 - (void)errandViewCloseButtonPressed;
 - (void)showResolution:(ActionToSync *)serverAction withTitle:(NSString *)resolutionTitle;
 - (void)resolutionViewCloseButtonPressed;
+- (void)selectReportButtonPressed;
 @end
 
 @interface iPadInboxModuleViewController : iPadBaseViewController 
@@ -50,7 +53,9 @@
 	
 	iPadAttachmentViewController *attachmentPanel;
 	iPadErrandPanelViewController *errandPanel;
-	iPadResolutionViewController *resolutionPanel;
+     
+//    iPadResolutionViewController *resolutionPanel;
+	iPadResolutionPanelViewController *resolutionPanel;
 		     
 	NSString *inboxModuleTitle;
 

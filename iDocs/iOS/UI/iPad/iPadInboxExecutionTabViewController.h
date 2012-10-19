@@ -32,6 +32,7 @@
     NSString *currentErrandId;
 	NSMutableArray *filteredErrands;
     NSDictionary *childErrandDictionary;
+    NSDictionary *errandAttachments;
 	
 	id<iPadInboxExecutionTabViewControllerDelegate> delegate;
 
@@ -43,6 +44,7 @@
 - (void)setDelegate:(id<iPadInboxExecutionTabViewControllerDelegate>)newDelegate;
 - (void)loadTabDataWithErrands:(NSArray *)newErrands andCurrentErrandId:(NSString *)newCurrentErrandId;
 - (void)loadChildErrands:(NSDictionary*)childErrands;
+- (void)loadErrandAttachmentsWithDocId:(NSString*)docId;
 - (void)inserChildsToTree:(OpenTreeButton*)sender;
 - (void)setErrandTableView:(UIView *)placeholderPanel;
 @end

@@ -461,11 +461,24 @@
 - (void)showResolution:(ActionToSync *)action withTitle:(NSString *)resolutionTitle {
 	NSLog(@"iPadInboxModule showResolution withTitle %@", resolutionTitle);
 	container.modalPanelSize = CGSizeMake(600.0f, 600.0f);
-	resolutionPanel = [[iPadResolutionViewController alloc] initWithFrame:container.popupPanel.bounds];
-    [resolutionPanel setDelegate:self];
+
+    resolutionPanel = [[iPadResolutionPanelViewController alloc] initWithFrame:container.popupPanel.bounds];
+    [resolutionPanel.resolutionViewController setDelegate:self];
+    
+    NSArray* errands = [loadedItem.doc.errands allObjects];
+    bool haveReadyReport = NO;
+    int count = 0;
+    for( DocErrand* errand in errands ) {
+        if( errand.report ) {
+            haveReadyReport = YES;
+            count++;
+        }
+    }
+    [resolutionPanel.resolutionViewController showButtonReports:haveReadyReport withCount:count];
+    
 	[container.popupPanel putContent:resolutionPanel.view];
 	[resolutionPanel setTitleForPopupPanelHeader:resolutionTitle];
-	[resolutionPanel showResolutionForTaskServerAction:action];
+	[resolutionPanel.resolutionViewController showResolutionForTaskServerAction:action];
 	
 	[container toggleModalPanelOnOFF:YES];
 }
@@ -476,6 +489,19 @@
     [[[CoreDataProxy sharedProxy] workContext] rollback];
 	[container toggleModalPanelOnOFF:NO];
     [resolutionPanel release];
+}
+
+- (void)selectReportButtonPressed {
+    NSArray* errands = [loadedItem.doc.errands allObjects];
+    NSMutableArray* reports = [[NSMutableArray alloc] initWithCapacity:1];
+    if( errands.count ) {
+        for( DocErrand* errand in errands ) {
+            if( errand.report ) {
+               [reports addObject:errand];
+             }
+        }
+    }
+    [resolutionPanel.resolutionViewController showReportsList:reports];
 }
 
 - (void)showErrand:(DocErrand *)errand usingMode:(int)mode {

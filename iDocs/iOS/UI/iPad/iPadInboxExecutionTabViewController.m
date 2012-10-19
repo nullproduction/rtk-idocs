@@ -231,16 +231,9 @@
         [cell setErrandExecutorName:executorNamesList];
         [cell setNumberOfLinesForErrandExecutorLabel:([executors count] > 0) ? [executors count] : 1];
         
-        NSArray* atmt = [errand.doc.attachments allObjects];
-        if( atmt.count ) {
-            DocAttachment* doc = [atmt objectAtIndex:0];
-            [cell setErrandText:[doc description]];
-            [cell setErrandAttachmentFiles];
-        }
-
-        else {
-            [cell setErrandText:errand.text];
-        }
+        [cell setErrandText:errand.text];
+  
+        [cell setErrandAttachmentFiles];
         
         //set errand due date and due date status
         NSDate *dueDate = errand.dueDate;

@@ -50,7 +50,7 @@ typedef enum {
 		[self addSubview:footerPanel];
 		
 		bottomBarPanel = [[UIView alloc] init];
-		bottomBarPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		bottomBarPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 		[self addSubview:bottomBarPanel];
 	}
 	return self;
@@ -65,13 +65,12 @@ typedef enum {
 	
 	headerPanel.frame = CGRectMake(0.0f, 0.0f, self.bounds.size.width, headerHeight);
 	
-	CGRect bodyFrame = CGRectMake(marginSize, headerHeight, self.bounds.size.width - marginSize * 2, self.bounds.size.height - marginSize - headerHeight - footerHeight- (showBottomBarPanel ? 50 : 0));
+	CGRect bodyFrame = CGRectMake(marginSize, headerHeight, self.bounds.size.width - marginSize * 2, self.bounds.size.height - marginSize - headerHeight - footerHeight - (showBottomBarPanel ? 50 : 0));
 	bodyBack.frame = bodyFrame;
 	bodyPanel.frame = CGRectInset(bodyFrame, 5.0f, 5.0f);
 	
 	footerPanel.frame = CGRectMake(0.0f, headerHeight + bodyFrame.size.height, self.bounds.size.width, footerHeight);
 	bottomBarPanel.frame = CGRectMake(marginSize, headerHeight + bodyFrame.size.height, self.bounds.size.width - marginSize * 2, bottomBarHeight);
-    
 }
 
 - (HFSUIButton *)preparePanelButtonWithCaption:(NSString *)caption 

@@ -260,8 +260,7 @@
 
 - (void)setSelection:(id)sender {
 	if (delegate != nil && [delegate respondsToSelector:@selector(showAttachmentWithFileName:andName:)]) {
-        // !HACK
-//		[delegate showAttachmentWithFileName:@"0901b21180099f00_0901b21180099f3e.TIF" andName:@"tiffff.TIF"];
+        // TODO:
 	}
 }
 

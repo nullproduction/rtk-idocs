@@ -154,8 +154,8 @@
     
     NSLog(@"%@",record);
     
-    SMXMLElement *reportsSection = [record descendantWithPath:@"Reports"];
-    NSArray *reports = [reportsSection childrenNamed:@"DataObjects"];
+//    SMXMLElement *reportsSection = [record descendantWithPath:@"Reports"];
+//    NSArray *reports = [reportsSection childrenNamed:@"DataObjects"];
     
     SMXMLElement *dictionariesSection = [record descendantWithPath:@"Dictionaries"];
     NSArray *dictionaries = [dictionariesSection childrenNamed:@"DataObjects"];
@@ -187,6 +187,10 @@
                 errand.report = report;
                 NSString *parentId = [[[dictData childWithAttribute:@"name" value:@"column12"] childNamed:@"Value"] value];
                 errand.parentId = parentId;
+                
+                NSLog(@"----- errand load ----- st");
+                NSLog(@"errand.authorId [%@] errand.status [%@] errand.report [%@] errand.text [%@]", errand.authorId, errand.status, errand.report, errand.text);
+                NSLog(@"----- errand load ----- fh");
                 
                 NSString *errandActions = [[[dictData childWithAttribute:@"name" value:@"column11"] childNamed:@"Value"] value];
                 if (errandActions != nil) {

@@ -10,10 +10,12 @@
 #import "Doc.h"
 #import "DocErrandExecutor.h"
 #import "DocErrandAction.h"
+#import "ReportAttachment.h"
 
 #define constDocEntity @"Doc"
 #define constDocAttachmentEntity @"DocAttachment"
 #define constDocErrandEntity @"DocErrand"
+#define constReportAttachmentEntity @"ReportAttachment"
 #define constDocErrandExecutorEntity @"DocErrandExecutor"
 #define constDocErrandActionEntity @"DocErrandAction"
 #define constDocEndorsementGroupEntity @"DocEndorsementGroup"
@@ -54,6 +56,8 @@
 - (NSArray *)selectAttachmentsForDocWithId:(NSString *)docId;
 - (DocAttachment *)selectAttachmentWithId:(NSString *)attachmentId inDocWithId:(NSString *)docId;
 - (void)deleteAttachmentsForDocWithId:(NSString *)docId;
+
+- (ReportAttachment *) createReportAttachment;
 
 - (DocErrand *)createDocErrand;
 - (NSArray *)selectErrandsForDocWithId:(NSString *)docId;

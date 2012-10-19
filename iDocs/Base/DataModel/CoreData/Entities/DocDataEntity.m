@@ -267,6 +267,13 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
     }	
 }
 
+#pragma mark report attachments
+
+- (ReportAttachment *) createReportAttachment
+{
+    return (ReportAttachment *)[NSEntityDescription insertNewObjectForEntityForName:constReportAttachmentEntity inManagedObjectContext:context];
+}
+
 #pragma mark doc errands
 - (DocErrand *)createDocErrand {
 	return (DocErrand *)[NSEntityDescription insertNewObjectForEntityForName:constDocErrandEntity inManagedObjectContext:context];
@@ -322,6 +329,14 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
 - (DocErrand *)selectErrandWithId:(NSString *)errandId inDocWithId:(NSString *)docId {	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@ AND id = %@", docId, errandId];
     NSArray *items = [context executeFetchRequestWithPredicate:predicate andEntityName:constDocErrandEntity andSortDescriptors:nil];
+    
+    NSPredicate *predicateTest = [NSPredicate predicateWithFormat:@"id = %@",errandId];
+    NSArray *itemsTest = [context executeFetchRequestWithPredicate:predicateTest andEntityName:constDocErrandEntity andSortDescriptors:nil];
+    
+    DocErrand *errandTest = (DocErrand*)[itemsTest objectAtIndex:0];
+    
+    NSLog(@"atc dev log errand select: %@ = %@",errandTest.doc.id,docId);
+    
 	return ([items count] == 1) ? (DocErrand *)[items objectAtIndex:0] : nil;	
 }
 

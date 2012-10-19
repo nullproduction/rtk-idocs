@@ -162,6 +162,8 @@
                       andCurrentErrandId:currentErrandId];
     [executionTab loadChildErrands:[docEntity selectChildErrandsForDocWithId:self.loadedItem.doc.id]];
     
+    [docEntity selectErrandWithId:@"0901b2118006a516" inDocWithId:self.loadedItem.doc.id];
+    
     [executionTab setErrandTableView:body];
     
 	[self hideTabs];

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7584D2AB14EA751800A6143B /* ActionSubmitterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */; };
+		83931EEB1630109900DDA955 /* ReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 83931EEA1630109900DDA955 /* ReportAttachment.m */; };
 		83ADDEFD161F0F4400729702 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFB161F0F4400729702 /* minus.png */; };
 		83ADDEFE161F0F4400729702 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFC161F0F4400729702 /* plus.png */; };
 		83B448011619E2BA003E6D7E /* ActionToSyncDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447B61619E2B9003E6D7E /* ActionToSyncDataEntity.m */; };
@@ -526,6 +527,8 @@
 /* Begin PBXFileReference section */
 		7584D2A814EA751800A6143B /* ActionSubmitterOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSubmitterOperation.h; sourceTree = "<group>"; };
 		7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSubmitterOperation.m; sourceTree = "<group>"; };
+		83931EE91630109900DDA955 /* ReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportAttachment.h; sourceTree = "<group>"; };
+		83931EEA1630109900DDA955 /* ReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportAttachment.m; sourceTree = "<group>"; };
 		83ADDEFB161F0F4400729702 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = minus.png; path = iOS/minus.png; sourceTree = "<group>"; };
 		83ADDEFC161F0F4400729702 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = iOS/plus.png; sourceTree = "<group>"; };
 		83B447B51619E2B9003E6D7E /* ActionToSyncDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionToSyncDataEntity.h; sourceTree = "<group>"; };
@@ -1384,6 +1387,8 @@
 				83B447F21619E2B9003E6D7E /* EmployeeGroup.m */,
 				83B447F31619E2B9003E6D7E /* GeneralSetting.h */,
 				83B447F41619E2B9003E6D7E /* GeneralSetting.m */,
+				83931EE91630109900DDA955 /* ReportAttachment.h */,
+				83931EEA1630109900DDA955 /* ReportAttachment.m */,
 				83B447F51619E2B9003E6D7E /* ResolutionTemplate.h */,
 				83B447F61619E2B9003E6D7E /* ResolutionTemplate.m */,
 				83B447F71619E2B9003E6D7E /* ServerOperationQueue.h */,
@@ -3010,6 +3015,7 @@
 				83B448221619E2BA003E6D7E /* TaskAction.m in Sources */,
 				83B448231619E2BA003E6D7E /* TaskActionTemplate.m in Sources */,
 				83B448241619E2BA003E6D7E /* UserInfo.m in Sources */,
+				83931EEB1630109900DDA955 /* ReportAttachment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

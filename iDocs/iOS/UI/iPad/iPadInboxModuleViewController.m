@@ -471,25 +471,16 @@
     DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
 
     for( DocErrand* errand in errands ) {
-        if( errand.report ) {
-            haveReadyReport = YES;
-            break;
-        }
-
-        
         NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
         NSLog(@"_reports %@", [_reports description]);
         for( int i = 0; i < _reports.count; ++i ) {
             ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:i];
-            NSLog(@"st _report %@", [_report description]);
-//
-//            if( _report.reportText && [_report.accepted intValue] == 1 ) {
-//                NSLog(@"_report %@", [_report description]);
-//                haveReadyReport = YES;
-//                count++;
-//            }
+            if( _report.reportText && [_report.accepted intValue] == 1 ) {
+                NSLog(@"_report %@", [_report description]);
+                haveReadyReport = YES;
+                count++;
+            }
         }
-        
     }
     [resolutionPanel.resolutionViewController showButtonReports:haveReadyReport withCount:count];
     
@@ -514,24 +505,15 @@
     if( errands.count ) {
         DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
         for( DocErrand* errand in errands ) {
-            if( errand.report ) {
-                [reports addObject:errand];
-            }
-
-            
             NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
             NSLog(@"_reports %@", [_reports description]);
             for( int i = 0; i < _reports.count; ++i ) {
                 ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:0];
-
-                NSLog(@"st _report %@", [_report description]);
+                if( _report.reportText && [_report.accepted intValue] == 1 ) {
+                    NSLog(@"_report %@", [_report description]);
+                    [reports addObject:errand];
+                }
             }
-//
-//            if( _report.reportText && [_report.accepted intValue] == 1 ) {
-//                NSLog(@"_report %@", [_report description]);
-//                [reports addObject:errand];
-//            }
-            
         }
     }
     [resolutionPanel.resolutionViewController showReportsList:reports];

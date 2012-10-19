@@ -177,10 +177,15 @@
         SMXMLElement *attachmentGroup = [reportProperties childWithAttribute:@"name" value:@"attachments"];
         NSArray *attachments = [attachmentGroup childrenNamed:@"Values"];
         
+        ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
+        
+        reportAttachmentEntity.reportId = reportId;
+        reportAttachmentEntity.reportText = reportText;
+        reportAttachmentEntity.errand = currentErrand;
+        reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
+        
         for (SMXMLElement *currentAttachment in attachments)
         {
-            ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
-            
             NSString *attachmentString = [currentAttachment value];
             NSArray *attachmentProperties = [attachmentString componentsSeparatedByString:@";"];
             
@@ -192,11 +197,6 @@
             reportAttachmentEntity.size = [NSNumber numberWithInt:[attachmentSize intValue]];
             NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];
             reportAttachmentEntity.type = attachmentType;
-            
-            reportAttachmentEntity.reportId = reportId;
-            reportAttachmentEntity.reportText = reportText;
-            reportAttachmentEntity.errand = currentErrand;
-            reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
             
 //            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
         }

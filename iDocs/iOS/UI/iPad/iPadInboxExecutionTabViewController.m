@@ -86,6 +86,13 @@
     [childErrandDictionary retain];
 }
 
+- (void)loadErrandAttachmentsWithDocId:(NSString*)docId
+{
+    errandAttachments = [docEntity selectErrandAttachmentsWithDocId:docId];
+    
+    [errandAttachments retain];
+}
+
 #pragma mark custom methods - panel behavior
 - (void)setDelegate:(id<iPadInboxExecutionTabViewControllerDelegate>)newDelegate {
 	delegate = newDelegate;
@@ -359,6 +366,7 @@
     [childErrandDictionary release];
 	[filteredErrands release];
 	[errandsTableView release];
+    [errandAttachments release];
 	[super dealloc];
 }
 @end

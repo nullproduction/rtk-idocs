@@ -22,6 +22,7 @@
 
 - (void)setNameReport:(NSString *)name;
 - (void)setChecked:(BOOL)check;
+- (void)setAttachment:(BOOL)attach;
 - (BOOL)isChecked;
 
 @end

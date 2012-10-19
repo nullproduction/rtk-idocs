@@ -200,9 +200,6 @@
             
 //            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
         }
-        
-        
-        
     }
 }
 

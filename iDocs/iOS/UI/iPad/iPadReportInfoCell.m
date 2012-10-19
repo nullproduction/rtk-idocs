@@ -36,9 +36,8 @@
         nameReport.minimumFontSize = constMediumFontSize;
 		[[self contentView] addSubview:nameReport];
         
-        UIImage* attachmentImage = [UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"task_attachment_icon.png"]];
 		attachment = [[UIImageView alloc] initWithFrame:CGRectZero];
-        attachment.image = attachmentImage;
+        attachment.image = nil;
 		attachment.autoresizingMask = UIViewAutoresizingNone;
  		[[self contentView] addSubview:attachment];        
     }
@@ -68,6 +67,15 @@
     else {
         checkReport.image = nil;
     }
+}
+
+- (void)setAttachment:(BOOL)attach {
+    if( attach ) {
+        attachment.image = [UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"task_attachment_icon.png"]];
+    }
+    else {
+        attachment.image = nil;
+    }    
 }
 
 - (BOOL)isChecked {

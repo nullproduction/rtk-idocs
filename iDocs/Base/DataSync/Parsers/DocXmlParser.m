@@ -21,11 +21,17 @@
 #import "Task.h"
 #import "TaskAction.h"
 
+#define attachmentIdIndex 0
+#define attachmentNameIndex 1
+#define attachmentSizeIndex 2
+#define attachmentTypeIndex 3
+
 @interface DocXmlParser(PrivateMethods)
 - (NSString *)getDocIdFromRecord:(SMXMLElement *)record;
 - (void)updateDocEntity:(Doc *)doc withGeneralSectionInRecord:(SMXMLElement *)record;
 - (void)updateDocEntity:(Doc *)doc withInfoSectionInRecord:(SMXMLElement *)record;
 - (void)addAttachmentsToDocEntity:(Doc *)doc fromFilesSectionInRecord:(SMXMLElement *)record;
+- (void)addReportAttachmentToErrandEntityWithDoc:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record;
 - (void)addErrandsToDocEntity:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record;
 - (void)sortErrandsForDoc:(Doc *)doc;
 - (void)addRequisitesToDocEntity:(Doc *)doc fromRequisitesSectionInRecord:(SMXMLElement *)record;
@@ -58,14 +64,18 @@
     NSArray *records = [returnPacket childrenNamed:@"return"];
     for (SMXMLElement *record in records) { 
         NSString *docId = [self getDocIdFromRecord:record]; 
-        Doc *doc = [docEntity selectDocById:docId];  
-        //add doc info 
+        Doc *doc = [docEntity selectDocById:docId];
+        
+        NSLog(@"%@",record);
+        
+        //add doc info
         if ([constSyncStatusToLoad isEqualToString:doc.systemSyncStatus]) {
             [self updateDocEntity:doc withGeneralSectionInRecord:record];
             [self updateDocEntity:doc withInfoSectionInRecord:record];        
             [self addAttachmentsToDocEntity:doc fromFilesSectionInRecord:record];
             [self addErrandsToDocEntity:doc fromExecutionSectionInRecord:record];
             [self sortErrandsForDoc:doc];
+            [self addReportAttachmentToErrandEntityWithDoc:doc fromExecutionSectionInRecord:record];
             [self addRequisitesToDocEntity:doc fromRequisitesSectionInRecord:record];
             [self addEndorsementsToDocEntity:doc fromEndorsementSectionInRecord:record];
         
@@ -150,12 +160,53 @@
     }
 }
 
+- (void)addReportAttachmentToErrandEntityWithDoc:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record
+{
+    SMXMLElement *reportsSection = [record descendantWithPath:@"Reports"];
+    NSArray *reports = [reportsSection childrenNamed:@"DataObjects"];
+
+    for (SMXMLElement *currentReport in reports)
+    {
+        SMXMLElement *reportProperties = [currentReport childNamed:@"Properties"];
+        
+        NSString *currentErrandId = [[[reportProperties childWithAttribute:@"name" value:@"errand_id"] childNamed:@"Value"] value];
+        DocErrand *currentErrand = [docEntity selectErrandWithId:currentErrandId inDocWithId:doc.id];
+        NSString *reportText = [[[reportProperties childWithAttribute:@"name" value:@"report_text"] childNamed:@"Value"] value];
+        NSString *reportId = [[[reportProperties childWithAttribute:@"name" value:@"report_id"] childNamed:@"Value"] value];
+        NSString *accepted = [[[reportProperties childWithAttribute:@"name" value:@"accepted"] childNamed:@"Value"] value];
+        SMXMLElement *attachmentGroup = [reportProperties childWithAttribute:@"name" value:@"attachments"];
+        NSArray *attachments = [attachmentGroup childrenNamed:@"Values"];
+        
+        for (SMXMLElement *currentAttachment in attachments)
+        {
+            ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
+            
+            NSString *attachmentString = [currentAttachment value];
+            NSArray *attachmentProperties = [attachmentString componentsSeparatedByString:@";"];
+            
+            NSString *attachmentId = [attachmentProperties objectAtIndex:attachmentIdIndex];
+            reportAttachmentEntity.id = attachmentId;
+            NSString *attachmentName = [attachmentProperties objectAtIndex:attachmentNameIndex];
+            reportAttachmentEntity.name = attachmentName;
+            NSString *attachmentSize = [attachmentProperties objectAtIndex:attachmentSizeIndex];
+            reportAttachmentEntity.size = [NSNumber numberWithInt:[attachmentSize intValue]];
+            NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];
+            reportAttachmentEntity.type = attachmentType;
+            
+            reportAttachmentEntity.reportId = reportId;
+            reportAttachmentEntity.reportText = reportText;
+            reportAttachmentEntity.errand = currentErrand;
+            reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
+            
+//            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
+        }
+        
+        
+        
+    }
+}
+
 - (void)addErrandsToDocEntity:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record {
-    
-    NSLog(@"%@",record);
-    
-//    SMXMLElement *reportsSection = [record descendantWithPath:@"Reports"];
-//    NSArray *reports = [reportsSection childrenNamed:@"DataObjects"];
     
     SMXMLElement *dictionariesSection = [record descendantWithPath:@"Dictionaries"];
     NSArray *dictionaries = [dictionariesSection childrenNamed:@"DataObjects"];
@@ -178,7 +229,7 @@
                 NSString *status = [[[dictData childWithAttribute:@"name" value:@"column4"] childNamed:@"Value"] value];
                 errand.status = [NSNumber numberWithInt:[status intValue]];
                 NSString *authorId = [[[dictData childWithAttribute:@"name" value:@"column7"] childNamed:@"Value"] value];
-                errand.authorId = authorId;                
+                errand.authorId = authorId;           
                 NSString *authorName = [[[dictData childWithAttribute:@"name" value:@"column8"] childNamed:@"Value"] value];
                 errand.authorName = authorName;
                 NSString *number = [[[dictData childWithAttribute:@"name" value:@"column9"] childNamed:@"Value"] value];

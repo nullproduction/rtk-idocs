@@ -153,29 +153,38 @@
 		cell = [[[iPadReportInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
 	}
     
-    DocErrand* errand = (DocErrand *)[self.reports objectAtIndex:indexPath.row];
+//    DocErrand* errand = (DocErrand *)[self.reports objectAtIndex:indexPath.row];
+    ReportAttachment* report = (ReportAttachment *)[self.reports objectAtIndex:indexPath.row];
     
-    DocErrandExecutor* executor = [[errand.executors allObjects] objectAtIndex:0];
-    [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@", executor.executorName, errand.report]];
+    DocErrandExecutor* executor = [[report.errand.executors allObjects] objectAtIndex:0];
+    [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@", executor.executorName, report.reportText]];
     [cell setChecked:[[checkArray objectAtIndex:indexPath.row] boolValue]];
     
     
-    DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
-        
-    NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
-    NSLog(@"_reports %@", [_reports description]);
-    if( _reports.count ) {
-        ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:0];
-        NSLog(@"st _report %@", [_report description]);
-        if( _report.id ) {
-            NSLog(@" _report.id %@",  _report.id);
-            [cell setAttachment:YES];
-        }
-        else {
-            [cell setAttachment:NO];
-        }
-    }
+//    DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+//    NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
+//    NSLog(@"_reports %@", [_reports description]);
+//    if( _reports.count ) {
+//        ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:0];
+//        NSLog(@"st _report %@", [_report description]);
+//        if( _report.id ) {
+//            NSLog(@" _report.id %@",  _report.id);
+//            [cell setAttachment:YES];
+//        }
+//        else {
+//            [cell setAttachment:NO];
+//        }
+//    }
 
+    
+    if( report.id ) {
+        NSLog(@" report.id %@",  report.id);
+        [cell setAttachment:YES];
+    }
+    else {
+        [cell setAttachment:NO];
+    }
+ 
 	return cell;
 }
 

@@ -27,5 +27,6 @@
 @dynamic id;
 @dynamic systemSyncStatus;
 @dynamic systemErrandMajorExecutorId;
+@dynamic attachments;
 
 @end

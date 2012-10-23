@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "iPadBaseViewController.h"
 #import "DocErrand.h"
+#import "ReportAttachment.h"
 #import "DocErrandExecutor.h"
 #import "DocDataEntity.h"
 

@@ -204,7 +204,6 @@
 }
 
 - (void)addErrandsToDocEntity:(Doc *)doc fromExecutionSectionInRecord:(SMXMLElement *)record {
-    
     SMXMLElement *dictionariesSection = [record descendantWithPath:@"Dictionaries"];
     NSArray *dictionaries = [dictionariesSection childrenNamed:@"DataObjects"];
     

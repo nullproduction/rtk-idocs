@@ -69,7 +69,22 @@
         self.view = container;
         [container release];
         
-        reports = [_reports retain];
+        reports = [[NSMutableDictionary alloc] initWithCapacity:0];
+//        NSLog(@"_reports %@", _reports);
+        for( ReportAttachment* report in _reports ) {
+            NSString* idReport = report.reportId;
+            if( nil != [reports objectForKey:idReport] ) {
+                NSMutableArray* arrayReport = [reports objectForKey:idReport];
+                [arrayReport addObject:report];
+            }
+            else {
+                NSMutableArray* arrayReport = [[NSMutableArray alloc] initWithCapacity:0];
+                [arrayReport addObject:report];
+                [reports setValue:arrayReport forKey:idReport];
+            }
+        }
+        
+//        NSLog(@"reportsDict %@", [reports description]);
         
         selectedReports = [[NSMutableArray alloc] initWithCapacity:0];
         
@@ -94,15 +109,33 @@
 
 - (void)navigateAddAndBack {
 	NSLog(@"ResolutionReportsList navigateAddAndBack");
-	[self.navigationController popViewControllerAnimated:YES];
-    NSLog(@" selectedReports %i", [selectedReports count]);
-    for(DocErrand* errand in selectedReports) {
-        [reports removeObject:errand];
+    [self.navigationController popViewControllerAnimated:YES];
+//    NSLog(@" selectedReports %i", [selectedReports count]);
+    
+    if (delegate != nil && [delegate respondsToSelector:@selector(addReportsText:andIdAttach:)]) {
+        NSString* text = constEmptyStringValue;
+        NSMutableArray* idsAttach = [[NSMutableArray alloc] initWithCapacity:0];
+        for( int i = 0; i < [selectedReports count]; ++i ) {
+            NSMutableArray* dict = [reports objectForKey:[selectedReports objectAtIndex:i]];
+            ReportAttachment* report = (ReportAttachment *)[dict objectAtIndex:0];
+            text = [text isEqualToString:constEmptyStringValue] ? [text stringByAppendingString:[NSString stringWithFormat:@"%@", report.reportText]] : [text stringByAppendingString:[NSString stringWithFormat:@"\n%@", report.reportText]];
+            for( int i = 0; i < [dict count]; ++i ) {
+                ReportAttachment* _report = (ReportAttachment *)[dict objectAtIndex:i];
+                if( _report.id ) {
+                    [idsAttach addObject:_report.id];
+                }
+            }
+        }
+//        NSLog(@"text %@ idsAttach %@", text, [idsAttach description]);
+        [delegate addReportsText:text andIdAttach:idsAttach];
+    }
+   
+    for(NSString* idReport in selectedReports) {
+        [reports removeObjectForKey:idReport];
     }
     
-    if (delegate != nil && [delegate respondsToSelector:@selector(addReports:)])
-    [delegate addReports:selectedReports];
-    
+//    NSLog(@"navigateAddAndBack reports %@", reports);
+
     [selectedReports removeAllObjects];
     
     [self setUncheckedAll];
@@ -127,7 +160,7 @@
 - (void) setUncheckedAll {
     [checkArray removeAllObjects];
     [attachArray removeAllObjects];
-    for (int i = 0; i < reports.count; ++i) {
+    for (int i = 0; i < [[reports allKeys] count]; ++i) {
         [checkArray addObject:[NSNumber numberWithBool:NO]];
         [attachArray addObject:[NSNumber numberWithBool:NO]];
     }
@@ -142,7 +175,7 @@
 
 #pragma mark UITableViewDataSource and UITableViewDelegate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.reports count];
+    return [[self.reports allKeys] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,36 +186,26 @@
 		cell = [[[iPadReportInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
 	}
     
-//    DocErrand* errand = (DocErrand *)[self.reports objectAtIndex:indexPath.row];
-    ReportAttachment* report = (ReportAttachment *)[self.reports objectAtIndex:indexPath.row];
-    
+    NSString* keyReport = [[self.reports allKeys] objectAtIndex:indexPath.row];
+    NSMutableArray* dict = [reports objectForKey:keyReport];
+    ReportAttachment* report = (ReportAttachment *)[dict objectAtIndex:0];
+    NSString* attach = constEmptyStringValue;
+    for( int i = 0; i < [dict count]; ++i ) {
+        ReportAttachment* _report = (ReportAttachment *)[dict objectAtIndex:i];
+        if( _report.id ) {
+        attach = [attach isEqualToString:constEmptyStringValue] ?  [attach stringByAppendingString:[NSString stringWithFormat:@"%@", _report.name]] : [attach stringByAppendingString:[NSString stringWithFormat:@", %@", _report.name]];
+        }
+    }
     DocErrandExecutor* executor = [[report.errand.executors allObjects] objectAtIndex:0];
-    [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@", executor.executorName, report.reportText]];
     [cell setChecked:[[checkArray objectAtIndex:indexPath.row] boolValue]];
     
-    
-//    DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
-//    NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
-//    NSLog(@"_reports %@", [_reports description]);
-//    if( _reports.count ) {
-//        ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:0];
-//        NSLog(@"st _report %@", [_report description]);
-//        if( _report.id ) {
-//            NSLog(@" _report.id %@",  _report.id);
-//            [cell setAttachment:YES];
-//        }
-//        else {
-//            [cell setAttachment:NO];
-//        }
-//    }
-
-    
-    if( report.id ) {
-        NSLog(@" report.id %@",  report.id);
+    if( ![attach isEqualToString:constEmptyStringValue] ) {
         [cell setAttachment:YES];
+        [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@ (вложения: %@)", executor.executorName, report.reportText, attach]];
     }
     else {
         [cell setAttachment:NO];
+        [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@", executor.executorName, report.reportText]];
     }
  
 	return cell;
@@ -197,10 +220,10 @@
 
     [checkArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithBool:[cell isChecked]]];
     if( [cell isChecked] ) {
-        [selectedReports addObject:[self.reports objectAtIndex:indexPath.row]];
+        [selectedReports addObject:[[self.reports allKeys] objectAtIndex:indexPath.row]];
     }
     else {
-        [selectedReports removeObject:[self.reports objectAtIndex:indexPath.row]];
+        [selectedReports removeObject:[[self.reports allKeys] objectAtIndex:indexPath.row]];
     }
 }
 

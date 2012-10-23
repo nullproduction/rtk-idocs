@@ -465,17 +465,16 @@
     resolutionPanel = [[iPadResolutionPanelViewController alloc] initWithFrame:container.popupPanel.bounds];
     [resolutionPanel.resolutionViewController setDelegate:self];
     
-//    NSArray* errands = [loadedItem.doc.errands allObjects];
+//    NSArray* errands = [[loadedItem.doc.errands allObjects] retain];
     NSArray* errands = [[self selectOnlyMyErrands] retain];
-    NSLog(@"errands %@", [errands description]);
+//    NSLog(@"errands %@", [errands description]);
     bool haveReadyReport = NO;
-    int count = 0;
 
     DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
     
     for( DocErrand* errand in errands ) {
-        NSString* authorName = [SupportFunctions createShortFIO:user.fio];
-        NSLog(@"user %@ errand.authorName %@ parentId %@  errand %@", authorName, errand.authorName, errand.parentId, errand.id);
+//        NSString* authorName = [SupportFunctions createShortFIO:user.fio];
+//        NSLog(@"user %@ errand.authorName %@ parentId %@  errand %@", authorName, errand.authorName, errand.parentId, errand.id);
         
         NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
 //        NSLog(@"_reports %@", [_reports description]);
@@ -485,11 +484,11 @@
             if( _report.reportText && [_report.accepted intValue] == 1 ) {
 //                NSLog(@"_report %@", [_report description]);
                 haveReadyReport = YES;
-                count++;
+                break;
             }
         }
     }
-    [resolutionPanel.resolutionViewController showButtonReports:haveReadyReport withCount:count];
+    [resolutionPanel.resolutionViewController showButtonReports:haveReadyReport];
     
 	[container.popupPanel putContent:resolutionPanel.view];
 	[resolutionPanel setTitleForPopupPanelHeader:resolutionTitle];
@@ -508,9 +507,9 @@
 }
 
 - (void)selectReportButtonPressed {
-//    NSArray* errands = [loadedItem.doc.errands allObjects];
+//    NSArray* errands = [[loadedItem.doc.errands allObjects] retain];
     NSArray* errands = [[self selectOnlyMyErrands] retain];
-    NSLog(@"errands %@", [errands description]);
+//    NSLog(@"errands %@", [errands description]);
 
     NSMutableArray* reports = [[NSMutableArray alloc] initWithCapacity:1];
     if( errands.count ) {
@@ -533,22 +532,21 @@
     [errands release];
 }
 
-
 - (NSArray *)selectOnlyMyErrands {
     NSMutableArray* filteredErrands = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     NSString *userId = user.id;
-    NSString* userName = [SupportFunctions createShortFIO:user.fio];
+//    NSString* userName = [SupportFunctions createShortFIO:user.fio];
     NSArray* errands = [loadedItem.doc.errands allObjects];
     for(int i = 0; i < [errands count]; i++) {
         DocErrand *errand = ((DocErrand *)[errands objectAtIndex:i]);
         NSString *authorId = errand.authorId;
-        NSLog(@"errand.id [%@]: errandAuthorId [%@] errandAuthorName [%@] --- userId [%@] userName [%@]", errand.id, authorId, errand.authorName, userId, userName);
+//        NSLog(@"errand.id [%@]: errandAuthorId [%@] errandAuthorName [%@] --- userId [%@] userName [%@]", errand.id, authorId, errand.authorName, userId, userName);
         if ([userId isEqualToString:authorId]) {
             [filteredErrands addObject:errand];
         }
         else {
             for (DocErrandExecutor *executor in errand.executors) {
-                NSLog(@"errand.id [%@]: executor.executorId [%@] executor.executorName [%@] --- userId [%@] userName [%@]", errand.id, executor.executorId, executor.executorName, userId, userName);
+//                NSLog(@"errand.id [%@]: executor.executorId [%@] executor.executorName [%@] --- userId [%@] userName [%@]", errand.id, executor.executorId, executor.executorName, userId, userName);
                 if ([userId isEqualToString:executor.executorId]) {
                     [filteredErrands addObject:errand];
                     break;

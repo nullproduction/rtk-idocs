@@ -42,6 +42,10 @@
 
 @end
 
+@interface iPadDocExecutionCell ()
+- (void)filesButtonSelect;
+@end
+
 @implementation iPadDocExecutionCell
 
 - (id)initWithStyle:(UITableViewCellStyle)UITableViewCellStyle reuseIdentifier:(NSString *)reuseIdentifier {
@@ -264,13 +268,25 @@
 	}
 }
 
-- (void)setErrandAttachmentFiles {
+- (void)setErrandAttachmentFiles:(BOOL)hidden {
     UIImage *buttonImage = [UIImage imageNamed:@"blue_task_attachment_icon.png"];
-    [errandAttachmentFiles addTarget:self action:@selector(showAttachmentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [errandAttachmentFiles addTarget:self action:@selector(filesButtonSelect) forControlEvents:UIControlEventTouchUpInside];
     [errandAttachmentFiles setImage:[buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
-    errandAttachmentFiles.hidden = NO;
+    errandAttachmentFiles.hidden = hidden;
 }
 
+- (CGRect)getAttachmentButtonRect
+{
+    return errandAttachmentFiles.frame;
+}
+
+- (void)filesButtonSelect
+{
+    if([delegate respondsToSelector:@selector(showFileListWithCell:)])
+    {
+        [delegate performSelector:@selector(showFileListWithCell:) withObject:self];
+    }
+}
 
 - (void)showAttachmentButtonPressed {
 	NSLog(@"iPadDocExecutionCell showAttachmentButtonPressed");

@@ -18,12 +18,18 @@
 #import "Doc.h"
 #import "DocErrandExecutor.h"
 
+#define defaultPopoverSize CGSizeMake(320.0f,44.0f)
+
 @interface iPadInboxExecutionTabViewController(PrivateMethods)
 - (NSArray *)getRecordsForDataGroupWithIndex:(int)groupIndex;
 - (void)showErrandsUsingOwnedFilter:(Boolean)useOwnedFilter;
+
 @end
 
 @implementation iPadInboxExecutionTabViewController
+
+@synthesize attPicker;
+@synthesize popController;
 
 #pragma mark custom methods - init
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel {
@@ -239,8 +245,10 @@
         [cell setNumberOfLinesForErrandExecutorLabel:([executors count] > 0) ? [executors count] : 1];
         
         [cell setErrandText:errand.text];
-  
-        [cell setErrandAttachmentFiles];
+        
+        BOOL hiddenAttachment = ([[errandAttachments objectForKey:errand.id] count] > 0) ? NO : YES;
+        
+        [cell setErrandAttachmentFiles:hiddenAttachment];
         
         //set errand due date and due date status
         NSDate *dueDate = errand.dueDate;
@@ -296,6 +304,22 @@
 
 #pragma mark other methods
 
+- (void)showFileListWithCell:(iPadDocExecutionCell *)cell
+{
+    NSIndexPath *selectedIndexPath = [errandsTableView indexPathForCell:cell];
+    DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:selectedIndexPath.row]);
+    
+    self.attPicker = [[AttachmentsPisker alloc] initWithStyle:UITableViewStylePlain];
+    self.attPicker.delegate = self;
+    self.attPicker.attachmentsArray = [errandAttachments objectForKey:errand.id];
+    
+    self.popController = [[UIPopoverController alloc] initWithContentViewController:self.attPicker];
+    self.popController.popoverContentSize = defaultPopoverSize;
+    self.popController.delegate = self;
+    [self.popController presentPopoverFromRect:[cell getAttachmentButtonRect] inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.popController.popoverContentSize = self.attPicker.tableView.contentSize;
+}
+
 - (void)inserChildsToTree:(OpenTreeButton *)sender
 {
     //get current erran whose button was pressed
@@ -350,6 +374,24 @@
     // Release any cached data, images, etc. that aren't in use.
 }
 
+#pragma mark UIPopoverController Delegate methods
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{    
+    [popoverController release];
+    [self.attPicker release];
+}
+
+#pragma mark AttachmentPickerController Delegate methods
+
+- (void)reportAttachmentFileSelected:(ReportAttachment *)report
+{
+    [self.popController dismissPopoverAnimated:YES];
+    
+    NSLog(@"Selected File Name = %@",report.name);
+    
+    [delegate showAttachmentWithFileName:@"0901b2118017ddb2_0901b2118017ddb3.txt" andName:@"2.txt"];
+}
 
 #pragma mark custom methods - delegate implementation
 - (void)showAttachmentWithFileName:(NSString *)attachmentFileName andName:(NSString *)attachmentName {
@@ -367,6 +409,8 @@
 	[filteredErrands release];
 	[errandsTableView release];
     [errandAttachments release];
+    self.attPicker = nil;
+    self.popController = nil;
 	[super dealloc];
 }
 @end

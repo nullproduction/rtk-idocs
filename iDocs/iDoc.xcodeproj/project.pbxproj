@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7584D2AB14EA751800A6143B /* ActionSubmitterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */; };
 		83931EEB1630109900DDA955 /* ReportAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 83931EEA1630109900DDA955 /* ReportAttachment.m */; };
+		83A00E1A1631AED700E4D5D8 /* AttachmentsPisker.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A00E191631AED700E4D5D8 /* AttachmentsPisker.m */; };
 		83ADDEFD161F0F4400729702 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFB161F0F4400729702 /* minus.png */; };
 		83ADDEFE161F0F4400729702 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83ADDEFC161F0F4400729702 /* plus.png */; };
 		83B448011619E2BA003E6D7E /* ActionToSyncDataEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447B61619E2B9003E6D7E /* ActionToSyncDataEntity.m */; };
@@ -532,6 +533,8 @@
 		7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSubmitterOperation.m; sourceTree = "<group>"; };
 		83931EE91630109900DDA955 /* ReportAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportAttachment.h; sourceTree = "<group>"; };
 		83931EEA1630109900DDA955 /* ReportAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportAttachment.m; sourceTree = "<group>"; };
+		83A00E181631AED700E4D5D8 /* AttachmentsPisker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentsPisker.h; sourceTree = "<group>"; };
+		83A00E191631AED700E4D5D8 /* AttachmentsPisker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentsPisker.m; sourceTree = "<group>"; };
 		83ADDEFB161F0F4400729702 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = minus.png; path = iOS/minus.png; sourceTree = "<group>"; };
 		83ADDEFC161F0F4400729702 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = iOS/plus.png; sourceTree = "<group>"; };
 		83B447B51619E2B9003E6D7E /* ActionToSyncDataEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionToSyncDataEntity.h; sourceTree = "<group>"; };
@@ -1300,6 +1303,15 @@
 				DDA73F4213C4A32300013DC2 /* Localizable.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		83A00E161631AE9700E4D5D8 /* AttachmentsPicker */ = {
+			isa = PBXGroup;
+			children = (
+				83A00E181631AED700E4D5D8 /* AttachmentsPisker.h */,
+				83A00E191631AED700E4D5D8 /* AttachmentsPisker.m */,
+			);
+			name = AttachmentsPicker;
 			sourceTree = "<group>";
 		};
 		83B447B31619E2B9003E6D7E /* CoreData */ = {
@@ -2283,6 +2295,7 @@
 		DD8834DA14142B3100718A73 /* InboxModule */ = {
 			isa = PBXGroup;
 			children = (
+				83A00E161631AE9700E4D5D8 /* AttachmentsPicker */,
 				DD24B3CC14142E9E0012C7B2 /* ModalViews */,
 				DD24B3CB14142E130012C7B2 /* AttachmentsTab */,
 				DD8834DE14142BCE00718A73 /* EndorsementTab */,
@@ -3034,6 +3047,7 @@
 				C9CFD0B5162EF8E0004A49C2 /* iPadReportInfoCell.m in Sources */,
 				C99F1F9F1630226A0068B3B0 /* iPadResolutionPanelViewController.m in Sources */,
 				83931EEB1630109900DDA955 /* ReportAttachment.m in Sources */,
+				83A00E1A1631AED700E4D5D8 /* AttachmentsPisker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3056,7 +3070,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -3082,7 +3096,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -3107,7 +3121,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3130,7 +3144,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

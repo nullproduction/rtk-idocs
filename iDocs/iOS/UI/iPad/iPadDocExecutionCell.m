@@ -269,8 +269,8 @@
 }
 
 - (void)setErrandAttachmentFiles:(BOOL)hidden {
-    UIImage *buttonImage = [UIImage imageNamed:@"blue_task_attachment_icon.png"];
-    [errandAttachmentFiles addTarget:self action:@selector(filesButtonSelect) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *buttonImage = [UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"task_attachment_icon.png"]];
+    [errandAttachmentFiles addTarget:self action:@selector(showAttachmentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [errandAttachmentFiles setImage:[buttonImage stretchableImageWithLeftCapWidth:0 topCapHeight:0] forState:UIControlStateNormal];
     errandAttachmentFiles.hidden = hidden;
 }

@@ -274,6 +274,12 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
     return (ReportAttachment *)[NSEntityDescription insertNewObjectForEntityForName:constReportAttachmentEntity inManagedObjectContext:context];
 }
 
+- (NSArray *)selectReportAttachmentForErrandWithId:(NSString *)errandId {
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"errand.id = %@", errandId];
+    NSArray *items = [context executeFetchRequestWithPredicate:predicate andEntityName:constReportAttachmentEntity andSortDescriptors:nil];
+    return items;
+}
+
 - (NSDictionary*) selectErrandAttachmentsWithDocId:(NSString *)docId
 {
     NSMutableDictionary *attachmentDictionary = [[NSMutableDictionary alloc] init];

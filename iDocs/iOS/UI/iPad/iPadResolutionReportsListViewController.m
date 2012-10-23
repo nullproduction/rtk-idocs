@@ -24,8 +24,10 @@
     NSLog(@"ResolutionReportsList initWithFrame");
 	if ((self = [super initWithNibName:nil bundle:nil])) {
         checkArray = [[NSMutableArray alloc] initWithCapacity:0];
+        attachArray = [[NSMutableArray alloc] initWithCapacity:0];
         for (int i = 0; i < _reports.count; ++i) {
             [checkArray addObject:[NSNumber numberWithBool:NO]];
+            [attachArray addObject:[NSNumber numberWithBool:NO]];
         }
         self.navigationController.navigationBar.hidden = YES;
 		CGRect resolutionReportsTableFrame;
@@ -82,6 +84,12 @@
 - (void)navigateBack {
 	NSLog(@"ResolutionReportsList navigateBack");
 	[self.navigationController popViewControllerAnimated:YES];
+
+    [selectedReports removeAllObjects];
+    
+    [self setUncheckedAll];
+    
+    [reportsListTable reloadData];
 }
 
 - (void)navigateAddAndBack {
@@ -118,8 +126,10 @@
 
 - (void) setUncheckedAll {
     [checkArray removeAllObjects];
+    [attachArray removeAllObjects];
     for (int i = 0; i < reports.count; ++i) {
         [checkArray addObject:[NSNumber numberWithBool:NO]];
+        [attachArray addObject:[NSNumber numberWithBool:NO]];
     }
 }
 
@@ -148,7 +158,24 @@
     DocErrandExecutor* executor = [[errand.executors allObjects] objectAtIndex:0];
     [cell setNameReport:[NSString stringWithFormat:@"%@ \n %@", executor.executorName, errand.report]];
     [cell setChecked:[[checkArray objectAtIndex:indexPath.row] boolValue]];
-   
+    
+    
+    DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+        
+    NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:errand.id];
+    NSLog(@"_reports %@", [_reports description]);
+    if( _reports.count ) {
+        ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:0];
+        NSLog(@"st _report %@", [_report description]);
+        if( _report.id ) {
+            NSLog(@" _report.id %@",  _report.id);
+            [cell setAttachment:YES];
+        }
+        else {
+            [cell setAttachment:NO];
+        }
+    }
+
 	return cell;
 }
 

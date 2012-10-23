@@ -10,6 +10,8 @@
 #import "iPadBaseViewController.h"
 #import "DocErrand.h"
 #import "DocErrandExecutor.h"
+#import "DocDataEntity.h"
+
 
 @protocol iPadResolutionReportsListViewControllerDelegate <NSObject>
 @optional
@@ -22,6 +24,7 @@
     NSMutableArray* selectedReports;
     id<iPadResolutionReportsListViewControllerDelegate> delegate;
     NSMutableArray* checkArray;
+    NSMutableArray* attachArray;
 }
 
 @property (nonatomic, retain) NSMutableArray *reports;

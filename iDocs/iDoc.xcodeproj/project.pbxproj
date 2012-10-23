@@ -51,6 +51,7 @@
 		C99F1F9F1630226A0068B3B0 /* iPadResolutionPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F1F9E163022690068B3B0 /* iPadResolutionPanelViewController.m */; };
 		C9CFD0B1162EF55C004A49C2 /* iPadResolutionReportsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */; };
 		C9CFD0B5162EF8E0004A49C2 /* iPadReportInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */; };
+		C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */; };
 		DD0DA19D14D807EA00CB9A0B /* DEFAULT_ORD_InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BC14D7CD6A00BAFC1E /* DEFAULT_ORD_InAppSettings.bundle */; };
 		DD0DA19E14D8119700CB9A0B /* DEFAULT_Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BF14D7CD6A00BAFC1E /* DEFAULT_Settings.bundle */; };
 		DD33A6D914D8041000BAFC1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDA73F4213C4A32300013DC2 /* Localizable.strings */; };
@@ -1163,6 +1164,7 @@
 		C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadResolutionReportsListViewController.m; sourceTree = "<group>"; };
 		C9CFD0B3162EF8E0004A49C2 /* iPadReportInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadReportInfoCell.h; sourceTree = "<group>"; };
 		C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadReportInfoCell.m; sourceTree = "<group>"; };
+		C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_task_attachment_icon.png; sourceTree = "<group>"; };
 		DD33A6B514D7CD6A00BAFC1E /* DEFAULT_ClientSettings_Sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DEFAULT_ClientSettings_Sample.xml; path = iOS/DEFAULT_ClientSettings_Sample.xml; sourceTree = "<group>"; };
 		DD33A6B614D7CD6A00BAFC1E /* DEFAULT_Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DEFAULT_Icon-72.png"; path = "iOS/DEFAULT_Icon-72.png"; sourceTree = "<group>"; };
 		DD33A6B714D7CD6A00BAFC1E /* DEFAULT_Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DEFAULT_Icon-Small-50.png"; path = "iOS/DEFAULT_Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -1917,6 +1919,7 @@
 			isa = PBXGroup;
 			children = (
 				DDD337501491FA26005F44A1 /* default_korus_logo_with_name.png */,
+				C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */,
 				DDD337511491FA26005F44A1 /* default_korus_logo.png */,
 				DD54FDBC14275C4D00F4F609 /* default_open_in_external_app_button.png */,
 				8ECC93DC140B88AA00FA5075 /* default_accessory_disclosure_arrow.png */,
@@ -2796,6 +2799,7 @@
 				DD0DA19E14D8119700CB9A0B /* DEFAULT_Settings.bundle in Resources */,
 				83ADDEFD161F0F4400729702 /* minus.png in Resources */,
 				83ADDEFE161F0F4400729702 /* plus.png in Resources */,
+				C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

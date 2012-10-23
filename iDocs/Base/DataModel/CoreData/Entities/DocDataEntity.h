@@ -58,6 +58,8 @@
 - (void)deleteAttachmentsForDocWithId:(NSString *)docId;
 
 - (ReportAttachment *) createReportAttachment;
+- (NSArray *)selectReportAttachmentForErrandWithId:(NSString *)errandId;
+
 - (NSDictionary*) selectErrandAttachmentsWithDocId:(NSString*)docId;
 - (NSArray*) selectAttachmentsWithErrandId:(NSString*)errandId;
 

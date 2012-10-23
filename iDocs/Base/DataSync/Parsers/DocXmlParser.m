@@ -177,28 +177,40 @@
         SMXMLElement *attachmentGroup = [reportProperties childWithAttribute:@"name" value:@"attachments"];
         NSArray *attachments = [attachmentGroup childrenNamed:@"Values"];
         
-        ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
-        
-        reportAttachmentEntity.reportId = reportId;
-        reportAttachmentEntity.reportText = reportText;
-        reportAttachmentEntity.errand = currentErrand;
-        reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
-        
-        for (SMXMLElement *currentAttachment in attachments)
+        if([attachments count] > 0)
         {
-            NSString *attachmentString = [currentAttachment value];
-            NSArray *attachmentProperties = [attachmentString componentsSeparatedByString:@";"];
+            for (SMXMLElement *currentAttachment in attachments)
+            {
+                ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
+                
+                reportAttachmentEntity.reportId = reportId;
+                reportAttachmentEntity.reportText = reportText;
+                reportAttachmentEntity.errand = currentErrand;
+                reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
+                
+                NSString *attachmentString = [currentAttachment value];
+                NSArray *attachmentProperties = [attachmentString componentsSeparatedByString:@";"];
+                
+                NSString *attachmentId = [attachmentProperties objectAtIndex:attachmentIdIndex];
+                reportAttachmentEntity.id = attachmentId;
+                NSString *attachmentName = [attachmentProperties objectAtIndex:attachmentNameIndex];
+                reportAttachmentEntity.name = attachmentName;
+                NSString *attachmentSize = [attachmentProperties objectAtIndex:attachmentSizeIndex];
+                reportAttachmentEntity.size = [NSNumber numberWithInt:[attachmentSize intValue]];
+                NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];
+                reportAttachmentEntity.type = attachmentType;
+                
+                //            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
+            }
+        }
+        else
+        {
+            ReportAttachment *reportAttachmentEntity = [docEntity createReportAttachment];
             
-            NSString *attachmentId = [attachmentProperties objectAtIndex:attachmentIdIndex];
-            reportAttachmentEntity.id = attachmentId;
-            NSString *attachmentName = [attachmentProperties objectAtIndex:attachmentNameIndex];
-            reportAttachmentEntity.name = attachmentName;
-            NSString *attachmentSize = [attachmentProperties objectAtIndex:attachmentSizeIndex];
-            reportAttachmentEntity.size = [NSNumber numberWithInt:[attachmentSize intValue]];
-            NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];
-            reportAttachmentEntity.type = attachmentType;
-            
-//            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
+            reportAttachmentEntity.reportId = reportId;
+            reportAttachmentEntity.reportText = reportText;
+            reportAttachmentEntity.errand = currentErrand;
+            reportAttachmentEntity.accepted = [NSNumber numberWithInt:[accepted intValue]];
         }
     }
 }

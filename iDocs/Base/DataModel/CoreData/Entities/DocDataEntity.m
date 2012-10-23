@@ -300,7 +300,7 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
 
 - (NSArray*) selectAttachmentsWithErrandId:(NSString*)errandId
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"errand.id = %@",errandId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"errand.id = %@ AND id != nil",errandId];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     NSArray *items = [context executeFetchRequestWithPredicate:predicate
                                                  andEntityName:constReportAttachmentEntity
@@ -315,8 +315,8 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
 }
 
 - (NSArray *)selectErrandsForDocWithId:(NSString *)docId {	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@",docId];
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@ AND parentId = %@",docId,docId];
+	//NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@",docId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@ AND parentId = %@",docId,docId];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"systemSortIndex" ascending:YES];
     NSArray *items = [context executeFetchRequestWithPredicate:predicate 
                                                  andEntityName:constDocErrandEntity 

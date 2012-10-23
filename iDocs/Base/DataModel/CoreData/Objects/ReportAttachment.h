@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * size;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * systemName;
 @property (nonatomic, retain) NSNumber * accepted;
 @property (nonatomic, retain) DocErrand *errand;
 

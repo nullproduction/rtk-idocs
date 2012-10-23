@@ -14,6 +14,7 @@
 #import "DocDataEntity.h"
 #import "iPadAttachmentViewController.h"
 #import "iPadDocAttachmentCell.h"
+#import "AttachmentsPisker.h"
 
 @class iPadInboxExecutionTabViewController;
 @class OpenTreeButton;
@@ -24,7 +25,7 @@
 - (void)showAttachmentWithFileName:(NSString *)attachmentFileName andName:(NSString *)attachmentName;
 @end
 
-@interface iPadInboxExecutionTabViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource, iPadDocAttachmentCellDelegate> {
+@interface iPadInboxExecutionTabViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource, iPadDocAttachmentCellDelegate, UIPopoverControllerDelegate, AttachmentPickerDelegate> {
 	UITableView *errandsTableView;
 	float executionTableSectionHeight;
 	
@@ -40,6 +41,9 @@
     
 }
 
+@property (nonatomic,retain) AttachmentsPisker *attPicker;
+@property (nonatomic,retain) UIPopoverController *popController;
+
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel;
 - (void)setDelegate:(id<iPadInboxExecutionTabViewControllerDelegate>)newDelegate;
 - (void)loadTabDataWithErrands:(NSArray *)newErrands andCurrentErrandId:(NSString *)newCurrentErrandId;
@@ -47,4 +51,5 @@
 - (void)loadErrandAttachmentsWithDocId:(NSString*)docId;
 - (void)inserChildsToTree:(OpenTreeButton*)sender;
 - (void)setErrandTableView:(UIView *)placeholderPanel;
+- (void)showFileListWithCell:(iPadDocExecutionCell*)cell;
 @end

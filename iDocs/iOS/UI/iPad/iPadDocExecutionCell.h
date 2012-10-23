@@ -61,6 +61,7 @@
 - (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath;
 - (OpenTreeButton*) getErrandOpenTreeButton;
 
-- (void)setErrandAttachmentFiles;
+- (void)setErrandAttachmentFiles:(BOOL)hidden;
+- (CGRect)getAttachmentButtonRect;
 
 @end

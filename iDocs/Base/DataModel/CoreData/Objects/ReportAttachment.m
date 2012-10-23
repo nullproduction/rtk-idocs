@@ -18,6 +18,7 @@
 @dynamic size;
 @dynamic type;
 @dynamic name;
+@dynamic systemName;
 @dynamic accepted;
 @dynamic errand;
 

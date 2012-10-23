@@ -88,4 +88,6 @@
 - (NSArray *)getActionsList;
 - (void)enableSyncOption;
 - (void)disableSyncOption;
+- (NSArray *)selectOnlyMyErrands;
+
 @end

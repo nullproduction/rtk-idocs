@@ -9,25 +9,26 @@
 #import <Foundation/Foundation.h>
 #import "iPadBaseViewController.h"
 #import "DocErrand.h"
+#import "ReportAttachment.h"
 #import "DocErrandExecutor.h"
 #import "DocDataEntity.h"
 
 
 @protocol iPadResolutionReportsListViewControllerDelegate <NSObject>
 @optional
-- (void)addReports:(NSMutableArray *)_reports;
+- (void)addReportsText:(NSString *)text andIdAttach:(NSArray *)attach;
 @end
 
 @interface iPadResolutionReportsListViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource> {
     UITableView* reportsListTable;
-    NSMutableArray* reports;
+    NSMutableDictionary* reports;
     NSMutableArray* selectedReports;
     id<iPadResolutionReportsListViewControllerDelegate> delegate;
     NSMutableArray* checkArray;
     NSMutableArray* attachArray;
 }
 
-@property (nonatomic, retain) NSMutableArray *reports;
+@property (nonatomic, retain) NSMutableDictionary* reports;
 
 - (id)initWithFrame:(CGRect)frame andReports:(NSMutableArray *)_reports;
 - (void)setTitle:(NSString *)newTitle;

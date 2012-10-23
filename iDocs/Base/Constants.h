@@ -108,6 +108,9 @@
 #define constActionToSyncDocument @"document_id"
 #define constActionToSyncComment @"comment"
 #define constActionToSyncResolution @"text_resolution"
+
+#define constActionToSyncAttachments @"attachments"
+
 #define constActionToSyncPerformer @"performer_id"
 #define constActionToSyncOnControl @"on_control"
 #define constActionToSyncControlDate @"control_date"

@@ -23,7 +23,9 @@
 //init request to server
 - (NSString *)getServerDataForRequest:(NSDictionary *)requestData {	
 	NSURL *wsUrl = [NSURL URLWithString:[requestData valueForKey:keyRequestUrl]];
+    NSLog(@"wsUrl %@", [wsUrl description]);
 	NSString *requestSoapMessage = [requestData valueForKey:keyRequestMessage];
+    NSLog(@"requestSoapMessage %@", [requestSoapMessage description]);
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:wsUrl];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];

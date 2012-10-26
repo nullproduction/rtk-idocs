@@ -200,7 +200,7 @@
                 NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];
                 reportAttachmentEntity.type = attachmentType;
                 
-                //            NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
+//                NSLog(@"atc dev log: %@ %@ %@ %@",currentErrandId,reportText,reportId,attachmentString);
             }
         }
         else
@@ -246,10 +246,6 @@
                 errand.report = report;
                 NSString *parentId = [[[dictData childWithAttribute:@"name" value:@"column12"] childNamed:@"Value"] value];
                 errand.parentId = parentId;
-                
-                NSLog(@"----- errand load ----- st");
-                NSLog(@"errand.authorId [%@] errand.status [%@] errand.report [%@] errand.text [%@]", errand.authorId, errand.status, errand.report, errand.text);
-                NSLog(@"----- errand load ----- fh");
                 
                 NSString *errandActions = [[[dictData childWithAttribute:@"name" value:@"column11"] childNamed:@"Value"] value];
                 if (errandActions != nil) {

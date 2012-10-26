@@ -87,6 +87,9 @@
 {
     NSLog(@"iPadInboxExecutionTab loadChildsForErrands:AT Consulting Dev");
     
+    if( nil != childErrandDictionary ) {
+        [childErrandDictionary release];
+    }
     childErrandDictionary = childErrands;
     
     [childErrandDictionary retain];
@@ -155,7 +158,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	int numberOfRowsInSection = [filteredErrands count];
-    return numberOfRowsInSection;//для обеспечения доступности нижних знАчимых ячеек
+    return numberOfRowsInSection; //для обеспечения доступности нижних знАчимых ячеек
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,10 +181,6 @@
         iPadDocExecutionCell *cell = (iPadDocExecutionCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
             cell = [[[iPadDocExecutionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        }
-        else
-        {
-            
         }
         [cell setBackgroundStyleForRow:indexPath.row];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -227,7 +226,8 @@
         }
         
         imageName = nil;
-        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
+//        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
+        NSArray *executors = [errand.executors allObjects];
         if ([executors count] == 1 && [errand.status intValue] != constErrandStatusProject) {
             DocErrandExecutor *executor = [executors objectAtIndex:0];
             imageName = ([executor.isMajorExecutor boolValue] == YES) ? [iPadThemeBuildHelper nameForImage:@"executor_icon.png"] : nil;            
@@ -290,7 +290,7 @@
         
 //        iPadDocExecutionCell *cell = (iPadDocExecutionCell *)[tableView cellForRowAtIndexPath:indexPath];
 //        [cell setSelection:nil];
-//        
+        
 		if (delegate != nil && [delegate respondsToSelector:@selector(showErrand:usingMode:)]) {
 			DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:indexPath.row]);
             

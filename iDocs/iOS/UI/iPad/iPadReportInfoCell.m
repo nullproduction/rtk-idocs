@@ -84,6 +84,8 @@
 
 - (void)dealloc {
 	[nameReport release];
+    [checkReport release];
+    [attachment release];
     
     [super dealloc];
 }

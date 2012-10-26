@@ -55,7 +55,6 @@
         tableHeader4 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutorCellTitle", nil)];
 		tableHeader5 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ErrandTextCellTitle", nil)];
 		tableHeader6 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutionPeriodCellTitle", nil)];
-
         tableHeader7 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AttachmentFilesCellTitle", nil)];
 				
 		[tableHeaderPlaceholder addSubview:tableHeader0];
@@ -65,7 +64,6 @@
 		[tableHeaderPlaceholder addSubview:tableHeader4];
 		[tableHeaderPlaceholder addSubview:tableHeader5];
         [tableHeaderPlaceholder addSubview:tableHeader6];
-        
         [tableHeaderPlaceholder addSubview:tableHeader7];
 								
 		tablePlaceholder = [[UIView alloc] initWithFrame:CGRectZero];
@@ -98,7 +96,6 @@
 	tableHeader4.frame = [[cellFrames objectAtIndex:4] CGRectValue];
 	tableHeader5.frame = [[cellFrames objectAtIndex:5] CGRectValue];
     tableHeader6.frame = [[cellFrames objectAtIndex:6] CGRectValue];
-    
     tableHeader7.frame = [[cellFrames objectAtIndex:7] CGRectValue];
 
 	CGRect executionTablePlaceholderFrame = CGRectMake(10.0f, 100.0f, self.frame.size.width - 20.0f, self.frame.size.height - 100.0f);

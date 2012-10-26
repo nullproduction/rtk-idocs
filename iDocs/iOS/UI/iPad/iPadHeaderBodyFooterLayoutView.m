@@ -160,7 +160,6 @@ typedef enum {
 	[headerPanel release];
 	[bodyPanel release];
 	[footerPanel release];
-    
     [bottomBarPanel release];
 	
     [super dealloc];

@@ -16,7 +16,7 @@
 
 @protocol iPadResolutionReportsListViewControllerDelegate <NSObject>
 @optional
-- (void)addReportsText:(NSString *)text andIdAttach:(NSArray *)attach;
+- (void)addReportsText:(NSString *)text andIdAttach:(NSArray *)attach andReport:(NSArray *)_reports;
 @end
 
 @interface iPadResolutionReportsListViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource> {
@@ -30,9 +30,10 @@
 
 @property (nonatomic, retain) NSMutableDictionary* reports;
 
-- (id)initWithFrame:(CGRect)frame andReports:(NSMutableArray *)_reports;
+- (id)initWithFrame:(CGRect)frame;
 - (void)setTitle:(NSString *)newTitle;
 - (void)setDelegate:(id<iPadResolutionReportsListViewControllerDelegate>)newDelegate;
 - (void)setUncheckedAll;
+- (void)setListReports:(NSMutableArray *)_reports;
 
 @end

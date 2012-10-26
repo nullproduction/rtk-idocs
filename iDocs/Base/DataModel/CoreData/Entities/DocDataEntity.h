@@ -66,6 +66,7 @@
 - (DocErrand *)createDocErrand;
 - (NSArray *)selectErrandsForDocWithId:(NSString *)docId;
 - (NSDictionary *)selectChildErrandsForDocWithId:(NSString *)docId;
+- (NSString *)selectChildErrandsMaxNumberForDocWithId:(NSString *)docId andParentId:(NSString *)parentId;
 - (NSArray *)sortErrands:(NSArray *)errands;
 - (DocErrand *)selectErrandWithId:(NSString *)errandId inDocWithId:(NSString *)docId;
 - (void)deleteErrandsForDocWithId:(NSString *)docId;

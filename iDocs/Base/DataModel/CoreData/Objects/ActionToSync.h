@@ -30,7 +30,6 @@
 @property (nonatomic, retain) NSString * id;
 @property (nonatomic, retain) NSString * systemSyncStatus;
 @property (nonatomic, retain) NSString * systemErrandMajorExecutorId;
-
 @property (nonatomic, retain) NSString * attachments;
 
 @end

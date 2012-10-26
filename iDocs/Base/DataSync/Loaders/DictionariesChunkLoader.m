@@ -78,7 +78,9 @@ static xmlSAXHandler simpleSAXHandlerStruct;
 }
 
 - (void)startLoad {
-    NSLog(@"DictionariesLoader startLoad"); 
+    NSLog(@"DictionariesLoader startLoad");
+//    [self cleanupLocalData];
+
     self.downloadAndParsePool = [[NSAutoreleasePool alloc] init];
     requestInProcess = YES;
     
@@ -141,8 +143,8 @@ static xmlSAXHandler simpleSAXHandlerStruct;
 
         }
         [SupportFunctions setNetworkActivityIndicatorVisible:NO];
-
-	} 
+        
+	}
     else {
         NSString *connId = @"test_conn";
         NSString *testDataXMLPath = [self returnPathForMockXml:connId];

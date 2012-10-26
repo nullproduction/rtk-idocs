@@ -20,15 +20,11 @@
     return [UIColor colorWithPatternImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"modal_popup_background_body_panel.png"]]];
 }
 
-- (id)initWithFrame:(CGRect)frame andReports:(NSMutableArray *)_reports {
+- (id)initWithFrame:(CGRect)frame {
     NSLog(@"ResolutionReportsList initWithFrame");
 	if ((self = [super initWithNibName:nil bundle:nil])) {
         checkArray = [[NSMutableArray alloc] initWithCapacity:0];
         attachArray = [[NSMutableArray alloc] initWithCapacity:0];
-        for (int i = 0; i < _reports.count; ++i) {
-            [checkArray addObject:[NSNumber numberWithBool:NO]];
-            [attachArray addObject:[NSNumber numberWithBool:NO]];
-        }
         self.navigationController.navigationBar.hidden = YES;
 		CGRect resolutionReportsTableFrame;
         iPadHeaderBodyFooterLayoutView *container = nil;
@@ -67,30 +63,37 @@
         [container.bodyPanel addSubview:reportsListTable];
                 
         self.view = container;
-        [container release];
-        
-        reports = [[NSMutableDictionary alloc] initWithCapacity:0];
-//        NSLog(@"_reports %@", _reports);
-        for( ReportAttachment* report in _reports ) {
-            NSString* idReport = report.reportId;
-            if( nil != [reports objectForKey:idReport] ) {
-                NSMutableArray* arrayReport = [reports objectForKey:idReport];
-                [arrayReport addObject:report];
-            }
-            else {
-                NSMutableArray* arrayReport = [[NSMutableArray alloc] initWithCapacity:0];
-                [arrayReport addObject:report];
-                [reports setValue:arrayReport forKey:idReport];
-            }
-        }
-        
-//        NSLog(@"reportsDict %@", [reports description]);
-        
-        selectedReports = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        [reportsListTable reloadData];
+        [container release];        
 	}
 	return self;
+}
+
+- (void)setListReports:(NSMutableArray *)_reports {
+    for (int i = 0; i < _reports.count; ++i) {
+        [checkArray addObject:[NSNumber numberWithBool:NO]];
+        [attachArray addObject:[NSNumber numberWithBool:NO]];
+    }
+
+    reports = [[NSMutableDictionary alloc] initWithCapacity:0];
+    for( ReportAttachment* report in _reports ) {
+        NSString* idReport = report.reportId;
+        if( nil != [reports objectForKey:idReport] ) {
+            NSMutableArray* arrayReport = [reports objectForKey:idReport];
+            [arrayReport addObject:report];
+        }
+        else {
+            NSMutableArray* arrayReport = [[NSMutableArray alloc] initWithCapacity:0];
+            [arrayReport addObject:report];
+            [reports setValue:arrayReport forKey:idReport];
+        }
+    }
+    
+    if(nil != selectedReports ) {
+        [selectedReports removeAllObjects];
+        selectedReports = nil;
+    }
+    selectedReports = [[NSMutableArray alloc] initWithCapacity:0];
+    [reportsListTable reloadData];
 }
 
 
@@ -104,43 +107,46 @@
     
     [self setUncheckedAll];
     
-    [reportsListTable reloadData];
+//    [reportsListTable reloadData];
+    [reports removeAllObjects];
+    reports = nil;
 }
 
 - (void)navigateAddAndBack {
 	NSLog(@"ResolutionReportsList navigateAddAndBack");
     [self.navigationController popViewControllerAnimated:YES];
-//    NSLog(@" selectedReports %i", [selectedReports count]);
     
-    if (delegate != nil && [delegate respondsToSelector:@selector(addReportsText:andIdAttach:)]) {
+    if (delegate != nil && [delegate respondsToSelector:@selector(addReportsText:andIdAttach:andReport:)]) {
         NSString* text = constEmptyStringValue;
         NSMutableArray* idsAttach = [[NSMutableArray alloc] initWithCapacity:0];
+        NSMutableArray* _reports = [[NSMutableArray alloc] initWithCapacity:0];
         for( int i = 0; i < [selectedReports count]; ++i ) {
             NSMutableArray* dict = [reports objectForKey:[selectedReports objectAtIndex:i]];
             ReportAttachment* report = (ReportAttachment *)[dict objectAtIndex:0];
             text = [text isEqualToString:constEmptyStringValue] ? [text stringByAppendingString:[NSString stringWithFormat:@"%@", report.reportText]] : [text stringByAppendingString:[NSString stringWithFormat:@"\n%@", report.reportText]];
             for( int i = 0; i < [dict count]; ++i ) {
                 ReportAttachment* _report = (ReportAttachment *)[dict objectAtIndex:i];
+                [_reports addObject:_report];
                 if( _report.id ) {
                     [idsAttach addObject:_report.id];
                 }
             }
         }
-//        NSLog(@"text %@ idsAttach %@", text, [idsAttach description]);
-        [delegate addReportsText:text andIdAttach:idsAttach];
+        [delegate addReportsText:text andIdAttach:idsAttach andReport:_reports];
     }
    
     for(NSString* idReport in selectedReports) {
         [reports removeObjectForKey:idReport];
     }
     
-//    NSLog(@"navigateAddAndBack reports %@", reports);
-
     [selectedReports removeAllObjects];
+    selectedReports = nil;
     
     [self setUncheckedAll];
     
-    [reportsListTable reloadData];
+//    [reportsListTable reloadData];
+    [reports removeAllObjects];
+    reports = nil;
 }
 
 - (void)setTitle:(NSString *)newTitle {
@@ -165,6 +171,7 @@
         [attachArray addObject:[NSNumber numberWithBool:NO]];
     }
 }
+
 
 #pragma mark UIViewController methods
 - (void)viewWillAppear:(BOOL)animated {
@@ -230,6 +237,10 @@
 - (void)dealloc {
     [self.reports removeAllObjects];
     self.reports = nil;
+    
+    [selectedReports removeAllObjects];
+    selectedReports = nil;
+    
     
     [super dealloc];
 }

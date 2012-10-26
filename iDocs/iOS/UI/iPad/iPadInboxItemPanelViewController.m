@@ -93,50 +93,6 @@
 	NSLog(@"iPadInboxItemPanel loadItem");
     [self removeCurrentItem];
     self.loadedItem = item;
-    
-//    NSLog(@" ------- loadItem ------ start");
-    
-//    NSLog(@"item.name [%@] item.dueDate [%@] item.id [%@] item.type [%@] isViewed [%@]", item.name, [item.dueDate description], [item.id description], item.type, [item.isViewed description]);
-//    NSLog(@"item.systemCurrentErrandId [%@] item.systemActionResultText [%@] item.systemActionIsProcessed [%@] ", [item.systemCurrentErrandId description], [item.systemActionResultText description], [item.systemActionIsProcessed description]);
-//    NSLog(@"item.systemSyncStatus [%@] systemUpdateDate [%@] systemHasDueDate [%@]", [item.systemSyncStatus description], [item.systemUpdateDate description], [item.systemHasDueDate description]);
-//    
-//    for( DashboardItem* item_ in item.dashboardItems ) {
-//        NSLog(@"DashboardItem [%@]", [item_ description]);
-//    }
-//    
-//    for( TaskAction* item_ in item.actions ) {
-//        NSLog(@"TaskAction [%@]", [item_ description]);
-//        NSLog(@"TaskAction.name [%@]", item_.name);
-//        NSLog(@"TaskAction.resultText [%@]", item_.resultText);
-//    }
-//    
-//    NSLog(@"item.doc [%@]", [item.doc description]);
-//    NSLog(@"item.doc.desc [%@]", [item.doc.desc description]);
-//    NSLog(@"item.doc.typeName [%@]", [item.doc.typeName description]);
-//    NSLog(@"item.doc.ownerName [%@]", [item.doc.ownerName description]);
-    
-//    for( DocErrand* item_ in item.doc.errands ) {
-//        NSLog(@"DocErrand [%@]", item_.id);
-//        NSLog(@"DocErrand report [%@]", [item_.report description]);
-//        NSLog(@"DocErrand authorName [%@]", [item_.authorName description]);
-//        NSLog(@"DocErrand text [%@]", [item_.text description]);
-//        NSLog(@"DocErrand executors [%@]", [item_.executors description]);
-        
-//        
-//        DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
-//        NSArray* _reports = [docEntity selectReportAttachmentForErrandWithId:item_.id];
-//        NSLog(@"_reports %@ %i", [_reports description], [_reports count]);
-//        for( int i = 0; i < _reports.count; ++i ) {
-//            ReportAttachment* _report = (ReportAttachment *)[_reports objectAtIndex:i];
-//            NSLog(@"_report %@ %@", _report.name, _report.reportText);
-//            if( _report.reportText && [_report.accepted intValue] == 1 ) {
-//                NSLog(@"_report.errand %@", _report.errand);
-//                NSLog(@"_report %@", [_report description]);
-//            }
-//        }
-//    }
-//    NSLog(@" ------- loadItem ------ finish");
-
     [self enableButtons];
     [self attachmentsButtonPressed];
 }

@@ -66,11 +66,10 @@
     [super viewDidUnload];
 }
 
-
 - (void)dealloc {
+    self.container = nil;
 	self.resolutionViewController = nil;
 	self.navController = nil;
-    self.navController = nil;
     [super dealloc];
 }
 

@@ -53,8 +53,6 @@
 	
 	iPadAttachmentViewController *attachmentPanel;
 	iPadErrandPanelViewController *errandPanel;
-     
-//    iPadResolutionViewController *resolutionPanel;
 	iPadResolutionPanelViewController *resolutionPanel;
 		     
 	NSString *inboxModuleTitle;

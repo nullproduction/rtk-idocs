@@ -133,7 +133,6 @@
 	errandExecutorLabel.frame = [[cellFrames objectAtIndex:4] CGRectValue];
 	errandTextLabel.frame = [[cellFrames objectAtIndex:5] CGRectValue];
 	errandDueDateLabel.frame = [[cellFrames objectAtIndex:6] CGRectValue];
-    
     errandAttachmentFiles.frame = [[cellFrames objectAtIndex:7] CGRectValue];
 
 }
@@ -151,7 +150,6 @@
         
         c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
         c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
-        
         c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
 	}
     else {
@@ -163,7 +161,6 @@
         
         c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
         c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
-        
         c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
     }
         
@@ -177,7 +174,6 @@
 			[NSValue valueWithCGRect:CGRectInset(c4Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c5Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c6Frame, 5.0f, 0.0f)],
-            
 			[NSValue valueWithCGRect:CGRectInset(c7Frame, 5.0f, 0.0f)],
             nil];
 }
@@ -264,7 +260,6 @@
 
 - (void)setSelection:(id)sender {
 	if (delegate != nil && [delegate respondsToSelector:@selector(showAttachmentWithFileName:andName:)]) {
-        // TODO:
 	}
 }
 

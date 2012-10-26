@@ -14,8 +14,8 @@
 + (NSDate *)currentDate;
 + (NSDate *)dateTime;
 
-+ (NSDate *)convertStringToDate:(NSString *)dateString withFormat:(NSString *)formatSring;
-+ (NSString *)convertDateToString:(NSDate *)date withFormat:(NSString *)formatSring;
++ (NSDate *)convertStringToDate:(NSString *)dateString withFormat:(NSString *)formatString;
++ (NSString *)convertDateToString:(NSDate *)date withFormat:(NSString *)formatString;
 + (NSString *)formatDateString:(NSString *)dateString;
 + (NSString *)convertDateToXMLDateTimeString:(NSDate *)date;
 + (NSDate *)convertXMLDateTimeStringToDate:(NSString *)dateString;

@@ -378,6 +378,7 @@
     SystemDataEntity *systemEntity = [[SystemDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
     NSDictionary *requestData = [WebServiceRequests createRequestOfAttachmentContent:report.id forUser:[systemEntity userInfo]];
     *error = [loader downloadAndParseXMLWithRequest:requestData andSaveWithFileName:report.systemName];
+    [systemEntity release];
     [loader release];
 }
 

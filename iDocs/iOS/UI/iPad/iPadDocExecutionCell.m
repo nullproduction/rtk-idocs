@@ -285,7 +285,11 @@
 
 - (void)showAttachmentButtonPressed {
 	NSLog(@"iPadDocExecutionCell showAttachmentButtonPressed");
-    [self setSelection: nil];
+    
+    if ([delegate respondsToSelector:@selector(showFileListWithCell:)])
+    {
+        [delegate performSelector:@selector(showFileListWithCell:) withObject:self];
+    }
 }
 
 

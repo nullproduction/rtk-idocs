@@ -195,6 +195,8 @@
                 reportAttachmentEntity.id = attachmentId;
                 NSString *attachmentName = [attachmentProperties objectAtIndex:attachmentNameIndex];
                 reportAttachmentEntity.name = attachmentName;
+                NSString *attachmentSystemName = [NSString stringWithFormat:@"%@_%@",attachmentId,attachmentName];
+                reportAttachmentEntity.systemName = attachmentSystemName;
                 NSString *attachmentSize = [attachmentProperties objectAtIndex:attachmentSizeIndex];
                 reportAttachmentEntity.size = [NSNumber numberWithInt:[attachmentSize intValue]];
                 NSString *attachmentType = [attachmentProperties objectAtIndex:attachmentTypeIndex];

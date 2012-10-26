@@ -17,12 +17,17 @@
 #import "ActionToSyncDataEntity.h"
 #import "Doc.h"
 #import "DocErrandExecutor.h"
+#import "AttachmentBase64Loader.h"
+#import "WebServiceRequests.h"
+#import "CoreDataProxy.h"
+#import "SystemDataEntity.h"
 
 #define defaultPopoverSize CGSizeMake(320.0f,44.0f)
 
 @interface iPadInboxExecutionTabViewController(PrivateMethods)
 - (NSArray *)getRecordsForDataGroupWithIndex:(int)groupIndex;
 - (void)showErrandsUsingOwnedFilter:(Boolean)useOwnedFilter;
+- (void)loadAttachmentWithReport:(ReportAttachment*)report andError:(NSString**)error;
 
 @end
 
@@ -367,6 +372,16 @@
     [arrayOfIndexPaths release];
 }
 
+- (void)loadAttachmentWithReport:(ReportAttachment *)report andError:(NSString**)error
+{
+    AttachmentBase64Loader *loader = [[AttachmentBase64Loader alloc] init];
+    SystemDataEntity *systemEntity = [[SystemDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+    NSDictionary *requestData = [WebServiceRequests createRequestOfAttachmentContent:report.id forUser:[systemEntity userInfo]];
+    *error = [loader downloadAndParseXMLWithRequest:requestData andSaveWithFileName:report.systemName];
+    [systemEntity release];
+    [loader release];
+}
+
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxExecutionTab didReceiveMemoryWarning");		
     // Releases the iPadSearchFilter if it doesn't have a superview.
@@ -388,9 +403,26 @@
 {
     [self.popController dismissPopoverAnimated:YES];
     
-    NSLog(@"Selected File Name = %@",report.name);
+//    NSLog(@"Selected File Name = %@",report.name);
+
+    NSString *systemAttachmentName = [NSString stringWithFormat:@"%@_%@",report.id,report.name];
+    NSString *attachmentPath = [SupportFunctions createPathForAttachment:systemAttachmentName];
+    BOOL attachmentExist = [[NSFileManager defaultManager] fileExistsAtPath:attachmentPath];
+    NSString *error = nil;
     
-    [delegate showAttachmentWithFileName:@"0901b2118017ddb2_0901b2118017ddb3.txt" andName:@"2.txt"];
+    if(!attachmentExist)
+    {
+        [self loadAttachmentWithReport:report andError:&error];
+    }
+    
+    if(error != nil)
+    {
+        NSLog(@"iPadInboxExecutionTabViewController reportAttachmentFileSelected %@ failed with error: %@",report.name,error);
+    }
+    else
+    {
+        [delegate showAttachmentWithFileName:systemAttachmentName andName:report.name];
+    }
 }
 
 #pragma mark custom methods - delegate implementation

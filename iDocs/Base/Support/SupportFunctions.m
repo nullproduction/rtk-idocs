@@ -27,9 +27,9 @@
 }
 
 #pragma mark date conversion functions
-+ (NSDate *)convertStringToDate:(NSString *)dateString withFormat:(NSString *)formatSring {
++ (NSDate *)convertStringToDate:(NSString *)dateString withFormat:(NSString *)formatString {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:formatSring];
+	[dateFormatter setDateFormat:formatString];
 	[dateFormatter setLocale:[NSLocale currentLocale]];
     [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
 	NSDate *date = [dateFormatter dateFromString:dateString];
@@ -37,9 +37,9 @@
 	return date;
 }
 
-+ (NSString *)convertDateToString:(NSDate *)date withFormat:(NSString *)formatSring {
++ (NSString *)convertDateToString:(NSDate *)date withFormat:(NSString *)formatString {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:formatSring];
+	[dateFormatter setDateFormat:formatString];
 	[dateFormatter setLocale:[NSLocale currentLocale]];
     [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];    
 	NSString *dateString = [dateFormatter stringFromDate:date];
@@ -52,12 +52,12 @@
 }
 
 + (NSString *)convertDateToXMLDateTimeString:(NSDate *)date {
-	//xml format example - 2001-10-26T21:32:52.000+03:00	
+	//xml format example - 2001-10-26T21:32:52.000+03:00
 	NSString *dateNoZone = [SupportFunctions convertDateToString:date withFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
 	NSString *dateZone = [SupportFunctions convertDateToString:date withFormat:@"ZZZ"];
 	NSString *dateZonePart1 = [dateZone substringToIndex:([dateZone length] - 2)];
 	NSString *dateZonePart2 = [dateZone substringFromIndex:([dateZone length] - 2)];
-	NSString *xmlDate = [NSString stringWithFormat:@"%@%@:%@", dateNoZone, dateZonePart1, dateZonePart2];					   
+	NSString *xmlDate = [NSString stringWithFormat:@"%@%@:%@", dateNoZone, dateZonePart1, dateZonePart2];
 	return xmlDate;
 }
 

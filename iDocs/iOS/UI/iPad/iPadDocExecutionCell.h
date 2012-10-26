@@ -17,15 +17,23 @@
 - (void)viewErrand:(NSString *)errandId;
 @end
 
+@protocol OpenTreeButtonDelegate <NSObject>
+
+- (NSIndexPath*)indexPathForOpenTreeButton;
+
+@end
+
 @interface OpenTreeButton : UIButton
 
-@property (nonatomic,strong) NSIndexPath *rowPath;
+- (NSIndexPath*)getIndexPath;
+
+@property (nonatomic,assign) id<OpenTreeButtonDelegate> delegate;
 
 @end
 
 @protocol iPadDocAttachmentCellDelegate;
 
-@interface iPadDocExecutionCell: HFSUITableViewCell {
+@interface iPadDocExecutionCell: HFSUITableViewCell <OpenTreeButtonDelegate> {
 	UILabel *errandIdLabel;
 	UIImageView *errandStatusImage;
     UIImageView *errandMajorExecutorImage;
@@ -58,7 +66,6 @@
 - (void)setCurrentErrandStyle:(Boolean)isCurrentErrand;
 - (void)setErrandOpenTreeButtonActive:(BOOL)active;
 - (void)setErrandOpenTreeButtonActionWithTarget:(id)target andAction:(SEL)selector;
-- (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath;
 - (OpenTreeButton*) getErrandOpenTreeButton;
 
 - (void)setErrandAttachmentFiles:(BOOL)hidden;

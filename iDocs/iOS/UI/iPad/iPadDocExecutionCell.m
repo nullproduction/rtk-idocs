@@ -15,7 +15,7 @@
 
 @implementation OpenTreeButton
 
-@synthesize rowPath;
+@synthesize delegate;
 
 - (id) initWithFrame:(CGRect)frame
 {
@@ -34,9 +34,13 @@
     return self;
 }
 
+- (NSIndexPath*) getIndexPath
+{
+    return ([delegate respondsToSelector:@selector(indexPathForOpenTreeButton)]) ? [delegate indexPathForOpenTreeButton] : nil;
+}
+
 - (void) dealloc
 {
-    [rowPath release];
     [super dealloc];
 }
 
@@ -64,6 +68,7 @@
 		//[[self contentView] addSubview:errandStatusImage];
         
         errandOpenTreeButton = [[OpenTreeButton alloc] initWithFrame:CGRectZero];
+        [errandOpenTreeButton setDelegate:self];
         [[self contentView] addSubview:errandOpenTreeButton];
         
 		errandNumberLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -239,11 +244,6 @@
     [errandOpenTreeButton addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)setErrandOpenTreeButtonIndexPath:(NSIndexPath*)indexPath
-{
-    [errandOpenTreeButton setRowPath:indexPath];
-}
-
 - (OpenTreeButton*) getErrandOpenTreeButton
 {
     return errandOpenTreeButton;
@@ -292,6 +292,12 @@
     }
 }
 
+#pragma mark OpenTreeButtonDelegate methods
+
+- (NSIndexPath*)indexPathForOpenTreeButton
+{
+    return [(UITableView*)self.superview indexPathForCell:self];
+}
 
 - (void)dealloc {
 	[errandIdLabel release];

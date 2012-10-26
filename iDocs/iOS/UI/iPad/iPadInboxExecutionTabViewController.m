@@ -221,13 +221,11 @@
         if([[childErrandDictionary objectForKey:errand.id] count] > 0)
         {
             [cell setErrandOpenTreeButtonActive:YES];
-            [cell setErrandOpenTreeButtonActionWithTarget:self andAction:@selector(inserChildsToTree:)];
-            [cell setErrandOpenTreeButtonIndexPath:indexPath];
+            [cell setErrandOpenTreeButtonActionWithTarget:self andAction:@selector(insertChildsToTree:)];
         }
         else
         {
             [cell setErrandOpenTreeButtonActive:NO];
-            [cell setErrandOpenTreeButtonIndexPath:nil];
         }
         
         imageName = nil;
@@ -325,20 +323,27 @@
     self.popController.popoverContentSize = self.attPicker.tableView.contentSize;
 }
 
-- (void)inserChildsToTree:(OpenTreeButton *)sender
+- (void)insertChildsToTree:(OpenTreeButton *)sender
 {
+    //get OpenTreeButton object indexPath of cell which it's subviewed
+    
+    NSIndexPath *OpenTreeButtonIndexPath = [sender getIndexPath];
+    
+    NSLog(@"OTB indexPath row = %i",OpenTreeButtonIndexPath.row);
+    
     //get current erran whose button was pressed
-    DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:sender.rowPath.row]);
+    DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
     //loading child objects for selected errand
     NSArray *objectsToInsert = [childErrandDictionary objectForKey:errand.id];
     //array of index path's for uitableview animation
     NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+    NSMutableArray *arrayOfObjectsToRemove = [[NSMutableArray alloc] init];
     
     for (int i = 0;i<objectsToInsert.count;i++)
     {
         //calculate index for inserting/deleting object.
-        int newObjectIndex = i+sender.rowPath.row+1;
-        NSIndexPath *currentIndexPath = [NSIndexPath indexPathForRow:newObjectIndex inSection:sender.rowPath.section];
+        int newObjectIndex = i+OpenTreeButtonIndexPath.row+1;
+        NSIndexPath *currentIndexPath = [NSIndexPath indexPathForRow:newObjectIndex inSection:OpenTreeButtonIndexPath.section];
         
         if(!sender.selected)
         {
@@ -353,13 +358,16 @@
             OpenTreeButton *objectOTB = [cell getErrandOpenTreeButton];
             
             if(objectOTB.selected)
-                [self inserChildsToTree:objectOTB];
+                [self insertChildsToTree:objectOTB];
             /*** End's of recursive section ***/
             
-            [filteredErrands removeObject:[objectsToInsert objectAtIndex:i]];
+            [arrayOfObjectsToRemove addObject:[objectsToInsert objectAtIndex:i]];
             [arrayOfIndexPaths addObject:currentIndexPath];
         }
     }
+    
+    //remove objects from data model if exists then animate tableView
+    [filteredErrands removeObjectsInArray:arrayOfObjectsToRemove];
     
     [errandsTableView beginUpdates];
     

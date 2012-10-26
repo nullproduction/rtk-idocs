@@ -49,7 +49,7 @@
 - (void)loadTabDataWithErrands:(NSArray *)newErrands andCurrentErrandId:(NSString *)newCurrentErrandId;
 - (void)loadChildErrands:(NSDictionary*)childErrands;
 - (void)loadErrandAttachmentsWithDocId:(NSString*)docId;
-- (void)inserChildsToTree:(OpenTreeButton*)sender;
+- (void)insertChildsToTree:(OpenTreeButton*)sender;
 - (void)setErrandTableView:(UIView *)placeholderPanel;
 - (void)showFileListWithCell:(iPadDocExecutionCell*)cell;
 @end

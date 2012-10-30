@@ -329,8 +329,6 @@
     
     NSIndexPath *OpenTreeButtonIndexPath = [sender getIndexPath];
     
-    NSLog(@"OTB indexPath row = %i",OpenTreeButtonIndexPath.row);
-    
     //get current erran whose button was pressed
     DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
     //loading child objects for selected errand

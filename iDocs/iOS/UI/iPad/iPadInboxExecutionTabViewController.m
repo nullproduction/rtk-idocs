@@ -42,7 +42,10 @@
 	if ((self = [super initWithNibName:nil bundle:nil])) {
         
         [self setErrandTableView:placeholderPanel];
-         docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+        docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+        
+        openOrCloseParentErrandDict = [[NSMutableDictionary alloc] initWithCapacity:0];
+
 	}
 	return self;
 }
@@ -181,6 +184,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     iPadDocExecutionCell *cell = nil;
+//    NSLog(@"cellForRowAtIndexPath indexPath %i", indexPath.row);
     if (indexPath.row < [filteredErrands count]) {
         NSString *cellIdentifier = @"DocExecutionCell";
         iPadDocExecutionCell *cell = (iPadDocExecutionCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -221,6 +225,12 @@
         if([[childErrandDictionary objectForKey:errand.id] count] > 0)
         {
             [cell setErrandOpenTreeButtonActive:YES];
+            
+                OpenTreeButton *objectOTB = [cell getErrandOpenTreeButton];
+            
+            if( [openOrCloseParentErrandDict objectForKey:errand.number] ) {
+                [objectOTB setSelected:YES];
+            }
             [cell setErrandOpenTreeButtonActionWithTarget:self andAction:@selector(insertChildsToTree:)];
         }
         else
@@ -229,8 +239,8 @@
         }
         
         imageName = nil;
-//        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
-        NSArray *executors = [errand.executors allObjects];
+        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
+//        NSArray *executors = [errand.executors allObjects];
         if ([executors count] == 1 && [errand.status intValue] != constErrandStatusProject) {
             DocErrandExecutor *executor = [executors objectAtIndex:0];
             imageName = ([executor.isMajorExecutor boolValue] == YES) ? [iPadThemeBuildHelper nameForImage:@"executor_icon.png"] : nil;            
@@ -329,8 +339,6 @@
     
     NSIndexPath *OpenTreeButtonIndexPath = [sender getIndexPath];
     
-    NSLog(@"OTB indexPath row = %i",OpenTreeButtonIndexPath.row);
-    
     //get current erran whose button was pressed
     DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
     //loading child objects for selected errand
@@ -339,10 +347,10 @@
     NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
     NSMutableArray *arrayOfObjectsToRemove = [[NSMutableArray alloc] init];
     
-    for (int i = 0;i<objectsToInsert.count;i++)
+    for (int i = 0; i < objectsToInsert.count; ++i)
     {
         //calculate index for inserting/deleting object.
-        int newObjectIndex = i+OpenTreeButtonIndexPath.row+1;
+        int newObjectIndex = i + OpenTreeButtonIndexPath.row + 1;
         NSIndexPath *currentIndexPath = [NSIndexPath indexPathForRow:newObjectIndex inSection:OpenTreeButtonIndexPath.section];
         
         if(!sender.selected)
@@ -371,12 +379,29 @@
     
     [errandsTableView beginUpdates];
     
-    (!sender.selected) ? [errandsTableView insertRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade] : [errandsTableView deleteRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    if(!sender.selected)  {
+        [errandsTableView insertRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else {
+        [errandsTableView deleteRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
     
     [errandsTableView endUpdates];
     
     [sender setSelected:!sender.selected];
     
+//    DocErrand *errand_ = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
+    if( sender.selected ) {
+        [openOrCloseParentErrandDict setObject:@"1" forKey:errand.number];
+    }
+    else if( [openOrCloseParentErrandDict objectForKey:errand.number] ) {
+        [openOrCloseParentErrandDict removeObjectForKey:errand.number];
+    }
+    
+    for( int i = 0; i < [openOrCloseParentErrandDict count]; ++i ) {
+            NSLog(@" openOrCloseParentErrandDict %@ ", openOrCloseParentErrandDict);
+    }
+
     [arrayOfIndexPaths release];
 }
 

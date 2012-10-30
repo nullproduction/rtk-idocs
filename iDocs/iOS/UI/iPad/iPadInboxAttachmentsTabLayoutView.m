@@ -13,6 +13,50 @@
 #import "SupportFunctions.h"
 #import <QuartzCore/QuartzCore.h>
 
+
+@interface QLookPreviewController : QLPreviewController
+
+- (void)setSubviewsBackgroundColor:(UIView*)view;
+
+@end
+
+@implementation QLookPreviewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    //Find webview and set its subviews' background color to white
+    [[self.view subviews] enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
+        
+        [self setSubviewsBackgroundColor:view];
+        
+    }];
+}
+
+- (void)setSubviewsBackgroundColor:(UIView*)view{
+    
+    [[view subviews] enumerateObjectsUsingBlock:^(UIView* subview, NSUInteger idx, BOOL *stop) {
+        
+        if ([subview isKindOfClass:[UIWebView class]]) {
+            
+            [subview setBackgroundColor:[UIColor whiteColor]];
+            [[subview subviews] enumerateObjectsUsingBlock:^(UIView* view, NSUInteger idx, BOOL *stop) {
+                [view setBackgroundColor:[UIColor whiteColor]];
+            }];
+        }
+        else [self setSubviewsBackgroundColor:subview];
+    }];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor redColor];  // make the change for example
+}
+
+@end
+
+
 @interface iPadInboxAttachmentsTabLayoutView(PrivateMethods)
 - (BOOL)loadWebViewWithPage:(int)page;
 - (void)changePage1:(int)offsetPage;//new implementation
@@ -23,30 +67,32 @@
 @implementation iPadInboxAttachmentsTabLayoutView
 @synthesize docInteractionController, attachmentViewPlaceHolder, totalNumberOfPages, pageControl, attachmentScrollView;
 
-- (void)removeWebView {
-    if (currPage != nil) {
-        [currPage stopLoading];
-        currPage.delegate = nil;
-        [currPage removeFromSuperview];
-        [currPage release];
-    }    
+- (void)removeQLView {    
+    if (previewer != nil) {
+        [previewer setDataSource:nil];
+        [previewer.view removeFromSuperview];
+        [previewer release];
+    }
 }
 
-- (UIWebView *)emptyWebView {
-    [self removeWebView];
+- (QLookPreviewController *)emptyQLView {
+    [self removeQLView];
     
-    currPage = [[UIWebView alloc] initWithFrame:attachmentScrollView.bounds];
-    currPage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    currPage.mediaPlaybackRequiresUserAction = YES;
-    currPage.backgroundColor = [UIColor darkGrayColor];
-    currPage.scalesPageToFit = YES;
-    currPage.delegate = self;
-    currPage.alpha = 0;
-    currPage.contentScaleFactor = constViewScaleFactor;
+//    currPage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    currPage.mediaPlaybackRequiresUserAction = YES;
+//    currPage.scalesPageToFit = YES;
+//    currPage.alpha = 0;
     
-    [attachmentScrollView addSubview:currPage];
+    previewer = [[QLookPreviewController alloc] init];
+    previewer.view.frame = attachmentScrollView.bounds;
+//    previewer.view.backgroundColor = [UIColor darkGrayColor];
+    previewer.view.contentScaleFactor = constViewScaleFactor;
 
-    return currPage;
+    [previewer setDataSource:self];
+    [previewer setDelegate:self];
+    [attachmentScrollView addSubview:previewer.view];
+
+    return previewer;
 }
 
 - (id)init {
@@ -236,47 +282,49 @@
 }
 
 - (BOOL)loadWebViewWithPage:(int)page {
-    UIWebView *webView = [self emptyWebView];
-    webView.alpha = 0;
-    webView.frame = [self frameForPage:pageControl.currentPage];
-    NSArray *attachmentInfo = [delegate itemForPage:page];
-    NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
-    NSURL *attachmentUrl = [NSURL fileURLWithPath:attachmentPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL:attachmentUrl];
-    [webView loadRequest:request];
+//    UIWebView *webView = [self emptyWebView];
+//    webView.alpha = 0;
+//    webView.frame = [self frameForPage:pageControl.currentPage];
+//    NSArray *attachmentInfo = [delegate itemForPage:page];
+//    NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
+//    NSURL *attachmentUrl = [NSURL fileURLWithPath:attachmentPath];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:attachmentUrl];
+//    [webView loadRequest:request];
+//    NSLog(@"request %@ ", [request description]);
+//    return YES;
+
+
+    QLookPreviewController *controller = [self emptyQLView];
+    controller.view.frame = [self frameForPage:pageControl.currentPage];
+    controller.view.backgroundColor = [UIColor darkGrayColor];
+    controller.view.contentScaleFactor = constViewScaleFactor;
+
+    [controller setCurrentPreviewItemIndex:page];
     return YES;
 }
 
 
-- (void)webView:(UIWebView *)webView hidden:(BOOL)status animating:(BOOL)animating {
-	if (animating) {
-		webView.alpha = 0.0;
-		
-		[UIView beginAnimations:@"webViewVisibility" context:nil]; {
-			[UIView setAnimationDuration:0.1];
-			webView.alpha = 1.0;	
-		}
-		[UIView commitAnimations];		
-	} else {
-		webView.alpha = 1.0;
-	}
-    [delegate webViewDidFinishLoad:webView];
+#pragma mark Preview Controller
+
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
+	return totalNumberOfPages;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [delegate webView:webView didFailLoadWithError:error];
+- (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
+    NSArray *attachmentInfo = [delegate itemForPage:index];
+    NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
+    NSLog(@"attachmentPath %@ at index %i", attachmentPath, index);
+    
+	return [NSURL fileURLWithPath:attachmentPath];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {	
-    [self performSelector:@selector(revealWebView:) withObject:webView afterDelay:0.1]; 
-}
 
-- (void)revealWebView:(UIWebView *)webView { //wrapper-функция для вызова с задержкой из webViewDidFinishLoad
-	[self webView:webView hidden:NO animating:YES]; 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
 }
 
 - (void)dealloc {
-    [self removeWebView];
+    [self removeQLView];
     
 	self.attachmentViewPlaceHolder = nil;
     self.attachmentScrollView = nil;

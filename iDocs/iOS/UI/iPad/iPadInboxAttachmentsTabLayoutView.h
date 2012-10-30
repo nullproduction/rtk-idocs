@@ -10,13 +10,18 @@
 #import "BaseLayoutView.h"
 #import "HFSUIButton.h"
 #import "UIWebView+Block.h"
+#import <QuickLook/QuickLook.h>
+
 
 @protocol iPadInboxAttachmentsTabLayoutViewDelegate <NSObject>
 - (NSArray *)itemForPage:(int)page;
 @end
 
+@class QLookPreviewController;
+
+
 @interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView 
-<UIScrollViewDelegate, UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
+<UIScrollViewDelegate, UIWebViewDelegate, UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource,QLPreviewControllerDelegate> {
 	UIView *attachmentViewPlaceHolder;
     UIScrollView *attachmentScrollView;
     UIPageControl *pageControl;
@@ -32,6 +37,8 @@
     BOOL needsReset;  //при загрузке аттачментов нового документа - перезагружаем 0 страницу
     UIWebView *currPage;
     BOOL currentPageIsDelayingLoading;
+    
+    QLookPreviewController *previewer;
 }
 
 - (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate, UIWebViewDelegate>)newDelegate;

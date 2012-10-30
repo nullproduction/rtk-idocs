@@ -39,6 +39,7 @@
 
     DocDataEntity *docEntity;
     
+    NSMutableDictionary* openOrCloseParentErrandDict;
 }
 
 @property (nonatomic,retain) AttachmentsPisker *attPicker;

@@ -402,9 +402,9 @@
         [openOrCloseParentErrandDict removeObjectForKey:errand.number];
     }
     
-    for( int i = 0; i < [openOrCloseParentErrandDict count]; ++i ) {
-            NSLog(@" openOrCloseParentErrandDict %@ ", openOrCloseParentErrandDict);
-    }
+//    for( int i = 0; i < [openOrCloseParentErrandDict count]; ++i ) {
+//            NSLog(@" openOrCloseParentErrandDict %@ ", openOrCloseParentErrandDict);
+//    }
 
     [arrayOfIndexPaths release];
     [errand release];

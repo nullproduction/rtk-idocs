@@ -28,11 +28,6 @@
         [previewer release];
         previewer = nil;
     }
-    if(openInExtAppButton != nil) {
-        [openInExtAppButton removeFromSuperview];
-        [openInExtAppButton release];
-        openInExtAppButton = nil;
-    }
 }
 
 - (id)init {
@@ -45,6 +40,16 @@
         attachmentViewPlaceHolder.clipsToBounds = YES;
         [self addSubview:attachmentViewPlaceHolder];
         
+        QLView = [[UIView alloc] init];
+        QLView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        QLView.clipsToBounds = YES;
+        [attachmentViewPlaceHolder addSubview:QLView];
+
+        openInExtAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [openInExtAppButton setImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"open_in_external_app_button"]]
+                            forState:UIControlStateNormal];
+        [openInExtAppButton addTarget:self action:@selector(openInExtAppButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [attachmentViewPlaceHolder addSubview:openInExtAppButton];
     }
     return self;
 }
@@ -102,28 +107,14 @@
 
 - (void)setupPages:(int)numberOfPages {
     totalNumberOfPages = numberOfPages;
+    [self removeQLView];
     if( totalNumberOfPages ) {
-        if (nil != previewer || nil != openInExtAppButton) {
-            [self removeQLView];
-        }
-        
         previewer = [[QLPreviewController alloc] init];
-        previewer.view.frame = attachmentViewPlaceHolder.bounds;
+        previewer.view.frame = QLView.bounds;
         previewer.view.contentScaleFactor = constViewScaleFactor;
         [previewer setDataSource:self];
-        [attachmentViewPlaceHolder addSubview:previewer.view];
-        
-        openInExtAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [openInExtAppButton setImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"open_in_external_app_button"]]
-                            forState:UIControlStateNormal];
-        [openInExtAppButton addTarget:self action:@selector(openInExtAppButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [attachmentViewPlaceHolder addSubview:openInExtAppButton];
-        
+        [QLView addSubview:previewer.view];
         [previewer setCurrentPreviewItemIndex:0];
-        [self layoutSubviews];
-    }
-    else {
-        [self removeQLView];        
     }
 }
 
@@ -132,9 +123,10 @@
 	
 	CGRect attachmentViewPlaceHolderFrame = CGRectInset(self.bounds, 5, 5);
 	attachmentViewPlaceHolder.frame = attachmentViewPlaceHolderFrame;	
-    previewer.view.frame = attachmentViewPlaceHolder.bounds;
-        
-    openInExtAppButton.frame = CGRectMake(attachmentViewPlaceHolder.bounds.origin.x + attachmentViewPlaceHolder.bounds.size.width - 77, 
+
+    QLView.frame = attachmentViewPlaceHolder.bounds;
+    
+    openInExtAppButton.frame = CGRectMake(attachmentViewPlaceHolder.bounds.origin.x + attachmentViewPlaceHolder.bounds.size.width - 77,
                                attachmentViewPlaceHolder.bounds.origin.y + attachmentViewPlaceHolder.bounds.size.height - 38, 
                                26, 22);
 }
@@ -149,8 +141,7 @@
 - (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
     NSArray *attachmentInfo = [delegate itemForPage:index];
     NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
-//    NSLog(@"attachmentPath %@ at index %i", attachmentPath, index);
-    
+    NSLog(@"attachmentPath %@ at index %i", attachmentPath, index);
 	return [NSURL fileURLWithPath:attachmentPath];
 }
 

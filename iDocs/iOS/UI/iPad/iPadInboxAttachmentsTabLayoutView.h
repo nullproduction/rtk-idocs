@@ -21,6 +21,7 @@
 
 @interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource> {
 	UIView *attachmentViewPlaceHolder;
+	UIView *QLView;
     
     UIButton *openInExtAppButton;
     UIDocumentInteractionController *docInteractionController;

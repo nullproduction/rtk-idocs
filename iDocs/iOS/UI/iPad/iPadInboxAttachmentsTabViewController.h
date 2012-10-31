@@ -12,9 +12,8 @@
 #import "AttachmentTypeIconsDictionaryEntity.h"
 #import "iPadInboxAttachmentsTabLayoutView.h"
 
-@interface iPadInboxAttachmentsTabViewController : iPadBaseViewController <iPadInboxAttachmentsTabLayoutViewDelegate, UIWebViewDelegate> {
+@interface iPadInboxAttachmentsTabViewController : iPadBaseViewController <iPadInboxAttachmentsTabLayoutViewDelegate> {
 	iPadInboxAttachmentsTabLayoutView *container;
-	UIScrollView *attachmentListScrollView;
 	iPadAttachmentViewController *attachmentView;
 
 	NSArray *attachments;

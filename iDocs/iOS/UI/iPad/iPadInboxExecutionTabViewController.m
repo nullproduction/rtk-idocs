@@ -153,7 +153,7 @@
 		}
 	}
 	else {
-		filteredErrands = [errands mutableCopy];	
+		filteredErrands = [errands mutableCopy];
 	}
 	[errandsTableView reloadData];
 }
@@ -340,7 +340,7 @@
     NSIndexPath *OpenTreeButtonIndexPath = [sender getIndexPath];
     
     //get current erran whose button was pressed
-    DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
+    DocErrand *errand = [((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]) retain];
     //loading child objects for selected errand
     NSArray *objectsToInsert = [childErrandDictionary objectForKey:errand.id];
     //array of index path's for uitableview animation
@@ -378,7 +378,7 @@
     [filteredErrands removeObjectsInArray:arrayOfObjectsToRemove];
     
     [errandsTableView beginUpdates];
-    
+        
     if(!sender.selected)  {
         [errandsTableView insertRowsAtIndexPaths:arrayOfIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -403,6 +403,7 @@
     }
 
     [arrayOfIndexPaths release];
+    [errand release];
 }
 
 - (void)loadAttachmentWithReport:(ReportAttachment *)report andError:(NSString**)error

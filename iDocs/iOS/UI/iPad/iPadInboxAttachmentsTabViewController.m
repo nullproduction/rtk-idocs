@@ -14,8 +14,7 @@
 #import "UIWebView+Block.h"
 
 
-@interface iPadInboxAttachmentsTabViewController(PrivateMethods)
-- (void)layoutAttachmentListScrollView;
+@interface iPadInboxAttachmentsTabViewController (PrivateMethods)
 - (void)showAttachmentButtonPressed:(id)sender;
 @end
 
@@ -36,7 +35,9 @@
 	return self;
 }
 
+
 #pragma mark custom methods - load data
+
 - (void)loadTabData:(NSArray *)newAttachments {
 	NSLog(@"iPadInboxAttachmentsTab loadTabData");
     if (attachments != nil)
@@ -47,7 +48,9 @@
     [layout setupPages:[attachments count]];
 }
 
+
 #pragma mark iPadTaskAttachmentsTabLayoutViewDelegate methods
+
 - (NSArray *)itemForPage:(int)page {
     NSArray *itemInfo = nil;
     DocAttachment *attachment = nil;
@@ -62,22 +65,8 @@
 }
 
 
-#pragma mark UIWebView delegate methods
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType) navigationType {
-	[webView block];	
-    return YES;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[webView unlock];	
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {	
-	[webView unlock];	
-}
-
-
 #pragma mark other methods
+
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxAttachmentsTab didReceiveMemoryWarning");		
     // Releases the iPadSearchFilter if it doesn't have a superview.

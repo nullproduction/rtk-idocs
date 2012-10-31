@@ -7,46 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuickLook/QuickLook.h>
+#import <QuartzCore/QuartzCore.h>
 #import "BaseLayoutView.h"
 #import "HFSUIButton.h"
 #import "UIWebView+Block.h"
-#import <QuickLook/QuickLook.h>
 
 
 @protocol iPadInboxAttachmentsTabLayoutViewDelegate <NSObject>
 - (NSArray *)itemForPage:(int)page;
 @end
 
-@class QLookPreviewController;
 
-
-@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView 
-<UIScrollViewDelegate, UIWebViewDelegate, UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource,QLPreviewControllerDelegate> {
+@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource> {
 	UIView *attachmentViewPlaceHolder;
-    UIScrollView *attachmentScrollView;
-    UIPageControl *pageControl;
     
     UIButton *openInExtAppButton;
     UIDocumentInteractionController *docInteractionController;
     
     int totalNumberOfPages;
-    BOOL pageControlUsed;
     
-    id<iPadInboxAttachmentsTabLayoutViewDelegate, UIWebViewDelegate> delegate;
-    BOOL initialized; //layoutSubview уже был = YES, иначе - NO
-    BOOL needsReset;  //при загрузке аттачментов нового документа - перезагружаем 0 страницу
-    UIWebView *currPage;
-    BOOL currentPageIsDelayingLoading;
+    id<iPadInboxAttachmentsTabLayoutViewDelegate> delegate;
     
-    QLookPreviewController *previewer;
+    QLPreviewController *previewer;
 }
 
-- (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate, UIWebViewDelegate>)newDelegate;
+- (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate>)newDelegate;
 - (void)setupPages:(int)numberOfPages;
 
 @property(nonatomic, retain) UIView *attachmentViewPlaceHolder;
-@property(nonatomic, retain) UIPageControl *pageControl;
-@property(nonatomic, retain) UIScrollView *attachmentScrollView;
 @property(nonatomic, retain) UIDocumentInteractionController *docInteractionController;
 @property int totalNumberOfPages;
 

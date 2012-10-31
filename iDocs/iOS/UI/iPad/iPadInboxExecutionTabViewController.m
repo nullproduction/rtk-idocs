@@ -231,6 +231,10 @@
             if( [openOrCloseParentErrandDict objectForKey:errand.number] ) {
                 [objectOTB setSelected:YES];
             }
+            else
+            {
+                [objectOTB setSelected:NO];
+            }
             [cell setErrandOpenTreeButtonActionWithTarget:self andAction:@selector(insertChildsToTree:)];
         }
         else

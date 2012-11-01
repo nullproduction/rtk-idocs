@@ -235,7 +235,7 @@
     
     SMXMLElement *taskInfoSection = [returnPacket descendantWithPath:@"TaskInfoButton.Properties"];
     NSString *taskId = [[[taskInfoSection childWithAttribute:@"name" value:@"kpa_task:Задача"] childNamed:@"Value"] value];
-   for (SMXMLElement *dictionary in dictionaries) { 
+    for (SMXMLElement *dictionary in dictionaries) { 
         SMXMLElement *dictData = [dictionary childNamed:@"Properties"]; 
         NSString *dictId = [[[dictData childWithAttribute:@"name" value:@"column0"] childNamed:@"Value"] value];
         if ([taskId isEqualToString:dictId]) {

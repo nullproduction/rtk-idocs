@@ -394,7 +394,6 @@
     
     [sender setSelected:!sender.selected];
     
-//    DocErrand *errand_ = ((DocErrand *)[filteredErrands objectAtIndex:OpenTreeButtonIndexPath.row]);
     if( sender.selected ) {
         [openOrCloseParentErrandDict setObject:@"1" forKey:errand.number];
     }

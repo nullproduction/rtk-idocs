@@ -19,9 +19,18 @@
 @end
 
 
-@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource> {
+@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIScrollViewDelegate, UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource> {
 	UIView *attachmentViewPlaceHolder;
+    
+    UINavigationController* navController;
 	UIView *QLView;
+    BOOL onlyQL;
+    
+    UIScrollView* attachmentScrollView;
+    UIPageControl* pageControl;
+    BOOL initialized;
+    BOOL needsReset;
+    BOOL currentPageIsDelayingLoading;
     
     UIButton *openInExtAppButton;
     UIDocumentInteractionController *docInteractionController;
@@ -39,5 +48,10 @@
 @property(nonatomic, retain) UIView *attachmentViewPlaceHolder;
 @property(nonatomic, retain) UIDocumentInteractionController *docInteractionController;
 @property int totalNumberOfPages;
+
+@property(nonatomic, retain) UIPageControl *pageControl;
+@property(nonatomic, retain) UIScrollView *attachmentScrollView;
+
+@property(nonatomic, retain) UINavigationController* navController;
 
 @end

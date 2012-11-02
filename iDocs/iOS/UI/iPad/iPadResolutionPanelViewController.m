@@ -53,7 +53,7 @@
         [container.headerPanel addSubview:[container prepareHeaderCenterTitleWithCaption:NSLocalizedString(newTitle, nil)
                                                                             captionColor:titleColor
                                                                            captionShadow:shadowColor]];
-	}
+	}    
 }
 
 #pragma mark other methods

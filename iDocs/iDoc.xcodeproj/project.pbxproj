@@ -3078,7 +3078,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Olga Geets (PZXB4V7ES7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rostelecom";
 				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -3090,7 +3090,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_TITLE = "Mobile Office";
-				PROVISIONING_PROFILE = "A94B7E00-E7CB-41A6-95A9-5E3DBF8BC5C4";
+				PROVISIONING_PROFILE = "CA8F1446-B9BB-48F3-84D1-8D6E426C63BD";
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -3104,7 +3104,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Olga Geets (PZXB4V7ES7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rostelecom";
 				DEAD_CODE_STRIPPING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -3115,7 +3115,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_TITLE = "Mobile Office";
-				PROVISIONING_PROFILE = "A94B7E00-E7CB-41A6-95A9-5E3DBF8BC5C4";
+				PROVISIONING_PROFILE = "CA8F1446-B9BB-48F3-84D1-8D6E426C63BD";
 				SDKROOT = iphoneos;
 				SEPARATE_STRIP = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -3129,7 +3129,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Olga Geets (PZXB4V7ES7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3145,7 +3145,7 @@
 				INFOPLIST_FILE = iOS/DEFAULT_Info_iDoc.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = iDoc;
-				PROVISIONING_PROFILE = "A94B7E00-E7CB-41A6-95A9-5E3DBF8BC5C4";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3153,7 +3153,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Olga Geets (PZXB4V7ES7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3167,7 +3167,7 @@
 				INFOPLIST_FILE = iOS/DEFAULT_Info_iDoc.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = iDoc;
-				PROVISIONING_PROFILE = "A94B7E00-E7CB-41A6-95A9-5E3DBF8BC5C4";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

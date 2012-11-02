@@ -218,6 +218,7 @@
                 imageName = nil;
                 break;
         }
+        
         [cell setErrandStatusImage:imageName];
         [cell setErrandNumber:errand.number];
         [cell setErrandAuthorName:errand.authorName];
@@ -226,7 +227,7 @@
         {
             [cell setErrandOpenTreeButtonActive:YES];
             
-                OpenTreeButton *objectOTB = [cell getErrandOpenTreeButton];
+            OpenTreeButton *objectOTB = [cell getErrandOpenTreeButton];
             
             if( [openOrCloseParentErrandDict objectForKey:errand.number] ) {
                 [objectOTB setSelected:YES];

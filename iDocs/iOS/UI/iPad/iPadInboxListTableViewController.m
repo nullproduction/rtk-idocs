@@ -180,6 +180,8 @@
     
     TaskDataEntity *taskEntity = [[TaskDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
 	if (searchString.length == 0) {
+//        if( nil != items )
+//           [items release];
         items = [[taskEntity selectTasksInDashboardItemWithId:itemsGroupId sortByFields:sortArray] mutableCopy];
 	}
 	else if (searchString.length > 0) {

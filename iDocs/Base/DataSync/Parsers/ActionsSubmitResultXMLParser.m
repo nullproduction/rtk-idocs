@@ -28,8 +28,8 @@
 
 - (NSArray *)parseActionsSubmitResult:(NSData *)data error:(NSError **)parseError {
     NSLog(@"ActionsSubmitResultXMLParser parseActionsSubmitResult");
-    
-    results = [[NSMutableArray alloc] initWithCapacity:0];
+    if (results == nil)    
+        results = [[NSMutableArray alloc] initWithCapacity:0];
     
     self.parserPool = [[NSAutoreleasePool alloc] init];
     

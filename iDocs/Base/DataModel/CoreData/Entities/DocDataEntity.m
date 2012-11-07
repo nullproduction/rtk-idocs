@@ -7,11 +7,6 @@
 //
 
 #import "DocDataEntity.h"
-#import "NSManagedObjectContext+CustomFetch.h"
-#import "Constants.h"
-#import "Task.h"
-#import "DocErrand.h"
-#import "NSManagedObject+Clone.h"
 
 
 #pragma mark Errand sorting
@@ -64,6 +59,27 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
     return sorting;
 }
 
+
+#pragma mark DocAttachment sorting
+
+NSInteger sortDocAttachBySystemLoaded(id docAttach1, id docAttach2, void *context);
+NSInteger sortDocAttachBySize(id docAttach1, id docAttach2, void *context);
+
+NSInteger sortDocAttachBySystemLoaded(id docAttach1, id docAttach2, void *context) {
+    
+    NSNumber* docAttach1Load = ((DocAttachment *)docAttach1).systemLoaded;
+    NSNumber* docAttach2Load = ((DocAttachment *)docAttach2).systemLoaded;
+            
+    return [docAttach2Load compare:docAttach1Load];
+}
+
+NSInteger sortDocAttachBySize(id docAttach1, id docAttach2, void *context) {
+    
+    NSNumber* docAttach1Size = ((DocAttachment *)docAttach1).size;
+    NSNumber* docAttach2Size = ((DocAttachment *)docAttach2).size;
+    
+    return [docAttach2Size compare:docAttach1Size];
+}
 
 
 @implementation DocDataEntity
@@ -267,6 +283,14 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
     }	
 }
 
+- (NSArray *)sortDocAttachments:(NSArray *)docAttachments {
+    NSArray *sortedBySize = [docAttachments sortedArrayUsingFunction:sortDocAttachBySize context:NULL];
+    NSArray *sorted = [sortedBySize sortedArrayUsingFunction:sortDocAttachBySystemLoaded context:NULL];
+    return sorted;
+    
+}
+
+
 #pragma mark report attachments
 
 - (ReportAttachment *) createReportAttachment
@@ -282,7 +306,7 @@ NSInteger sortDocErrandsByErrandNumber(id errand1, id errand2, void *context) {
 
 - (NSDictionary*) selectErrandAttachmentsWithDocId:(NSString *)docId
 {
-    NSMutableDictionary *attachmentDictionary = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *attachmentDictionary = [NSMutableDictionary dictionary];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"doc.id = %@",docId];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"systemSortIndex" ascending:YES];

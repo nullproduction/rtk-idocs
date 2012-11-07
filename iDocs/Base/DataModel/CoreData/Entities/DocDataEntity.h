@@ -10,7 +10,13 @@
 #import "Doc.h"
 #import "DocErrandExecutor.h"
 #import "DocErrandAction.h"
+#import "DocErrand.h"
+#import "DocAttachment.h"
 #import "ReportAttachment.h"
+#import "Task.h"
+#import "Constants.h"
+#import "NSManagedObject+Clone.h"
+#import "NSManagedObjectContext+CustomFetch.h"
 
 #define constDocEntity @"Doc"
 #define constDocAttachmentEntity @"DocAttachment"
@@ -54,6 +60,7 @@
 - (NSArray *)selectAttachmentsToLoad;
 - (NSArray *)selectAttachmentsToDelete;
 - (NSArray *)selectAttachmentsForDocWithId:(NSString *)docId;
+- (NSArray *)sortDocAttachments:(NSArray *)docAttachments;
 - (DocAttachment *)selectAttachmentWithId:(NSString *)attachmentId inDocWithId:(NSString *)docId;
 - (void)deleteAttachmentsForDocWithId:(NSString *)docId;
 

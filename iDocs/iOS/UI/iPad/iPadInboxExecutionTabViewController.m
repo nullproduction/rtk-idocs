@@ -43,9 +43,6 @@
         
         [self setErrandTableView:placeholderPanel];
         docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
-        
-        openOrCloseParentErrandDict = [[NSMutableDictionary alloc] initWithCapacity:0];
-
 	}
 	return self;
 }
@@ -54,6 +51,12 @@
 {
     if (errandsTableView != nil)
         [errandsTableView release];
+    
+    if( nil != openOrCloseParentErrandDict )
+        [openOrCloseParentErrandDict removeAllObjects];
+    else {
+        openOrCloseParentErrandDict = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
     
     iPadInboxExecutionTabLayoutView *container = [[iPadInboxExecutionTabLayoutView alloc] init];
     container.frame = placeholderPanel.bounds;
@@ -85,6 +88,9 @@
     if (errands != nil)
         [errands release];
     errands = [newErrands copy];
+    
+    NSLog(@"");
+    
     ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton.enabled = ([errands count] > 0) ? YES : NO;
     HFSUIButton *tableFilterButton = ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton;
 	[tableFilterButton setSelected:YES];
@@ -106,7 +112,6 @@
 - (void)loadErrandAttachmentsWithDocId:(NSString*)docId
 {
     errandAttachments = [docEntity selectErrandAttachmentsWithDocId:docId];
-    
     [errandAttachments retain];
 }
 
@@ -153,6 +158,8 @@
 		}
 	}
 	else {
+        if (filteredErrands != nil)
+            [filteredErrands release];
 		filteredErrands = [errands mutableCopy];
 	}
 	[errandsTableView reloadData];
@@ -406,6 +413,8 @@
 //    }
 
     [arrayOfIndexPaths release];
+    [arrayOfObjectsToRemove release];
+    
     [errand release];
 }
 
@@ -472,14 +481,20 @@
 
 
 - (void)dealloc {
-    [docEntity release];
-	[errands release];
-    [childErrandDictionary release];
-	[filteredErrands release];
 	[errandsTableView release];
+
+	[errands release];
+	[filteredErrands release];
+
+    [childErrandDictionary release];
     [errandAttachments release];
+
+    [docEntity release];
+    [openOrCloseParentErrandDict release];
+    
     self.attPicker = nil;
     self.popController = nil;
-	[super dealloc];
+	
+    [super dealloc];
 }
 @end

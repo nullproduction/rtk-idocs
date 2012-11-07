@@ -14,9 +14,27 @@
 #import "SupportFunctions.h"
 #import "iPadBaseLayoutView.h"
 
+
+@implementation QLookPreviewController
+
+- (id <QLPreviewItem>)currentPreviewItem {
+    if( delegateQL != nil && [delegateQL respondsToSelector:@selector(setStateForPage:)] ) {
+        [delegateQL setStateForPage:[self currentPreviewItemIndex]];
+    }
+    return [super currentPreviewItem];
+}
+
+- (void)setDelegateQL:(id<QLookPreviewControllerDelegate>)_delegate {
+    delegateQL = _delegate;
+}
+
+@end
+
+
 @interface iPadInboxAttachmentsTabLayoutView (PrivateMethods)
 - (void)setupDocumentControllerWithURL:(NSURL *)url andName:(NSString *)name;
 - (void)changePageWithZeroOffset;
+- (void)setViewForPage:(int)page;
 @end
 
 @implementation iPadInboxAttachmentsTabLayoutView
@@ -31,6 +49,13 @@
         [previewer.view removeFromSuperview];
         [previewer release];
         previewer = nil;        
+    }
+    if (viewer != nil) {
+        [viewer setDataSource:nil];
+        [viewer setDelegateQL:nil];
+        [viewer.view removeFromSuperview];
+        [viewer release];
+        viewer = nil;
     }
     if( navController != nil ) {
         [navController.view removeFromSuperview];
@@ -95,6 +120,18 @@
             onlyQL = YES;
         }
         
+		attachmentInfoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		attachmentInfoLabel.hidden = YES;
+		attachmentInfoLabel.opaque = YES;
+		attachmentInfoLabel.enabled = YES;
+		attachmentInfoLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		attachmentInfoLabel.font = [UIFont systemFontOfSize:constXLargeFontSize];
+		attachmentInfoLabel.textAlignment = UITextAlignmentCenter;
+		attachmentInfoLabel.backgroundColor = [UIColor clearColor];
+		attachmentInfoLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        attachmentInfoLabel.text = nil;
+        [attachmentViewPlaceHolder addSubview:attachmentInfoLabel];
+        
         openInExtAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [openInExtAppButton setImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"open_in_external_app_button"]]
                             forState:UIControlStateNormal];
@@ -109,6 +146,7 @@
 - (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate>)newDelegate {
     delegate = newDelegate;
 }
+
 
 - (void)setupDocumentControllerWithURL:(NSURL *)url andName:(NSString *)name {
     if (self.docInteractionController == nil) {
@@ -125,7 +163,7 @@
 - (void)openInExtAppButtonPressed {
     NSArray *attachmentInfo = nil;
     if( onlyQL ) {
-        attachmentInfo = [delegate itemForPage:previewer.currentPreviewItemIndex];
+        attachmentInfo = [delegate itemForPage:viewer.currentPreviewItemIndex];
     }
     else {
         attachmentInfo = [delegate itemForPage:pageControl.currentPage];
@@ -166,12 +204,15 @@
     
     if( totalNumberOfPages ) {
         if( onlyQL ) {
-            previewer = [[QLPreviewController alloc] init];
-            previewer.view.frame = QLView.bounds;
-            previewer.view.contentScaleFactor = constViewScaleFactor;
-            [previewer setDataSource:self];
-                    
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:previewer];
+            viewer = [[QLookPreviewController alloc] init];
+            viewer.view.frame = QLView.bounds;
+            viewer.view.contentScaleFactor = constViewScaleFactor;
+            [viewer setDataSource:self];
+            [viewer setDelegate:self];
+            [viewer setDelegateQL:self];
+            [viewer reloadData];
+            
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewer];
             self.navController = navigationController;
             [navigationController release];
             navController.view.frame = QLView.bounds;
@@ -179,6 +220,8 @@
             navController.navigationBar.hidden = YES;
             
             [QLView addSubview:navController.view];
+            
+            openInExtAppButton.hidden = NO;
         }
         else {
             pageControl.numberOfPages = totalNumberOfPages;
@@ -191,8 +234,6 @@
             }
             [self changePageWithZeroOffset];
         }
-        
-        openInExtAppButton.hidden = NO;
     }
     else {
         openInExtAppButton.hidden = YES;
@@ -208,6 +249,11 @@
 	
 	CGRect attachmentViewPlaceHolderFrame = self.bounds;
 	attachmentViewPlaceHolder.frame = attachmentViewPlaceHolderFrame;
+
+    
+    attachmentInfoLabel.frame = CGRectMake(attachmentViewPlaceHolder.bounds.origin.x + 100,
+                                           attachmentViewPlaceHolder.bounds.origin.y + 50,
+                                           attachmentViewPlaceHolder.bounds.size.width - 200, 40);
 
     openInExtAppButton.frame = CGRectMake(attachmentViewPlaceHolder.bounds.origin.x + 50,
                                attachmentViewPlaceHolder.bounds.origin.y + attachmentViewPlaceHolder.bounds.size.height - 38, 
@@ -236,15 +282,14 @@
 #pragma mark Preview Controller
 
 - (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
-//    NSLog(@"numberOfPreviewItemsInPreviewController %i", totalNumberOfPages);
 	return totalNumberOfPages;
 }
 
 - (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
     NSArray *attachmentInfo = [delegate itemForPage:index];
     NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
-//    NSLog(@"previewController attachmentPath %@ at index %i", attachmentPath, index);
-	return [NSURL fileURLWithPath:attachmentPath];
+    
+    return [NSURL fileURLWithPath:attachmentPath];
 }
 
 
@@ -291,9 +336,31 @@
     QLPreviewController *controller = [self emptyQLView];
     controller.view.frame = [self frameForPage:pageControl.currentPage];
     [controller setCurrentPreviewItemIndex:page];
+    
+    [self setViewForPage:page];
+    
     return YES;
 }
 
+
+- (void)setViewForPage:(int)page {
+    NSArray *attachmentInfo = [delegate itemForPage:page];
+    NSString* isLoaded = [attachmentInfo objectAtIndex:2];
+    if( [isLoaded isEqualToString:@"1"] ) {
+        attachmentInfoLabel.hidden = YES;
+        openInExtAppButton.hidden = NO;
+    }
+    else {
+        attachmentInfoLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"AttachmentsNotLoadedMessage", nil), [attachmentInfo objectAtIndex:0]];
+        attachmentInfoLabel.hidden = NO;
+        openInExtAppButton.hidden = YES;
+    }
+}
+
+
+- (void)setStateForPage:(int)page {
+    [self setViewForPage:page];
+}
 
 - (void)dealloc {
     [self removeQLView];

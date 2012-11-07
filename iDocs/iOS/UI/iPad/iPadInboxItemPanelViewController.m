@@ -135,7 +135,9 @@
 - (void)attachmentsButtonPressed {
 	NSLog(@"iPadInboxItemPanel attachmentsButtonPressed");
     DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
-	[attachmentsTab loadTabData:[docEntity selectAttachmentsForDocWithId:self.loadedItem.doc.id]];
+    NSArray* attachments = [docEntity selectAttachmentsForDocWithId:self.loadedItem.doc.id];
+    NSArray* sortedAttachments = [docEntity sortDocAttachments:attachments];
+	[attachmentsTab loadTabData:sortedAttachments];
 	[self hideTabs];
 	[self deselectButtons];
 	attachmentsTab.view.hidden = NO;
@@ -158,12 +160,12 @@
 	NSLog(@"iPadInboxItemPanel executionButtonPressed");
     DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
     NSString *currentErrandId = self.loadedItem.systemCurrentErrandId;
+    [executionTab setErrandTableView:body];
 	[executionTab loadTabDataWithErrands:[docEntity selectErrandsForDocWithId:self.loadedItem.doc.id] andCurrentErrandId:currentErrandId];
     [executionTab loadChildErrands:[docEntity selectChildErrandsForDocWithId:self.loadedItem.doc.id]];
 
     [executionTab loadErrandAttachmentsWithDocId:self.loadedItem.doc.id];
     
-    [executionTab setErrandTableView:body];
     
 	[self hideTabs];
 	[self deselectButtons];	
@@ -181,10 +183,13 @@
 - (void)requisitesButtonPressed {
 	NSLog(@"iPadInboxItemPanel requisitesButtonPressed");
     DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+    NSArray* attachments = [docEntity selectAttachmentsForDocWithId:self.loadedItem.doc.id];
+    NSArray* sortedAttachments = [docEntity sortDocAttachments:attachments];
+    
     [requisitesTab loadTabDataWithExecutorName:self.loadedItem.doc.ownerName 
                                 docDescription:self.loadedItem.doc.desc 
                                     requisites:[docEntity selectRequisitesForDocWithId:self.loadedItem.doc.id]
-                                andAttachments:[docEntity selectAttachmentsForDocWithId:self.loadedItem.doc.id]];
+                                andAttachments:sortedAttachments];
 	[self hideTabs];
 	[self deselectButtons];	
 	requisitesTab.view.hidden = NO;

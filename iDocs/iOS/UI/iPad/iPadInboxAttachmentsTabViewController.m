@@ -40,10 +40,19 @@
 
 - (void)loadTabData:(NSArray *)newAttachments {
 	NSLog(@"iPadInboxAttachmentsTab loadTabData");
+
+    NSMutableArray* attachWithoutEmptyFiles = [NSMutableArray arrayWithArray:newAttachments];
+    
+    for( DocAttachment *attachment in newAttachments ) {
+        if( 0 == [attachment.systemLoaded intValue] || [attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+            [attachWithoutEmptyFiles removeObject:attachment];
+        }
+    }
+        
     if (attachments != nil)
         [attachments release];
-	attachments = [newAttachments copy];
-    
+    attachments = [attachWithoutEmptyFiles copy];
+
     iPadInboxAttachmentsTabLayoutView *layout = (iPadInboxAttachmentsTabLayoutView *)self.view;
     [layout setupPages:[attachments count]];
 }
@@ -56,10 +65,10 @@
     DocAttachment *attachment = nil;
     if ([attachments count] && page < [attachments count]) {
         attachment = [attachments objectAtIndex:page];
-        itemInfo = [NSArray arrayWithObjects:attachment.name, attachment.fileName, nil];
+        itemInfo = [NSArray arrayWithObjects:attachment.name, attachment.fileName, [NSString stringWithFormat:@"%i", [attachment.systemLoaded intValue]], nil];
     }
     else {
-        itemInfo = [NSArray arrayWithObjects:constEmptyStringValue, constEmptyStringValue, nil];
+        itemInfo = [NSArray arrayWithObjects:constEmptyStringValue, constEmptyStringValue, constEmptyStringValue, nil];
     }
     return itemInfo;
 }
@@ -69,9 +78,7 @@
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxAttachmentsTab didReceiveMemoryWarning");		
-    // Releases the iPadSearchFilter if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc. that aren't in use.
 }
 
 - (void)dealloc {

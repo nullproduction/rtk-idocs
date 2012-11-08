@@ -20,6 +20,9 @@
 @end
 
 @interface iPadResolutionReportsListViewController : iPadBaseViewController <UITableViewDelegate, UITableViewDataSource> {
+    UIButton *addButton;
+    UIButton *backButton;
+    
     UITableView* reportsListTable;
     NSMutableDictionary* reports;
     NSMutableArray* selectedReports;

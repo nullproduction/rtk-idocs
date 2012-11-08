@@ -15,21 +15,17 @@
 	UIView *headerPanel;
 	UIView *bodyPanel;
 	UIView *footerPanel;
-	UIView *bottomBarPanel;
 
 	BOOL showHeader;	
 	BOOL showFooter;
-	BOOL showBottomBarPanel;
 }
 
 @property (nonatomic, retain) UIView *headerPanel;
 @property (nonatomic, retain) UIView *bodyPanel;
 @property (nonatomic, retain) UIView *footerPanel;
-@property (nonatomic, retain) UIView *bottomBarPanel;
 
 @property () BOOL showHeader;
 @property () BOOL showFooter;
-@property () BOOL showBottomBarPanel;
 
 - (id)init;
 - (HFSUIButton *)prepareHeaderLeftButtonWithCaption:(NSString *)caption 

@@ -16,9 +16,6 @@
 
 @synthesize reports;
 
-- (UIColor *)backgroundColor {
-    return [UIColor colorWithPatternImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"modal_popup_background_body_panel.png"]]];
-}
 
 - (id)initWithFrame:(CGRect)frame {
     NSLog(@"ResolutionReportsList initWithFrame");
@@ -37,18 +34,20 @@
         UIColor *buttonColor = [iPadThemeBuildHelper commonButtonFontColor2];
         UIColor *shadowColor = [iPadThemeBuildHelper commonShadowColor2];
         
-        UIButton *backButton = [container prepareHeaderLeftButtonWithCaption:NSLocalizedString(@"BackButtonTitle",nil)
+        backButton = [container prepareHeaderLeftButtonWithCaption:NSLocalizedString(@"BackButtonTitle",nil)
                                                                 captionColor:buttonColor
                                                                captionShadow:shadowColor
                                                                   imageOrNil:nil];
         [backButton addTarget:self action:@selector(navigateBack) forControlEvents:UIControlEventTouchUpInside];
         [container.headerPanel addSubview:backButton];
                 
-        UIButton *addButton = [container prepareHeaderRightButtonWithCaption:NSLocalizedString(@"AddButtonTitle",nil)
+        addButton = [container prepareHeaderRightButtonWithCaption:NSLocalizedString(@"AddButtonTitle",nil)
                                                                 captionColor:buttonColor
                                                                captionShadow:shadowColor
                                                                   imageOrNil:nil];
         [addButton addTarget:self action:@selector(navigateAddAndBack) forControlEvents:UIControlEventTouchUpInside];
+        addButton.enabled = NO;
+        addButton.alpha = 0.5;
         [container.headerPanel addSubview:addButton];
         
 		reportsListTable = [[UITableView alloc] initWithFrame:resolutionReportsTableFrame style:UITableViewStylePlain];
@@ -93,6 +92,10 @@
         selectedReports = nil;
     }
     selectedReports = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    addButton.enabled = NO;
+    addButton.alpha = 0.5;
+    
     [reportsListTable reloadData];
 }
 
@@ -231,6 +234,16 @@
     }
     else {
         [selectedReports removeObject:[[self.reports allKeys] objectAtIndex:indexPath.row]];
+    }
+    
+    if( ![selectedReports count] ) {
+        addButton.enabled = NO;
+        addButton.alpha = 0.5;
+    }
+    else {
+        addButton.enabled = YES;
+        addButton.alpha = 1.0;
+        
     }
 }
 

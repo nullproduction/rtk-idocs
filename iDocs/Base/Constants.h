@@ -271,6 +271,8 @@
 #define constCornerRadius 5.0f
 #define constViewScaleFactor 3.0f
 
+#define constSectionHeight 35.0f
+
 //app ui ids
 #pragma mark app ui ids
 #define constActivityIndicatorView 1000

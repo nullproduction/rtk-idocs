@@ -10,13 +10,7 @@
 #import "Doc.h"
 #import "DocErrandExecutor.h"
 #import "DocErrandAction.h"
-#import "DocErrand.h"
-#import "DocAttachment.h"
 #import "ReportAttachment.h"
-#import "Task.h"
-#import "Constants.h"
-#import "NSManagedObject+Clone.h"
-#import "NSManagedObjectContext+CustomFetch.h"
 
 #define constDocEntity @"Doc"
 #define constDocAttachmentEntity @"DocAttachment"

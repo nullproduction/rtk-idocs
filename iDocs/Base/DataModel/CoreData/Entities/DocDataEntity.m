@@ -7,6 +7,12 @@
 //
 
 #import "DocDataEntity.h"
+#import "NSManagedObjectContext+CustomFetch.h"
+#import "Constants.h"
+#import "Task.h"
+#import "DocErrand.h"
+#import "DocAttachment.h"
+#import "NSManagedObject+Clone.h"
 
 
 #pragma mark Errand sorting
@@ -80,7 +86,6 @@ NSInteger sortDocAttachBySize(id docAttach1, id docAttach2, void *context) {
     
     return [docAttach2Size compare:docAttach1Size];
 }
-
 
 @implementation DocDataEntity
 

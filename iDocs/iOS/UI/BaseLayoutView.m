@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "iPadThemeBuildHelper.h"
 
-@interface BaseLayoutView(PrivateMethods)
+@interface BaseLayoutView (PrivateMethods)
 - (CGRect)convertRect:(CGRect)rect;
 @end
 

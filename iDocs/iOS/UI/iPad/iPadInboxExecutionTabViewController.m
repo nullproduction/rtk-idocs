@@ -88,9 +88,6 @@
     if (errands != nil)
         [errands release];
     errands = [newErrands copy];
-    
-    NSLog(@"");
-    
     ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton.enabled = ([errands count] > 0) ? YES : NO;
     HFSUIButton *tableFilterButton = ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton;
 	[tableFilterButton setSelected:YES];

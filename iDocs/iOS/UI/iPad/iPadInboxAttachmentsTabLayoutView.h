@@ -15,11 +15,31 @@
 
 
 @protocol iPadInboxAttachmentsTabLayoutViewDelegate <NSObject>
+
 - (NSArray *)itemForPage:(int)page;
+
+@end
+
+@protocol QLookPreviewControllerDelegate <NSObject>
+
+- (void)setStateForPage:(int)page;
+
+@end
+
+@interface QLookPreviewController : QLPreviewController {
+
+    id<QLookPreviewControllerDelegate> delegateQL;
+    
+}
+
+- (void)setDelegateQL:(id<QLookPreviewControllerDelegate>)_delegate;
+
 @end
 
 
-@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIScrollViewDelegate, UIDocumentInteractionControllerDelegate,  QLPreviewControllerDataSource> {
+@interface iPadInboxAttachmentsTabLayoutView : BaseLayoutView <UIScrollViewDelegate, UIDocumentInteractionControllerDelegate,
+    QLPreviewControllerDataSource, QLPreviewControllerDelegate, QLookPreviewControllerDelegate> {
+        
 	UIView *attachmentViewPlaceHolder;
     
     UINavigationController* navController;
@@ -30,8 +50,8 @@
     UIPageControl* pageControl;
     BOOL initialized;
     BOOL needsReset;
-    BOOL currentPageIsDelayingLoading;
-    
+
+    UILabel *attachmentInfoLabel;
     UIButton *openInExtAppButton;
     UIDocumentInteractionController *docInteractionController;
     
@@ -40,9 +60,11 @@
     id<iPadInboxAttachmentsTabLayoutViewDelegate> delegate;
     
     QLPreviewController *previewer;
+    QLookPreviewController *viewer;
 }
 
 - (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate>)newDelegate;
+
 - (void)setupPages:(int)numberOfPages;
 
 @property(nonatomic, retain) UIView *attachmentViewPlaceHolder;

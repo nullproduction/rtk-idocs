@@ -100,6 +100,23 @@
 	[super setSelected:selected animated:animated];
 }
 
+- (void)setAvailable:(BOOL)access {
+    if( access ) {
+        attachmentIdLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+        attachmentFileNameLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+        
+		attachmentNameLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		attachmentSizeLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+    }
+    else {
+        attachmentIdLabel.textColor = [iPadThemeBuildHelper commonSeparatorColor];
+        attachmentFileNameLabel.textColor = [iPadThemeBuildHelper commonSeparatorColor];
+
+		attachmentNameLabel.textColor = [iPadThemeBuildHelper commonSeparatorColor];
+		attachmentSizeLabel.textColor = [iPadThemeBuildHelper commonSeparatorColor];        
+    }
+}
+
 - (void)dealloc {
 	[attachmentIdLabel release];	
 	[attachmentNameLabel release];

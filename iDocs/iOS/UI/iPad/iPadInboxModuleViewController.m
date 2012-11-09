@@ -489,6 +489,7 @@
 	
 	[container toggleModalPanelOnOFF:YES];
     [errands release];
+    [docEntity release];
 }
 
 - (void)resolutionViewCloseButtonPressed {
@@ -515,6 +516,7 @@
                 }
             }
         }
+        [docEntity release];
     }
     [resolutionPanel.resolutionViewController showReportsList:reports];
     [reports release];

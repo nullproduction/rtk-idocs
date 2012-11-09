@@ -148,14 +148,29 @@
             [cell setBackgroundStyleForRow:indexPath.row];
     
             DocAttachment *attachment = (DocAttachment *)[attachments objectAtIndex:indexPath.row];
+            
             [cell setAttachmentId:attachment.id];
+            
+            NSString* fileName = attachment.name;
+            
+            if( 0 == [attachment.systemLoaded intValue] || [attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] ) {
+                if( ![attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] )
+                    fileName = [fileName stringByAppendingString:[NSString stringWithFormat:@" (%@)", NSLocalizedString(@"AttachmentsNotLoadedMessage", nil)]];
+                
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                [cell setAvailable:NO];
+            }
+            else {
+                [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+                [cell setAvailable:YES];
+            }
+            
             [cell setAttachmentFileName:attachment.fileName];
-            [cell setAttachmentName:attachment.name];
+            [cell setAttachmentName:fileName];
             NSString *attachmentSize = [attachment.size stringValue];
             attachmentSize = (attachmentSize != nil) ? [SupportFunctions formatAttachmentContentSize:attachmentSize] : constEmptyStringValue;	
             [cell setAttachmentSize:attachmentSize];
             [cell setDelegate:self];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         }
         else {
             NSString *cellIdentifier = @"SupportCell";
@@ -170,7 +185,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"iPadTaskRequisitesTab didSelectRowAtIndexPath indexPath.row: %i", indexPath.row);
-	if ((!hasRequisites || indexPath.section != 0) && ([attachments count] > indexPath.row)) {
+    DocAttachment *attachment = (DocAttachment *)[attachments objectAtIndex:indexPath.row];
+//    NSLog(@"[attachment.systemLoaded intValue] %i", [attachment.systemLoaded intValue]);
+	if( ![attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] && 1 == [attachment.systemLoaded intValue] && (!hasRequisites || indexPath.section != 0) && ([attachments count] > indexPath.row) ) {
         iPadDocAttachmentCell *taskAttachmentCell = (iPadDocAttachmentCell *) [tableView cellForRowAtIndexPath:indexPath];
         [taskAttachmentCell setSelection:nil];
         [tableView deselectRowAtIndexPath:indexPath animated:NO];

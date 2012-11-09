@@ -28,7 +28,7 @@
 - (void)setAttachmentFileName:(NSString *)attachmentFileName;
 - (void)setAttachmentName:(NSString *)attachmentName;
 - (void)setAttachmentSize:(NSString *)attachmentSize;
-
+- (void)setAvailable:(BOOL)access;
 - (void)addCellIcon;
 
 @end

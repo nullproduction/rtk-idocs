@@ -54,6 +54,7 @@
 - (NSArray *)selectAttachmentsToLoad;
 - (NSArray *)selectAttachmentsToDelete;
 - (NSArray *)selectAttachmentsForDocWithId:(NSString *)docId;
+- (NSArray *)sortDocAttachments:(NSArray *)docAttachments;
 - (DocAttachment *)selectAttachmentWithId:(NSString *)attachmentId inDocWithId:(NSString *)docId;
 - (void)deleteAttachmentsForDocWithId:(NSString *)docId;
 

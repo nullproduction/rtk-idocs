@@ -12,7 +12,6 @@
 #import "iPadThemeBuildHelper.h"
 #import "TaskAction.h"
 
-#define constSectionHeight 35.0f
 
 @interface iPadTaskActionListViewController(PrivateMethods)
 - (UIColor *)backgroundColor;

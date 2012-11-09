@@ -12,7 +12,6 @@
 #import "iPadThemeBuildHelper.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
-#define constSectionHeight 35.0f
 
 @interface iPadDocActionListViewController(PrivateMethods)
 - (UIColor *)backgroundColor;

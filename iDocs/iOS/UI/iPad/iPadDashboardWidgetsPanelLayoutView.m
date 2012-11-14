@@ -138,7 +138,7 @@
         [widget enableWidget:YES];
         
         DashboardItem *item = ((DashboardItem *)[dashboardItems objectAtIndex:i]);
-        
+        NSLog(@"item type %@", item.type);    
         if([item.type isEqualToString:constWidgetTypeWebDavFolder] ||
            [item.type isEqualToString:constWidgetTypeORDGroup]) {
             //reset widget current data

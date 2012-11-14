@@ -19,6 +19,7 @@
 #define constTaskGroupEntity @"TaskGroup"
 #define constTaskEntity @"Task"
 #define constTaskActionEntity @"TaskAction"
+#define constTaskAsReadEntity @"TaskAsRead"
 
 @implementation TaskDataEntity
 
@@ -43,7 +44,7 @@
         Task *task = [self createTask];
         task.id = [NSString stringWithFormat:@"task_on_control_for_doc_%@", docId];
         task.name = NSLocalizedString(@"OnControlTaskTitle", nil);
-        task.isViewed = [NSNumber numberWithBool:NO];
+        task.isViewed = [NSNumber numberWithBool:YES];
         task.type = [NSNumber numberWithInt:ORDTaskTypeOnControl];
         task.systemUpdateDate = doc.systemUpdateDate;
         task.systemSyncStatus = constSyncStatusWorking;
@@ -262,6 +263,35 @@
     BOOL result = [context executeCountRequestWithPredicate:predicate andEntityName:constTaskEntity] > 0;
     return result;
 }
+
+
+#pragma task as read methods
+
+- (TaskAsRead *)createTaskAsRead {
+	return (TaskAsRead *)[NSEntityDescription insertNewObjectForEntityForName:constTaskAsReadEntity inManagedObjectContext:context];    
+}
+
+- (void)deleteTaskAsReadWithId:(NSString *)taskId {
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId = %@", taskId];
+    NSArray *items = [context executeFetchRequestWithPredicate:predicate andEntityName:constTaskAsReadEntity andSortDescriptors:nil];
+    for (TaskAsRead *item in items) {
+        [context deleteObject:[context objectWithID:[item objectID]]];
+    }
+    
+}
+
+- (NSArray *)selectAllTasksAsRead {
+    NSArray *items = [context executeFetchRequestWithPredicate:nil andEntityName:constTaskAsReadEntity andSortDescriptors:nil];
+    return items;    
+}
+
+- (void)deleteAllTasksAsRead {
+    NSArray *items = [context executeFetchRequestWithPredicate:nil andEntityName:constTaskAsReadEntity andSortDescriptors:nil];
+    for (NSManagedObject *item in items) {
+        [context deleteObject:[context objectWithID:[item objectID]]];
+    }
+}
+
 
 #pragma mark misc methods
 - (void)dealloc {

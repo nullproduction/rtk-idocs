@@ -154,6 +154,15 @@
 #define constAttachmentServletName @"/fileservlet"
 #define constAttachmentServletRequest @"/#REPOSITORY#/#USERNAME#/#PASSWORD#/#ATTACHMENT_ID#"
 
+
+//set task as read service
+#pragma mark task as read service
+#define constTaskAsReadWSName @"/services/inboxService/KcInboxDataProvider"
+#define constTaskAsReadWSRequestFile @"SetAsRead.xml"
+#define maskTaskAsReadId @"#TASK_ID#"
+#define constActionToSyncTask @"task_id"
+
+
 //types
 #pragma mark types
 //field types

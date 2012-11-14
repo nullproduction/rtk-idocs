@@ -24,8 +24,8 @@
 	return self;
 }
 
-- (void)layoutSubviews{
-
+- (void)layoutSubviews {
+    NSLog(@"iPadInboxItemPanelPageLayoutView layoutSubviews");
 	[super layoutSubviews];
 
 	bodyPanel.frame = self.bounds;

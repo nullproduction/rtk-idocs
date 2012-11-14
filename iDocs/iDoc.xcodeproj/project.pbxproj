@@ -48,8 +48,11 @@
 		83B448221619E2BA003E6D7E /* TaskAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447FC1619E2B9003E6D7E /* TaskAction.m */; };
 		83B448231619E2BA003E6D7E /* TaskActionTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B447FE1619E2B9003E6D7E /* TaskActionTemplate.m */; };
 		83B448241619E2BA003E6D7E /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B448001619E2B9003E6D7E /* UserInfo.m */; };
+		C9811185165146D8008C9A9A /* SetAsRead.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9811184165146D8008C9A9A /* SetAsRead.xml */; };
 		C99F1F9F1630226A0068B3B0 /* iPadResolutionPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F1F9E163022690068B3B0 /* iPadResolutionPanelViewController.m */; };
 		C9AC2B99163E918C00B2EA47 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC2B98163E918C00B2EA47 /* QuickLook.framework */; };
+		C9BC0FD716524F95009405D4 /* TaskAsRead.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC0FD616524F94009405D4 /* TaskAsRead.m */; };
+		C9BC0FDF165266A1009405D4 /* TaskAsReadSubmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */; };
 		C9CFD0B1162EF55C004A49C2 /* iPadResolutionReportsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */; };
 		C9CFD0B5162EF8E0004A49C2 /* iPadReportInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */; };
 		C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */; };
@@ -673,7 +676,7 @@
 		8ECC909C140B889100FA5075 /* DocListOnControlXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocListOnControlXmlParser.m; sourceTree = "<group>"; };
 		8ECC909D140B889100FA5075 /* DocXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocXmlParser.h; sourceTree = "<group>"; };
 		8ECC909E140B889100FA5075 /* DocXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocXmlParser.m; sourceTree = "<group>"; };
-		8ECC909F140B889100FA5075 /* HFSXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSXMLParserDelegate.h; sourceTree = "<group>"; };
+		8ECC909F140B889100FA5075 /* HFSXMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HFSXMLParserDelegate.h; path = ../../Base/DataSync/Parsers/HFSXMLParserDelegate.h; sourceTree = "<group>"; };
 		8ECC90A0140B889100FA5075 /* LoginXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginXmlParser.h; sourceTree = "<group>"; };
 		8ECC90A1140B889100FA5075 /* LoginXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginXmlParser.m; sourceTree = "<group>"; };
 		8ECC90A2140B889100FA5075 /* TaskXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskXmlParser.h; sourceTree = "<group>"; };
@@ -1159,9 +1162,14 @@
 		8ECC9954140BA50400FA5075 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		C279B0751433184C0089B57C /* iPadAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadAppSettingsViewController.h; sourceTree = "<group>"; };
 		C279B0761433184C0089B57C /* iPadAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadAppSettingsViewController.m; sourceTree = "<group>"; };
+		C9811184165146D8008C9A9A /* SetAsRead.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SetAsRead.xml; sourceTree = "<group>"; };
 		C99F1F9D163022690068B3B0 /* iPadResolutionPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadResolutionPanelViewController.h; sourceTree = "<group>"; };
 		C99F1F9E163022690068B3B0 /* iPadResolutionPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadResolutionPanelViewController.m; sourceTree = "<group>"; };
 		C9AC2B98163E918C00B2EA47 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		C9BC0FD516524F94009405D4 /* TaskAsRead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAsRead.h; sourceTree = "<group>"; };
+		C9BC0FD616524F94009405D4 /* TaskAsRead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAsRead.m; sourceTree = "<group>"; };
+		C9BC0FDD1652669D009405D4 /* TaskAsReadSubmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAsReadSubmitter.h; sourceTree = "<group>"; };
+		C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAsReadSubmitter.m; sourceTree = "<group>"; };
 		C9CFD0AF162EF55B004A49C2 /* iPadResolutionReportsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadResolutionReportsListViewController.h; sourceTree = "<group>"; };
 		C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadResolutionReportsListViewController.m; sourceTree = "<group>"; };
 		C9CFD0B3162EF8E0004A49C2 /* iPadReportInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadReportInfoCell.h; sourceTree = "<group>"; };
@@ -1425,6 +1433,8 @@
 				83B447FC1619E2B9003E6D7E /* TaskAction.m */,
 				83B447FD1619E2B9003E6D7E /* TaskActionTemplate.h */,
 				83B447FE1619E2B9003E6D7E /* TaskActionTemplate.m */,
+				C9BC0FD516524F94009405D4 /* TaskAsRead.h */,
+				C9BC0FD616524F94009405D4 /* TaskAsRead.m */,
 				83B447FF1619E2B9003E6D7E /* UserInfo.h */,
 				83B448001619E2B9003E6D7E /* UserInfo.m */,
 			);
@@ -1492,6 +1502,7 @@
 				8ECC9025140B889100FA5075 /* TaskCategoryMenuRequest.xml */,
 				8ECC9026140B889100FA5075 /* TaskDataRequest.xml */,
 				8ECC9027140B889100FA5075 /* TaskListBlockRequest.xml */,
+				C9811184165146D8008C9A9A /* SetAsRead.xml */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1580,6 +1591,8 @@
 				8ECC908B140B889100FA5075 /* TaskListLoader.m */,
 				8ECC907E140B889100FA5075 /* DataContentLoader.h */,
 				8ECC907F140B889100FA5075 /* DataContentLoader.m */,
+				C9BC0FDD1652669D009405D4 /* TaskAsReadSubmitter.h */,
+				C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */,
 			);
 			path = Loaders;
 			sourceTree = "<group>";
@@ -1599,7 +1612,6 @@
 				8ECC909C140B889100FA5075 /* DocListOnControlXmlParser.m */,
 				8ECC909D140B889100FA5075 /* DocXmlParser.h */,
 				8ECC909E140B889100FA5075 /* DocXmlParser.m */,
-				8ECC909F140B889100FA5075 /* HFSXMLParserDelegate.h */,
 				8ECC90A0140B889100FA5075 /* LoginXmlParser.h */,
 				8ECC90A1140B889100FA5075 /* LoginXmlParser.m */,
 				8ECC90A2140B889100FA5075 /* TaskXmlParser.h */,
@@ -1733,6 +1745,7 @@
 		8ECC92C5140B88A900FA5075 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8ECC909F140B889100FA5075 /* HFSXMLParserDelegate.h */,
 				8ECC92C6140B88A900FA5075 /* BaseFetchedTableDataViewController.h */,
 				8ECC92C7140B88A900FA5075 /* BaseFetchedTableDataViewController.m */,
 				8ECC92C8140B88A900FA5075 /* BaseLayoutView.h */,
@@ -2804,6 +2817,7 @@
 				83ADDEFD161F0F4400729702 /* minus.png in Resources */,
 				83ADDEFE161F0F4400729702 /* plus.png in Resources */,
 				C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */,
+				C9811185165146D8008C9A9A /* SetAsRead.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3056,6 +3070,8 @@
 				C99F1F9F1630226A0068B3B0 /* iPadResolutionPanelViewController.m in Sources */,
 				83931EEB1630109900DDA955 /* ReportAttachment.m in Sources */,
 				83A00E1A1631AED700E4D5D8 /* AttachmentsPisker.m in Sources */,
+				C9BC0FD716524F95009405D4 /* TaskAsRead.m in Sources */,
+				C9BC0FDF165266A1009405D4 /* TaskAsReadSubmitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

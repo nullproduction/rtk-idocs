@@ -20,6 +20,8 @@
 #import "TaskDataEntity.h"
 #import "DocDataEntity.h"
 #import "ActionToSyncDataEntity.h"
+#import "WebServiceRequests.h"
+#import "WebServiceProxy.h"
 
 
 @interface iPadInboxModuleViewController(PrivateMethods)
@@ -310,6 +312,27 @@
 #pragma mark custom methods - delegate implementation methods
 - (void)didSelectItem:(Task *)item {
 	NSLog(@"iPadInboxModule didSelectItem:%@ %@", item.id, item.doc.id);
+    
+    if( 0 == [item.isViewed intValue] ) {
+        NSLog(@"item isView:NO item.id %@", item.id);
+//        SystemDataEntity *systemEntity = [[SystemDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+//        NSDictionary *requestData = [WebServiceRequests createRequestOfTaskAsRead:item.id forUser:[systemEntity userInfo]];
+//        NSLog(@"didSelectItem requestData %@", requestData);
+//        WebServiceProxy* wsProxy = [[WebServiceProxy alloc] init];
+//        NSString* connId = [wsProxy getServerDataForRequest:requestData];
+//        [systemEntity release];
+//        [wsProxy release];
+        
+//        if(not aviable netWork ) {
+//            TaskDataEntity* taskEntity = [[TaskDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+//            [taskEntity deleteAllTasksAsRead];
+//            TaskAsRead* task = [taskEntity createTaskAsRead];
+//            task.taskId = item.id;
+//            [taskEntity release];
+//        }
+//        else {
+//        }    
+    }
 	if (self.inboxListPopover.popoverVisible == YES) {
 		[self.inboxListPopover dismissPopoverAnimated:YES];
 	}
@@ -317,7 +340,7 @@
     [self formatItemHeader:[inboxListPanel numberOfLoadedItems]];
     [self createWorkflowButtons];
     
-	[inboxItemInfoPanel loadItem:item];	
+	[inboxItemInfoPanel loadItem:item];
 }
 
 - (void)itemsListFilterIsUsed {

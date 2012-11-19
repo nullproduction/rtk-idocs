@@ -12,11 +12,13 @@
 #import "TaskDataEntity.h"
 #import "CoreDataProxy.h"
 #import "ActionsSubmitResultXMLParser.h"
+#import "SupportFunctions.h"
 
 @interface TaskAsReadSubmitter : BaseWSLoader {
     TaskDataEntity* taskEntity;
     ActionsSubmitResultXMLParser *parser;
-    NSMutableArray *taskIds;
+    NSMutableDictionary *requests;
+    NSInteger requestsCount;
 }
 
 - (id)initWithLoaderDelegate:(id<BaseLoaderDelegate>)newDelegate

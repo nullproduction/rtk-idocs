@@ -34,6 +34,7 @@
 - (BOOL)isAbortSyncRequested;
 
 - (void)submitActions;
+- (void)submitTaskAsRead;
 
 + (SyncStatus) status;
 + (void)setStatus:(SyncStatus) status;   

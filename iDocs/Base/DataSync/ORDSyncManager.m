@@ -16,6 +16,7 @@
 #import "TaskDataEntity.h"
 #import "LoginSubmitter.h"
 #import "ActionsSubmitter.h"
+#import "TaskAsReadSubmitter.h"
 #import "DictionariesChunkLoader.h"
 #import "TaskListLoader.h"
 #import "AttachmentsLoader.h"
@@ -23,6 +24,7 @@
 #import "DocInfoLoader.h"
 #import "DocListOnControlLoader.h"
 #import "ActionSubmitterOperation.h"
+#import "TaskAsReadSubmitterOperation.h"
 #import "UserDefaults.h"
 #import "SyncController.h"
 
@@ -36,15 +38,22 @@
 }
 
 - (void)prepareLaunchActions {
-    NSLog(@"ORDSyncManager prepareLaunch");
+    NSLog(@"ORDSyncManager prepareLaunchActions");
     [super prepareLaunch];
     [syncQueueEntity appendItemToQueueWithName:[[ActionsSubmitter class] description] visible:YES group:2];
+}
+
+- (void)prepareLaunchTaskRead {
+    NSLog(@"ORDSyncManager prepareLaunchTaskRead");
+    [super prepareLaunch];
+    [syncQueueEntity appendItemToQueueWithName:[[TaskAsReadSubmitter class] description] visible:NO group:2];
 }
 
 - (void)prepareLaunch {
     NSLog(@"ORDSyncManager prepareLaunch");
     [super prepareLaunch];    
     [syncQueueEntity appendItemToQueueWithName:[[ActionsSubmitter class] description] visible:YES group:2];
+    [syncQueueEntity appendItemToQueueWithName:[[TaskAsReadSubmitter class] description] visible:NO group:2];
     [syncQueueEntity appendItemToQueueWithName:[[DictionariesChunkLoader class] description] visible:YES group:2];
     [syncQueueEntity appendItemToQueueWithName:[[TaskListLoader class] description] visible:YES group:2];
     [syncQueueEntity appendItemToQueueWithName:[[DocListOnControlLoader class] description] visible:YES group:2];
@@ -79,11 +88,25 @@
     ActionToSyncDataEntity *actionsEntity = [[ActionToSyncDataEntity alloc] initWithContext:syncContext];
     
     NSArray *attachments = [docEntity selectAllAttachments];
-    for (DocAttachment *attachment in attachments) {     
+    for (DocAttachment *attachment in attachments) {
         [SupportFunctions deleteAttachment:attachment.fileName];
     }
+    
+    NSArray *reportAttachments = [docEntity selectAllReportAttachments];
+    for (ReportAttachment *reportAttachment in reportAttachments) {
+        if( nil != reportAttachment.systemName ) {
+
+            BOOL localFileExists = [[NSFileManager defaultManager] fileExistsAtPath:[SupportFunctions createPathForAttachment:reportAttachment.systemName]];
+            if (localFileExists == YES) {
+//                NSLog(@"localFileExists attachment name %@ size %i", reportAttachment.systemName, [reportAttachment.size intValue]);
+                [SupportFunctions deleteAttachment:reportAttachment.systemName];
+            }
+        }
+    }
+    
     [docEntity deleteAllDocs];
-    [taskEntity deleteAllTasks]; 
+    [taskEntity deleteAllTasks];
+    [taskEntity deleteAllTasksAsRead];
     [actionsEntity deleteAllActionsToSync];
     
     [docEntity release];
@@ -182,6 +205,7 @@
     [docEntity release];
 }
 
+
 #pragma mark sync:
 - (void)cleanupSync {
     NSLog(@"ORDSyncManager cleanupSync");
@@ -196,6 +220,14 @@
     
     ActionSubmitterOperation *actionSubmitterOperation = [[[ActionSubmitterOperation alloc] initWithLoaderDelegate:newDelegate] autorelease];
     [actionSubmitterOperation start];
+}
+
+- (void)launchSyncTaskAsReadWithDelegate:(NSObject<BaseLoaderDelegate> *)newDelegate {
+    NSLog(@"ORDSyncManager launchSyncTaskAsReadWithDelegate");
+    [super launchSync];
+    
+    TaskAsReadSubmitterOperation *tasksSubmitterOperation = [[[TaskAsReadSubmitterOperation alloc] initWithLoaderDelegate:newDelegate] autorelease];
+    [tasksSubmitterOperation start];
 }
 
 - (void)launchSync {
@@ -219,6 +251,20 @@
         [syncDelegate incrementCurrentStep];
     }
     
+    if ([self isAbortSyncRequested] == NO) {
+        currentStep = [syncDelegate currentStep];
+        if ((lastCompletedStep == 0 || lastCompletedStep <= currentStep)) {
+            TaskAsReadSubmitter *taskAsReadSubmitter =
+            [[TaskAsReadSubmitter alloc] initWithLoaderDelegate:self andContext:syncContext forSyncModule:DSModuleORDServer];
+            [taskAsReadSubmitter loadSyncData];
+            [taskAsReadSubmitter release];
+        }
+        else {
+            [TaskAsReadSubmitter notifyAboutSkippedStep];
+        }
+        [syncDelegate incrementCurrentStep];
+    }
+
     if ([self isAbortSyncRequested] == NO) {
         currentStep = [syncDelegate currentStep];
         if (lastCompletedStep == 0 || lastCompletedStep <= currentStep) {    

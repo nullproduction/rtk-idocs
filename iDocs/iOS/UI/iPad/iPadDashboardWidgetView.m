@@ -133,6 +133,14 @@
 	overdueItemsQuantityLabel.textColor = color;	
 }
 
+- (void)enableNewItemsLabel:(BOOL)enable {
+    if( !enable ) {
+        newItemsQuantityLabel.hidden = YES;
+    }
+    else {
+        newItemsQuantityLabel.hidden = NO;
+    }
+}
 
 - (void)dealloc {
 	[widgetIconImageView release];

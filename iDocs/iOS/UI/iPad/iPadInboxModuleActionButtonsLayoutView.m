@@ -53,7 +53,7 @@
                                                   captionShadowColor:[iPadThemeBuildHelper commonShadowColor2]
                                                                 icon:nil];     
 	newButton.buttonTitle.font = [UIFont systemFontOfSize:constMediumFontSize];
-    newButton.buttonTitle.textAlignment = UITextAlignmentCenter;    
+    newButton.buttonTitle.textAlignment = UITextAlignmentCenter;
 	newButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	return newButton;
 }

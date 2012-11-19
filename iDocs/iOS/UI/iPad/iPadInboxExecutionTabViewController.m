@@ -247,8 +247,8 @@
         }
         
         imageName = nil;
-        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];
-//        NSArray *executors = [errand.executors allObjects];
+//        NSArray *executors = [docEntity selectExecutorsForErrandWithId:errand.id];  //errand.executors != [docEntity selectExecutorsForErrandWithId:errand.id] if have duplicate errand!!!
+        NSArray *executors = [errand.executors allObjects];
         if ([executors count] == 1 && [errand.status intValue] != constErrandStatusProject) {
             DocErrandExecutor *executor = [executors objectAtIndex:0];
             imageName = ([executor.isMajorExecutor boolValue] == YES) ? [iPadThemeBuildHelper nameForImage:@"executor_icon.png"] : nil;            

@@ -338,7 +338,8 @@ typedef enum _DataSyncModule {
     DSModuleClientSettings = 1,
     DSModuleORDServer = 2,
     DSModuleWebDavServer = 3,
-    DSModuleActionsOnly = 4
+    DSModuleActionsOnly = 4,
+    DSModuleTaskAsRead = 5
 } DataSyncModule;
 
 #pragma mark ORD engine enums

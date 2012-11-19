@@ -35,4 +35,6 @@
 - (void)setOverdueItemsQuantity:(int)quantity;
 - (void)setNewItemsQuantityTextColor:(UIColor *)color;
 - (void)setOverdueItemsQuantityTextColor:(UIColor *)color;
+- (void)enableNewItemsLabel:(BOOL)enable;
+
 @end

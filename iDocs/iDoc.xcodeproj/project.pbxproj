@@ -55,6 +55,7 @@
 		C9BC0FDF165266A1009405D4 /* TaskAsReadSubmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */; };
 		C9CFD0B1162EF55C004A49C2 /* iPadResolutionReportsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */; };
 		C9CFD0B5162EF8E0004A49C2 /* iPadReportInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */; };
+		C9D8AE9B1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D8AE9A1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m */; };
 		C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */; };
 		DD0DA19D14D807EA00CB9A0B /* DEFAULT_ORD_InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BC14D7CD6A00BAFC1E /* DEFAULT_ORD_InAppSettings.bundle */; };
 		DD0DA19E14D8119700CB9A0B /* DEFAULT_Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BF14D7CD6A00BAFC1E /* DEFAULT_Settings.bundle */; };
@@ -1174,6 +1175,8 @@
 		C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadResolutionReportsListViewController.m; sourceTree = "<group>"; };
 		C9CFD0B3162EF8E0004A49C2 /* iPadReportInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadReportInfoCell.h; sourceTree = "<group>"; };
 		C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadReportInfoCell.m; sourceTree = "<group>"; };
+		C9D8AE991654C84E00F8B835 /* TaskAsReadSubmitterOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAsReadSubmitterOperation.h; sourceTree = "<group>"; };
+		C9D8AE9A1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAsReadSubmitterOperation.m; sourceTree = "<group>"; };
 		C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_task_attachment_icon.png; sourceTree = "<group>"; };
 		DD33A6B514D7CD6A00BAFC1E /* DEFAULT_ClientSettings_Sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DEFAULT_ClientSettings_Sample.xml; path = iOS/DEFAULT_ClientSettings_Sample.xml; sourceTree = "<group>"; };
 		DD33A6B614D7CD6A00BAFC1E /* DEFAULT_Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DEFAULT_Icon-72.png"; path = "iOS/DEFAULT_Icon-72.png"; sourceTree = "<group>"; };
@@ -1566,6 +1569,10 @@
 				7584D2A914EA751800A6143B /* ActionSubmitterOperation.m */,
 				8ECC9075140B889100FA5075 /* ActionsSubmitter.h */,
 				8ECC9076140B889100FA5075 /* ActionsSubmitter.m */,
+				C9D8AE991654C84E00F8B835 /* TaskAsReadSubmitterOperation.h */,
+				C9D8AE9A1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m */,
+				C9BC0FDD1652669D009405D4 /* TaskAsReadSubmitter.h */,
+				C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */,
 				8ECC9077140B889100FA5075 /* AttachmentsLoader.h */,
 				8ECC9078140B889100FA5075 /* AttachmentsLoader.m */,
 				DDAA499D1434D08200C7626F /* AttachmentBase64Loader.h */,
@@ -1591,8 +1598,6 @@
 				8ECC908B140B889100FA5075 /* TaskListLoader.m */,
 				8ECC907E140B889100FA5075 /* DataContentLoader.h */,
 				8ECC907F140B889100FA5075 /* DataContentLoader.m */,
-				C9BC0FDD1652669D009405D4 /* TaskAsReadSubmitter.h */,
-				C9BC0FDE1652669F009405D4 /* TaskAsReadSubmitter.m */,
 			);
 			path = Loaders;
 			sourceTree = "<group>";
@@ -3072,6 +3077,7 @@
 				83A00E1A1631AED700E4D5D8 /* AttachmentsPisker.m in Sources */,
 				C9BC0FD716524F95009405D4 /* TaskAsRead.m in Sources */,
 				C9BC0FDF165266A1009405D4 /* TaskAsReadSubmitter.m in Sources */,
+				C9D8AE9B1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

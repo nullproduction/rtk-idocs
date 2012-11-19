@@ -138,7 +138,6 @@
         [widget enableWidget:YES];
         
         DashboardItem *item = ((DashboardItem *)[dashboardItems objectAtIndex:i]);
-        NSLog(@"item type %@", item.type);    
         if([item.type isEqualToString:constWidgetTypeWebDavFolder] ||
            [item.type isEqualToString:constWidgetTypeORDGroup]) {
             //reset widget current data
@@ -149,15 +148,22 @@
             [widget setOverdueItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontNormalColor]];
             
             //update widget current data with new values
+            if( ![item.id isEqualToString:constOnControlFolderId] ) {
             [widget setAllItemsQuantity:[item.countTotal intValue]];
-            [widget setNewItemsQuantity:[item.countNew intValue]];
-            if (item.countNew > 0) {
-                [widget setNewItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontNewColor]];
-            } 
-            [widget setOverdueItemsQuantity:[item.countOverdue intValue]];					
+                [widget setNewItemsQuantity:[item.countNew intValue]];
+                if (item.countNew > 0) {
+                    [widget setNewItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontNewColor]];
+                }
+                [widget enableNewItemsLabel:YES];
+            }
+            else {
+                [widget enableNewItemsLabel:NO];
+            }
+            
+            [widget setOverdueItemsQuantity:[item.countOverdue intValue]];
             if (item.countOverdue > 0) {
                 [widget setOverdueItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontOverdueColor]];
-            } 			
+            }
 		}
 	}
 }

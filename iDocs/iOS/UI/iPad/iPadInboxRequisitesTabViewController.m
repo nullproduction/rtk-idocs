@@ -184,13 +184,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"iPadTaskRequisitesTab didSelectRowAtIndexPath indexPath.row: %i", indexPath.row);
-    DocAttachment *attachment = (DocAttachment *)[attachments objectAtIndex:indexPath.row];
-//    NSLog(@"[attachment.systemLoaded intValue] %i", [attachment.systemLoaded intValue]);
-	if( ![attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] && 1 == [attachment.systemLoaded intValue] && (!hasRequisites || indexPath.section != 0) && ([attachments count] > indexPath.row) ) {
-        iPadDocAttachmentCell *taskAttachmentCell = (iPadDocAttachmentCell *) [tableView cellForRowAtIndexPath:indexPath];
-        [taskAttachmentCell setSelection:nil];
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+	NSLog(@"iPadTaskRequisitesTab didSelectRowAtIndexPath indexPath.row: %i [attachments count] %i", indexPath.row, [attachments count]);
+    if( ([attachments count] > indexPath.row) && (!hasRequisites || indexPath.section != 0) ) {
+        DocAttachment *attachment = (DocAttachment *)[attachments objectAtIndex:indexPath.row];
+        if( ![attachment.size isEqualToNumber:[NSNumber numberWithInt:0]] && 1 == [attachment.systemLoaded intValue]  ) {
+            iPadDocAttachmentCell *taskAttachmentCell = (iPadDocAttachmentCell *) [tableView cellForRowAtIndexPath:indexPath];
+            [taskAttachmentCell setSelection:nil];
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        }        
     }
 }
 

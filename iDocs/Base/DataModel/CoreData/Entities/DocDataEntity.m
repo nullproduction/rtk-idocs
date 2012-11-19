@@ -338,6 +338,12 @@ NSInteger sortDocAttachBySize(id docAttach1, id docAttach2, void *context) {
 	return items;
 }
 
+- (NSArray *)selectAllReportAttachments {
+    NSArray *items = [context executeFetchRequestWithPredicate:nil andEntityName:constReportAttachmentEntity andSortDescriptors:nil];
+    return items;
+}
+
+
 #pragma mark doc errands
 - (DocErrand *)createDocErrand {
 	return (DocErrand *)[NSEntityDescription insertNewObjectForEntityForName:constDocErrandEntity inManagedObjectContext:context];

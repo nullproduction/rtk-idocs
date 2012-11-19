@@ -12,12 +12,10 @@
 
 - (id)initWithLoaderDelegate:(id<BaseLoaderDelegate>)newDelegate andContext:(NSManagedObjectContext *)context forSyncModule:(DataSyncModule)module {
     if ((self = [super initWithLoaderDelegate:newDelegate andContext:context])) {
-        NSLog(@"TaskAsReadSubmitter initWithLoaderDelegate");
-        syncModule = module;
-        taskIds = [[NSMutableArray alloc] initWithCapacity:0];
+        self.syncModule = module;
         taskEntity = [[TaskDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
         parser = [[ActionsSubmitResultXMLParser alloc] init];
-
+        requests = [[NSMutableDictionary alloc] initWithCapacity:0];
 	}
 	return self;
 }
@@ -25,40 +23,42 @@
 - (void)webServiceProxyConnection:(NSString *)connectionId finishedDownloadingWithData:(NSMutableData *)data orError:(NSError *)error {
     NSLog(@"TaskAsReadSubmitter webServiceProxyConnection finishedDownloadingWithData");
     [super webServiceProxyConnection:connectionId finishedDownloadingWithData:data orError:error];
-    NSLog(@"data %@", data);
+
+    NSString *taskId = [requests valueForKey:connectionId];
+ 
     if (error == nil) {
         NSLog(@"TaskAsReadSubmitter submitted");
         NSError *parseError = nil;
-        NSArray *results = [parser parseActionsSubmitResult:data error:&parseError];
-        NSLog(@"results %@", [results description]);
-        if (results != nil) {
-            for(NSDictionary *result in results) {
-                int status = [[result objectForKey:constDSEventDataKeyStatus] intValue];
-                NSString *message = [result objectForKey:constDSEventDataKeyMessage];
-                [self logEventWithCode:DSEventCodeLoaderSubevent status:status message:message usingPrefix:nil];
-            }
-            for (NSString * taskId in taskIds) {
-                [taskEntity deleteTaskAsReadWithId:taskId];
-            }
+        BOOL resultParse = [parser parseTaskReadSubmitResult:data error:&parseError];
+        
+        if ( resultParse ) {
+            [taskEntity deleteTaskAsReadWithId:taskId];
         }
         else {
-            NSLog(@"TaskAsReadSubmitter parsing failed");
-            [self logEventWithCode:DSEventCodeLoaderSubevent
-                            status:DSEventStatusError
-                           message:[parseError localizedDescription]
-                       usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadFailedMessage", nil)];
-        }   
+            if( nil != parseError ) {
+                NSLog(@"TaskAsReadSubmitter parsing failed:%@", [parseError localizedDescription]);                
+            }
+            else {
+                NSLog(@"TaskAsReadSubmitter parsing failed");
+            }
+//            [self logEventWithCode:DSEventCodeLoaderSubevent
+//                            status:DSEventStatusWarning
+//                           message:[parseError localizedDescription]
+//                       usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadParseFailedMessage", nil)];
+        }
     }
     else {
-        NSLog(@"ActionsSubmitter ws failed:%@", [error localizedDescription]);
-        [self logEventWithCode:DSEventCodeLoaderSubevent
-                        status:DSEventStatusError
-                       message:[error localizedDescription]
-                   usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadFailedMessage", nil)];
+        NSLog(@"TaskAsReadSubmitter ws failed:%@", [error localizedDescription]);
+//        [self logEventWithCode:DSEventCodeLoaderSubevent
+//                        status:DSEventStatusWarning
+//                       message:[error localizedDescription]
+//                   usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadWSFailedMessage", nil)];
     }
-    requestInProcess = NO;
+
+    -- requestsCount;
+    if (requestsCount == 0)
+        requestInProcess = NO;
     
-    // save action sync status to db
     error = nil;
     [syncContext save:&error];
     if (error != nil) {
@@ -70,22 +70,19 @@
     NSLog(@"TaskAsReadSubmitter submitData");
     if (useTestData == NO) {
         NSArray *tasks = [taskEntity selectAllTasksAsRead];
+        requestsCount = [tasks count];
+
         if ([tasks count] == 0) {
             NSLog(@"TaskAsReadSubmitter no data to sync");
             requestInProcess = NO;
         }
         else {
-            [taskIds removeAllObjects];
-            for (TaskAsRead *task in tasks) {
-                [taskIds addObject:task.taskId];
-                NSLog(@"startLoad task.taskId %@", task.taskId);
+            for(TaskAsRead *task in tasks) {
+                NSDictionary *requestData = [WebServiceRequests createRequestOfTaskAsRead:task.taskId forUser:[systemEntity userInfo]];
+                NSLog(@"TaskAsReadSubmitter startLoad taskId %@", task.taskId);
+                NSString* connId = [self startDataDownloading:requestData];
+                [requests setValue:task.taskId forKey:connId];
             }
-
-//            for(TaskAsRead *task in tasks) {
-                NSDictionary *requestData = [WebServiceRequests createRequestOfTaskAsRead:((TaskAsRead *)[tasks objectAtIndex:0]).taskId forUser:[systemEntity userInfo]];
-                NSLog(@"startLoad requestData %@", [requestData description]);
-                [self startDataDownloading:requestData];
-//            }
         }
     }
     else {
@@ -96,11 +93,10 @@
 }
 
 - (void)dealloc {
-    NSLog(@"TaskAsReadSubmitter dealloc");
     [taskEntity release];
-    [taskIds release];
     [parser release];
-    
+    [requests release];
+
     [super dealloc];
 }
 

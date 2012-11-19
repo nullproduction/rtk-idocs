@@ -1,17 +1,16 @@
 //
-//  ActionSubmitterOperation.m
+//  TaskAsReadSubmitterOperation.m
 //  iDoc
 //
-//  Created by mmakankov on 14.02.12.
+//  Created by Olga Geets on 15.11.12.
 //  Copyright (c) 2012 KORUS Consulting. All rights reserved.
 //
 
-#import "ActionSubmitterOperation.h"
+#import "TaskAsReadSubmitterOperation.h"
 #import "Constants.h"
 #import "CoreDataProxy.h"
 
-@implementation ActionSubmitterOperation
-
+@implementation TaskAsReadSubmitterOperation
 - (id)initWithLoaderDelegate:(NSObject<BaseLoaderDelegate> *)newDelegate {
     if (self = [super init]) {
         delegate = newDelegate;
@@ -43,8 +42,8 @@
     return finished;
 }
 
-- (void)start {  
-    NSLog(@"ActionSubmitterOperation start");
+- (void)start {
+    NSLog(@"TaskAsReadSubmitterOperation start");
     if (![self isCancelled]) {
         [self willChangeValueForKey:@"isExecuting"];
         [NSThread detachNewThreadSelector:@selector(main) toTarget:self withObject:nil];
@@ -60,15 +59,14 @@
     NSManagedObjectContext *operationContext = [[NSManagedObjectContext alloc] init];
     [operationContext setPersistentStoreCoordinator:coordinator];
     [operationContext setUndoManager:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(mergeChangesWithSyncContext:) 
-                                                 name:NSManagedObjectContextDidSaveNotification 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mergeChangesWithSyncContext:)
+                                                 name:NSManagedObjectContextDidSaveNotification
                                                object:operationContext];
     
-    ActionsSubmitter *actionsSubmitter = 
-        [[ActionsSubmitter alloc] initWithLoaderDelegate:nil andContext:operationContext forSyncModule:DSModuleORDServer];
-    [actionsSubmitter loadSyncData];
-    [actionsSubmitter release];
+    TaskAsReadSubmitter *tasksSubmitter = [[TaskAsReadSubmitter alloc] initWithLoaderDelegate:nil andContext:operationContext forSyncModule:DSModuleORDServer];
+    [tasksSubmitter loadSyncData];
+    [tasksSubmitter release];
     
     NSError *error = nil;
     [operationContext save:&error];
@@ -88,7 +86,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [delegate performSelector:@selector(actionsSubmitFinished) onThread:parentThread withObject:nil waitUntilDone:NO];
-    NSLog(@"ActionSubmitterOperation finish");
+    NSLog(@"TaskAsReadSubmitterOperation finish");
 }
 
 - (void)dealloc {

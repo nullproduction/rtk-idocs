@@ -47,6 +47,25 @@
     [syncPool release];
 }
 
+- (void)submitTaskAsRead {
+    NSLog(@"SyncController submitTaskAsRead");
+    NSAutoreleasePool *syncPool = [[NSAutoreleasePool alloc] init];
+    
+    ORDSyncManager *ordSyncManager = [[ORDSyncManager alloc] initWithSyncDelegate:self];
+    ServerOperationQueueEntity *syncQueueEntity = [[ServerOperationQueueEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+    [syncQueueEntity deleteAll];
+    
+    if ([UserDefaults useORDServer] == YES  && [UserDefaults useTestData] == NO) {
+        [ordSyncManager prepareLaunchTaskRead];
+        [ordSyncManager launchSyncTaskAsReadWithDelegate:self];
+    }
+    
+    [ordSyncManager release];
+    [syncQueueEntity release];
+    
+    [syncPool release];
+}
+
 - (void)actionsSubmitFinished {
     ServerOperationQueueEntity *syncQueueEntity = [[ServerOperationQueueEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];  
 

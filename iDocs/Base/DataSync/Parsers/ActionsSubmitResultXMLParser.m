@@ -12,6 +12,7 @@
 #import "Constants.h"
 
 #define constActionResultError @"Error"
+#define constActionResultOk @"Ok"
 
 @interface ActionsSubmitResultXMLParser(PrivateMethods)
 - (void)addResultWithStatus:(DataSyncEventStatus)status andMessage:(NSString *)message;
@@ -78,8 +79,38 @@
     [results addObject:result];
  }
 
+- (BOOL)parseTaskReadSubmitResult:(NSData *)data error:(NSError **)parseError {
+    NSLog(@"ActionsSubmitResultXMLParser parseTaskReadSubmitResult");
+    if (results == nil)
+        results = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    self.parserPool = [[NSAutoreleasePool alloc] init];
+    
+    NSError *error = nil;
+    SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
+    if (error) {
+        NSLog(@"ActionsSubmitResultXMLParser parseContent error: %@", [error localizedDescription]);
+        if (parseError)
+            *parseError = error;
+        return NO;
+    }
+    
+    SMXMLElement *resultPacket = [document.root descendantWithPath:@"Body.setTaskAsReadResponse"];
+    NSLog(@"resultPacket %@", resultPacket);
+    if( resultPacket ) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+    
+    [parserPool release];
+    self.parserPool = nil;
+}
+
 - (void)dealloc {
     [results release];
     [super dealloc];
 }
+
 @end

@@ -13,6 +13,9 @@
     NSMutableArray *results;
     
 }
+
 - (id)init;
 - (NSArray *)parseActionsSubmitResult:(NSData *)data error:(NSError **)parseError;
+- (BOOL)parseTaskReadSubmitResult:(NSData *)data error:(NSError **)parseError;
+
 @end

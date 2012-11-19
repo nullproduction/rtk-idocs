@@ -21,7 +21,7 @@
 }
 
 //init request to server
-- (NSString *)getServerDataForRequest:(NSDictionary *)requestData {	
+- (NSString *)getServerDataForRequest:(NSDictionary *)requestData {
 	NSURL *wsUrl = [NSURL URLWithString:[requestData valueForKey:keyRequestUrl]];
 	NSString *requestSoapMessage = [requestData valueForKey:keyRequestMessage];
 	
@@ -48,6 +48,7 @@
 		[responseData setValue:connResponseData forKey:connId];
 		[responseLength setValue:[NSString stringWithFormat:@"%i", 0] forKey:connId];
 	} else {
+		NSLog(@"WebServiceProxy getServerDataForRequest create connection error:%@", connId);
 		// inform the user that the download could not be made
 	}
 	return connId;
@@ -61,6 +62,7 @@
 
 - (void)endDownloadForConnection:(NSString *)connectionId withData:(NSMutableData *)data orError:(NSError *)error {
 	[SupportFunctions setNetworkActivityIndicatorVisible:NO];
+//    NSLog(@"WebServiceProxy endDownloadForConnection:%@ withError:%@", connectionId, error);
 	if([delegate respondsToSelector:@selector(webServiceProxyConnection:finishedDownloadingWithData:orError:)])
 		[delegate webServiceProxyConnection:connectionId finishedDownloadingWithData:data orError:error];
 }
@@ -81,6 +83,8 @@
 	NSString *connId = [NSString stringWithFormat:@"%0d" , [connection hash]];		
 	[(NSMutableData *)[responseData objectForKey:connId] setLength:0];
 	[responseLength setValue:[NSString stringWithFormat:@"%lli", [response expectedContentLength]] forKey:connId];
+    
+//    NSLog(@"didReceiveResponse %@", [response description]);
 
 }
 
@@ -105,6 +109,9 @@
 	[responseData removeObjectForKey:connId];
 	[responseLength removeObjectForKey:connId];
 	[connection release];
+ 
+//    NSLog(@"connectionDidFinishLoading connection %@", [connection description]);
+    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {	
@@ -126,6 +133,7 @@
 - (void)dealloc {
 	[responseData release];
 	[responseLength release];
+    
 	[super dealloc];
 }
 

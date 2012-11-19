@@ -134,8 +134,8 @@
             [cell setTaskViewed:YES];
             
             //set item viewed
-            item.isViewed = [NSNumber numberWithBool:YES];
-		}	
+//            item.isViewed = [NSNumber numberWithBool:YES];
+		}
 	}
 }
 

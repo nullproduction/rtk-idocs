@@ -60,6 +60,7 @@
 
 - (ReportAttachment *) createReportAttachment;
 - (NSArray *)selectReportAttachmentForErrandWithId:(NSString *)errandId;
+- (NSArray *)selectAllReportAttachments;
 
 - (NSDictionary*) selectErrandAttachmentsWithDocId:(NSString*)docId;
 - (NSArray*) selectAttachmentsWithErrandId:(NSString*)errandId;

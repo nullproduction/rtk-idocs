@@ -14,7 +14,9 @@
 - (id)initForCleanupWithContext:(NSManagedObjectContext *)newContext;
 
 - (void)prepareLaunchActions;
+- (void)prepareLaunchTaskRead;
 - (void)launchSyncActionsWithDelegate:(NSObject<BaseLoaderDelegate> *)newDelegate;
+- (void)launchSyncTaskAsReadWithDelegate:(NSObject<BaseLoaderDelegate> *)newDelegate;
 
 - (void)cleanupSync;
 - (void)cleanupORDDictionariesData;

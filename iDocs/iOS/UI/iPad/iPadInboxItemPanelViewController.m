@@ -51,7 +51,7 @@
 		iPadInboxItemPanelPageLayoutView *container = [[iPadInboxItemPanelPageLayoutView alloc] init];
 		container.frame = contentPanel.bounds;
 		body = container.bodyPanel;
-		//footer				
+        //footer
 		iPadInboxItemPanelButtonsLayoutView *buttons = [[iPadInboxItemPanelButtonsLayoutView alloc] init];
 		buttons.frame = buttonsPanel.bounds;
         

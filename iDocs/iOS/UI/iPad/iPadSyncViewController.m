@@ -77,6 +77,9 @@
     if (restartSyncModule == DSModuleActionsOnly) {
         [internalSyncController submitActions];
     }
+    else if (restartSyncModule == DSModuleTaskAsRead) {
+        [internalSyncController submitTaskAsRead];
+    }
     else {
         [self prepareSyncProcessMonitor];
         [internalSyncController syncWithModule:syncModule];	
@@ -117,14 +120,14 @@
 }
 
 - (void)syncFinishedWithErrors:(NSArray *)errors andWarnings:(NSArray *)warnings {
-    NSLog(@"iPadSyncViewController syncFinishedWithErrorsAndWarnings");
+    NSLog(@"iPadSyncViewController syncFinishedWithErrorsAndWarnings %@ %@", [errors description], [warnings description]);
     NSString *syncedDate = constEmptyStringValue;
     if ([errors count] == 0 && [UserDefaults intSettingByKey:constSyncStatus] != SyncStatusAbortedInBackground) {
         syncedDate = [SupportFunctions convertDateToString:[NSDate date] withFormat:constDateTimeFormat];
     }
     [UserDefaults saveValue:syncedDate forSetting:constLastSuccessfullSyncDate];
     
-    if (restartSyncModule == DSModuleActionsOnly) {
+    if (restartSyncModule == DSModuleActionsOnly || restartSyncModule == DSModuleTaskAsRead) {
         if ([errors count] > 0 || [warnings count] > 0) {
             [self prepareSyncProcessMonitor];
             [syncProcessMonitor performFetch];

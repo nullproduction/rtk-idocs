@@ -154,6 +154,15 @@
 #define constAttachmentServletName @"/fileservlet"
 #define constAttachmentServletRequest @"/#REPOSITORY#/#USERNAME#/#PASSWORD#/#ATTACHMENT_ID#"
 
+
+//set task as read service
+#pragma mark task as read service
+#define constTaskAsReadWSName @"/services/inboxService/KcInboxDataProvider"
+#define constTaskAsReadWSRequestFile @"SetAsRead.xml"
+#define maskTaskAsReadId @"#TASK_ID#"
+#define constActionToSyncTask @"task_id"
+
+
 //types
 #pragma mark types
 //field types
@@ -329,7 +338,8 @@ typedef enum _DataSyncModule {
     DSModuleClientSettings = 1,
     DSModuleORDServer = 2,
     DSModuleWebDavServer = 3,
-    DSModuleActionsOnly = 4
+    DSModuleActionsOnly = 4,
+    DSModuleTaskAsRead = 5
 } DataSyncModule;
 
 #pragma mark ORD engine enums

@@ -63,7 +63,7 @@
                                                                        captionColor:nil
                                                                  captionShadowColor:nil];
 		accessoryCheckmarkButton.leftMargin = 0.0f;
-		accessoryCheckmarkButton.frame = CGRectMake(0.0f, 0.0f, accessoryCheckmarkButton.buttonIconView.bounds.size.width, self.bounds.size.height);		
+		accessoryCheckmarkButton.frame = CGRectMake(0.0f, 0.0f, accessoryCheckmarkButton.buttonIconView.bounds.size.width, self.bounds.size.height);
 		
 		[accessoryCheckmarkButton addTarget:self action:@selector(accessoryCheckmarkTapped:withEvent:) forControlEvents:UIControlEventTouchUpInside];
 

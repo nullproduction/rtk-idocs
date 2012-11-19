@@ -97,7 +97,7 @@
             dashboardItem.id = ([dashboardItemId length] > 0) ? dashboardItemId : constEmptyStringValue;
            
             dashboardItem.parentId = [[itemData childWithAttribute:@"name" value:@"parent_id"] value];
-            dashboardItem.name = [[itemData childWithAttribute:@"name" value:@"name"]value];
+            dashboardItem.name = [[itemData childWithAttribute:@"name" value:@"name"] value];
             dashboardItem.dashboardIcon  = [[itemData childWithAttribute:@"name" value:@"dashboard_icon"] value];
             dashboardItem.block = [[itemData childWithAttribute:@"name" value:@"block"] value];
             if ([dashboardItem.type isEqualToString:constWidgetTypeORDGroup] ||

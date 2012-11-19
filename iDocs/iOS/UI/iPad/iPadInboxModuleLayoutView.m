@@ -200,6 +200,7 @@
 }
 
 - (void)layoutSubviews {
+    NSLog(@"iPadInboxModuleLayoutView layoutSubviews");
 	if ([self isInPortraitOrientation]) {
         self.leftTopToolbarButtonsPanel.frame = CGRectMake(0.0f, 0.0f, 285.0f, 59.0f);
 		self.inboxModuleHeaderTitle.hidden = YES;

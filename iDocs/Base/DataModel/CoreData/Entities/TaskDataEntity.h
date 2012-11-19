@@ -11,6 +11,8 @@
 #import "TaskAction.h"
 #import "Doc.h"
 #import "Constants.h"
+#import "TaskAsRead.h"
+
 
 @interface TaskDataEntity : NSObject {
 	NSManagedObjectContext *context;     
@@ -45,4 +47,10 @@
 - (void)createActionsFromTemplatesForTaskWithId:(NSString *)taskId;
 - (NSArray *)selectTaskActionsforTaskWithId:(NSString *)taskId;
 - (void)deleteTaskActionsForTaskWithId:(NSString *)taskId;
+
+- (TaskAsRead *)createTaskAsRead;
+- (void)deleteTaskAsReadWithId:(NSString *)taskId;
+- (NSArray *)selectAllTasksAsRead;
+- (void)deleteAllTasksAsRead;
+
 @end

@@ -32,5 +32,7 @@
 	<string>Загрузка структуры документов на контроле</string>
 	<key>LoginSubmitter</key>
 	<string>Авторизация клиента на сервере</string>
+	<key>TaskAsReadSubmitter</key>
+	<string>Отправка на сервер информации о просмотренных задачах</string>
 </dict>
 </plist>

@@ -20,7 +20,9 @@
 #import "TaskDataEntity.h"
 #import "DocDataEntity.h"
 #import "ActionToSyncDataEntity.h"
-
+#import "WebServiceRequests.h"
+#import "WebServiceProxy.h"
+#import "TaskAsReadSubmitter.h"
 
 @interface iPadInboxModuleViewController(PrivateMethods)
 //init
@@ -310,6 +312,7 @@
 #pragma mark custom methods - delegate implementation methods
 - (void)didSelectItem:(Task *)item {
 	NSLog(@"iPadInboxModule didSelectItem:%@ %@", item.id, item.doc.id);
+    
 	if (self.inboxListPopover.popoverVisible == YES) {
 		[self.inboxListPopover dismissPopoverAnimated:YES];
 	}
@@ -317,7 +320,23 @@
     [self formatItemHeader:[inboxListPanel numberOfLoadedItems]];
     [self createWorkflowButtons];
     
-	[inboxItemInfoPanel loadItem:item];	
+	[inboxItemInfoPanel loadItem:item];
+
+    if( 0 == [item.isViewed intValue] ) {
+        NSLog(@"item isView:NO item.id %@", item.id);        
+
+        iDocAppDelegate *appDelegate = (iDocAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        TaskDataEntity* taskEntity = [[TaskDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
+        TaskAsRead* task = [taskEntity createTaskAsRead];
+        task.taskId = item.id;
+        item.isViewed = [NSNumber numberWithBool:YES];
+        
+        [[CoreDataProxy sharedProxy] saveWorkingContext];
+        [taskEntity release];
+
+        [appDelegate submitTaskAsReadToServer];
+    }
 }
 
 - (void)itemsListFilterIsUsed {

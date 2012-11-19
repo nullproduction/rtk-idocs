@@ -57,6 +57,7 @@
 
 #pragma mark UIViewController methods
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    NSLog(@"iPadDashboardViewController shouldAutorotateToInterfaceOrientation");
 	return YES;
 }
 

@@ -316,7 +316,12 @@
 	if (self.inboxListPopover.popoverVisible == YES) {
 		[self.inboxListPopover dismissPopoverAnimated:YES];
 	}
+    NSLog(@"1 self.loadedItem %i", [self.loadedItem retainCount]);
+    self.loadedItem = nil;
+    NSLog(@"2 self.loadedItem %i", [self.loadedItem retainCount]);
     self.loadedItem = item;
+    NSLog(@"3 self.loadedItem %i", [self.loadedItem retainCount]);
+    
     [self formatItemHeader:[inboxListPanel numberOfLoadedItems]];
     [self createWorkflowButtons];
     

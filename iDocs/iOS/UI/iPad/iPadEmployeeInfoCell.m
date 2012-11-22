@@ -94,6 +94,10 @@
 - (void)dealloc {
 	[employeeIdLabel release];	
 	[employeeNameLabel release];
+    [employeeSubdivisionLabel release];
+    [employeePositionLabel release];
+    [employeePicture release];
+    
     [super dealloc];
 }
 

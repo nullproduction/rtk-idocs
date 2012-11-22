@@ -118,7 +118,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>http://esed.rt.ru</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>
@@ -138,7 +138,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string></string>
+			<string>esed_rt</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>
@@ -194,7 +194,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>servlet</string>
+			<string>base64</string>
 			<key>Key</key>
 			<string>ORDAttachmentDownloadType</string>
 			<key>Title</key>

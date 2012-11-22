@@ -119,6 +119,7 @@
 
 - (void)dealloc {
 	[attachmentIdLabel release];	
+    [attachmentFileNameLabel release];
 	[attachmentNameLabel release];
 	[attachmentSizeLabel release];
     [super dealloc];

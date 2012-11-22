@@ -381,7 +381,7 @@
             pageControl = nil;
         }
     }
-    
+    [attachmentInfoLabel release];
     openInExtAppButton = nil;
     self.docInteractionController = nil;
     self.delegate = nil;

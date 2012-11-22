@@ -26,7 +26,7 @@
 
 @implementation HFSUIButton
 
-@synthesize buttonId, buttonTitle, buttonIconView, normalStateIconImage, selectedStateIconImage, leftMargin, buttonTitleOffset, selectorData;
+@synthesize buttonTitle, buttonIconView, normalStateIconImage, selectedStateIconImage, leftMargin, buttonTitleOffset;
 
 - (BOOL)isSelected {
 	return buttonSelected;
@@ -121,13 +121,16 @@
                          caption:(NSString *)buttonCaption 
                     captionColor:(UIColor *)color
               captionShadowColor:(UIColor *)shadow {
-	buttonTitle = [HFSUILabel labelWithFrame:CGRectZero forText:NSLocalizedString(buttonCaption, nil) withColor:color andShadow:shadow];
+	
+    self.buttonTitle = [HFSUILabel labelWithFrame:CGRectZero forText:NSLocalizedString(buttonCaption, nil) withColor:color andShadow:shadow];
 	[self addSubview:self.buttonTitle];
 	
-	normalStateIconImage = [[UIImage imageNamed:buttonNormalIcon] retain];
-	selectedStateIconImage = [[UIImage imageNamed:buttonSelectedIcon] retain];
+	self.normalStateIconImage = [UIImage imageNamed:buttonNormalIcon];
+	self.selectedStateIconImage = [UIImage imageNamed:buttonSelectedIcon];
 	
-	buttonIconView = [[UIImageView alloc] initWithImage:self.normalStateIconImage];
+    UIImageView *iconView = [[UIImageView alloc] initWithImage:self.normalStateIconImage];
+    self.buttonIconView = iconView;
+    [iconView release];
 	self.buttonIconView.contentMode = UIViewContentModeLeft;
 	[self addSubview:self.buttonIconView];	
 }
@@ -143,8 +146,8 @@
 	[self setImage:[UIImage imageNamed:buttonNormalBack] forState:UIControlStateNormal];
 	[self setImage:[UIImage imageNamed:buttonSelectedBack] forState:UIControlStateSelected];
     
-	buttonTitle = [HFSUILabel labelWithFrame:CGRectZero forText:NSLocalizedString(buttonCaption, nil) withColor:color andShadow:shadow];
-	[self addSubview:buttonTitle];
+    self.buttonTitle = [HFSUILabel labelWithFrame:CGRectZero forText:NSLocalizedString(buttonCaption, nil) withColor:color andShadow:shadow];
+	[self addSubview:self.buttonTitle];
 	
 	if (buttonIcon != nil) {
         UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:buttonIcon]];
@@ -152,8 +155,7 @@
         [iconView release];
 		self.buttonIconView.contentMode = UIViewContentModeLeft;
 		[self addSubview:self.buttonIconView];
-	}
-    
+	}   
 }
 
 - (void)layoutSubviews {
@@ -169,18 +171,18 @@
 }
 
 - (void)dealloc {
-    if (normalStateIconImage != nil)
-        [normalStateIconImage release];
+    if (self.buttonTitle != nil)
+        self.buttonTitle = nil;
     
-    if (selectedStateIconImage != nil)
-        [selectedStateIconImage release];
-    
-    if (selectorData != nil)
-        [selectorData release];
-    
-    if (buttonIconView != nil)
-        [buttonIconView release];
-    
+    if (self.buttonIconView != nil)
+        self.buttonIconView = nil;
+
+    if (self.normalStateIconImage != nil)
+        self.normalStateIconImage = nil;
+
+    if (self.selectedStateIconImage != nil)
+        self.selectedStateIconImage = nil;
+
     [super dealloc];
 }
 

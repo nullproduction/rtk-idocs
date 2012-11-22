@@ -56,6 +56,7 @@
 		C9CFD0B1162EF55C004A49C2 /* iPadResolutionReportsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B0162EF55C004A49C2 /* iPadResolutionReportsListViewController.m */; };
 		C9CFD0B5162EF8E0004A49C2 /* iPadReportInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */; };
 		C9D8AE9B1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D8AE9A1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m */; };
+		C9F02D37165E1D9D00383BD3 /* HFSUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F02D36165E1D9D00383BD3 /* HFSUILabel.m */; };
 		C9FB8CDA1631914D00F8C5BA /* default_task_attachment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */; };
 		DD0DA19D14D807EA00CB9A0B /* DEFAULT_ORD_InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BC14D7CD6A00BAFC1E /* DEFAULT_ORD_InAppSettings.bundle */; };
 		DD0DA19E14D8119700CB9A0B /* DEFAULT_Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DD33A6BF14D7CD6A00BAFC1E /* DEFAULT_Settings.bundle */; };
@@ -425,7 +426,6 @@
 		DD33A8B714D8041000BAFC1E /* HFSGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92B6140B88A900FA5075 /* HFSGradientView.m */; };
 		DD33A8B814D8041000BAFC1E /* HFSUIActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92B8140B88A900FA5075 /* HFSUIActionSheet.m */; };
 		DD33A8B914D8041000BAFC1E /* HFSUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92BA140B88A900FA5075 /* HFSUIButton.m */; };
-		DD33A8BA14D8041000BAFC1E /* HFSUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92BC140B88A900FA5075 /* HFSUILabel.m */; };
 		DD33A8BB14D8041000BAFC1E /* HFSUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92BE140B88A900FA5075 /* HFSUITableViewCell.m */; };
 		DD33A8BC14D8041000BAFC1E /* iDocUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92C0140B88A900FA5075 /* iDocUITextView.m */; };
 		DD33A8BD14D8041000BAFC1E /* TITokenFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC92C2140B88A900FA5075 /* TITokenFieldView.m */; };
@@ -747,8 +747,6 @@
 		8ECC92B8140B88A900FA5075 /* HFSUIActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSUIActionSheet.m; sourceTree = "<group>"; };
 		8ECC92B9140B88A900FA5075 /* HFSUIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSUIButton.h; sourceTree = "<group>"; };
 		8ECC92BA140B88A900FA5075 /* HFSUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSUIButton.m; sourceTree = "<group>"; };
-		8ECC92BB140B88A900FA5075 /* HFSUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSUILabel.h; sourceTree = "<group>"; };
-		8ECC92BC140B88A900FA5075 /* HFSUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSUILabel.m; sourceTree = "<group>"; };
 		8ECC92BD140B88A900FA5075 /* HFSUITableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSUITableViewCell.h; sourceTree = "<group>"; };
 		8ECC92BE140B88A900FA5075 /* HFSUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSUITableViewCell.m; sourceTree = "<group>"; };
 		8ECC92BF140B88A900FA5075 /* iDocUITextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iDocUITextView.h; sourceTree = "<group>"; };
@@ -1177,6 +1175,8 @@
 		C9CFD0B4162EF8E0004A49C2 /* iPadReportInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadReportInfoCell.m; sourceTree = "<group>"; };
 		C9D8AE991654C84E00F8B835 /* TaskAsReadSubmitterOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAsReadSubmitterOperation.h; sourceTree = "<group>"; };
 		C9D8AE9A1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAsReadSubmitterOperation.m; sourceTree = "<group>"; };
+		C9F02D35165E1D9D00383BD3 /* HFSUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSUILabel.h; sourceTree = "<group>"; };
+		C9F02D36165E1D9D00383BD3 /* HFSUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSUILabel.m; sourceTree = "<group>"; };
 		C9FB8CD91631914D00F8C5BA /* default_task_attachment_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_task_attachment_icon.png; sourceTree = "<group>"; };
 		DD33A6B514D7CD6A00BAFC1E /* DEFAULT_ClientSettings_Sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DEFAULT_ClientSettings_Sample.xml; path = iOS/DEFAULT_ClientSettings_Sample.xml; sourceTree = "<group>"; };
 		DD33A6B614D7CD6A00BAFC1E /* DEFAULT_Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DEFAULT_Icon-72.png"; path = "iOS/DEFAULT_Icon-72.png"; sourceTree = "<group>"; };
@@ -1735,10 +1735,10 @@
 				8ECC92B6140B88A900FA5075 /* HFSGradientView.m */,
 				8ECC92B7140B88A900FA5075 /* HFSUIActionSheet.h */,
 				8ECC92B8140B88A900FA5075 /* HFSUIActionSheet.m */,
+				C9F02D35165E1D9D00383BD3 /* HFSUILabel.h */,
+				C9F02D36165E1D9D00383BD3 /* HFSUILabel.m */,
 				8ECC92B9140B88A900FA5075 /* HFSUIButton.h */,
 				8ECC92BA140B88A900FA5075 /* HFSUIButton.m */,
-				8ECC92BB140B88A900FA5075 /* HFSUILabel.h */,
-				8ECC92BC140B88A900FA5075 /* HFSUILabel.m */,
 				8ECC92BD140B88A900FA5075 /* HFSUITableViewCell.h */,
 				8ECC92BE140B88A900FA5075 /* HFSUITableViewCell.m */,
 				8ECC92BF140B88A900FA5075 /* iDocUITextView.h */,
@@ -2935,7 +2935,6 @@
 				DD33A8B714D8041000BAFC1E /* HFSGradientView.m in Sources */,
 				DD33A8B814D8041000BAFC1E /* HFSUIActionSheet.m in Sources */,
 				DD33A8B914D8041000BAFC1E /* HFSUIButton.m in Sources */,
-				DD33A8BA14D8041000BAFC1E /* HFSUILabel.m in Sources */,
 				DD33A8BB14D8041000BAFC1E /* HFSUITableViewCell.m in Sources */,
 				DD33A8BC14D8041000BAFC1E /* iDocUITextView.m in Sources */,
 				DD33A8BD14D8041000BAFC1E /* TITokenFieldView.m in Sources */,
@@ -3078,6 +3077,7 @@
 				C9BC0FD716524F95009405D4 /* TaskAsRead.m in Sources */,
 				C9BC0FDF165266A1009405D4 /* TaskAsReadSubmitter.m in Sources */,
 				C9D8AE9B1654C84E00F8B835 /* TaskAsReadSubmitterOperation.m in Sources */,
+				C9F02D37165E1D9D00383BD3 /* HFSUILabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

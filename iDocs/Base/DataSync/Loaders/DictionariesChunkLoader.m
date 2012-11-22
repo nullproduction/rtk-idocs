@@ -162,6 +162,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     
     // release resources used only in this thread
     xmlFreeParserCtxt(parserContext);
+    self.parsingFieldName = nil;
     self.employeeEntity = nil;
     self.employeeGroupEntity = nil;
     self.resolutionTemplateEntity = nil;

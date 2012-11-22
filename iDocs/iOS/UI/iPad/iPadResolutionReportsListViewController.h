@@ -24,7 +24,6 @@
     UIButton *backButton;
     
     UITableView* reportsListTable;
-    NSMutableDictionary* reports;
     NSMutableArray* selectedReports;
     id<iPadResolutionReportsListViewControllerDelegate> delegate;
     NSMutableArray* checkArray;

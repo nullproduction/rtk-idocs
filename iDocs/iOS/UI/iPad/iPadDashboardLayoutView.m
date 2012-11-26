@@ -245,9 +245,7 @@
     self.dashboardPager.currentPage = page;
 }
 
-- (void)dealloc {
-//    NSLog(@"1 dealloc companyLogoIcon%i contentScrollView%i self.userNameLabel%i self.userIcon%i self.backButton%i self.syncButton%i self.settingsButton%i self.syncButtonHint%i self.syncButtonValue%i self.dashboardPager%i", [companyLogoIcon retainCount], [contentScrollView retainCount], [self.userNameLabel retainCount], [self.userIcon retainCount], [self.backButton retainCount], [self.syncButton retainCount], [self.settingsButton retainCount],[self.syncButtonHint retainCount], [self.syncButtonValue retainCount], [self.dashboardPager retainCount]);
-    
+- (void)dealloc {    
     [companyLogoIcon release];
     [contentScrollView release];
  
@@ -260,8 +258,6 @@
     self.syncButtonValue = nil;
     self.dashboardPager = nil;
 
-//    NSLog(@"2 dealloc companyLogoIcon%i contentScrollView%i self.userNameLabel%i self.userIcon%i self.backButton%i self.syncButton%i self.settingsButton%i self.syncButtonHint%i self.syncButtonValue%i self.dashboardPager%i", [companyLogoIcon retainCount], [contentScrollView retainCount], [self.userNameLabel retainCount], [self.userIcon retainCount], [self.backButton retainCount], [self.syncButton retainCount], [self.settingsButton retainCount],[self.syncButtonHint retainCount], [self.syncButtonValue retainCount], [self.dashboardPager retainCount]);
-    
     [super dealloc];
 }
 

@@ -96,6 +96,7 @@
     [valueLabel release];
     [titleLabel release];
     [tokenField release];
+    
     [super dealloc];
 }
 

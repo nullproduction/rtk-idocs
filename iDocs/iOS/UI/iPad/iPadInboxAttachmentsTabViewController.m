@@ -20,7 +20,6 @@
 
 @implementation iPadInboxAttachmentsTabViewController
 
-@synthesize treatmentItems;
 
 #pragma mark custom methods - init
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel {

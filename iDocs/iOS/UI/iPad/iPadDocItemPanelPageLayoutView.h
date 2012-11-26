@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseLayoutView.h"
 
-@interface iPadDocItemPanelPageLayoutView : BaseLayoutView {
-	UIView *bodyPanel;
-    UIButton *openInExtAppButton;
-}
+@interface iPadDocItemPanelPageLayoutView : BaseLayoutView
 
 @property (nonatomic,retain) UIView *bodyPanel;
 @property (nonatomic,retain) UIButton *openInExtAppButton;

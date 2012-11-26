@@ -209,7 +209,11 @@
 	[attachmentsTab release];
 	[endorsementTab release];
 	[executionTab release];
-	[requisitesTab release];    
+	[requisitesTab release];
+    
+    if(self.loadedItem != nil)
+        self.loadedItem = nil;
+    
 	[super dealloc];
 }
 @end

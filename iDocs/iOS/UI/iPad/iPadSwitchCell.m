@@ -18,14 +18,17 @@
     if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier])) {
 		self.accessoryType = UITableViewCellAccessoryNone;
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
-		titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, 
-															   140.0f, 
-															   self.contentView.bounds.size.height - 10.0f)];
-		titleLabel.textColor = [iPadThemeBuildHelper titleForValueFontColor];
-		titleLabel.font = [UIFont systemFontOfSize:constLargeFontSize];
-		titleLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;			
-		titleLabel.backgroundColor = [UIColor clearColor];	
-		[self.contentView addSubview:titleLabel];		
+		UILabel* titleLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(40, 5,
+                                                             140.0f,
+                                                             self.contentView.bounds.size.height - 10.0f)];
+
+        self.titleLabel = titleLabel_;
+		[titleLabel_ release];
+        self.titleLabel.textColor = [iPadThemeBuildHelper titleForValueFontColor];
+		self.titleLabel.font = [UIFont systemFontOfSize:constLargeFontSize];
+		self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+		self.titleLabel.backgroundColor = [UIColor clearColor];
+		[self.contentView addSubview:self.titleLabel];
 		
 		
 		onOffSwitch = [[UISwitch alloc] init];
@@ -46,7 +49,7 @@
 }
 
 - (void)setTitle:(NSString *)title {
-	titleLabel.text = title;
+	self.titleLabel.text = title;
 }
 
 - (void)setValue:(BOOL)value {
@@ -70,8 +73,11 @@
 }
 
 - (void)dealloc {
-	[titleLabel release];
+	self.titleLabel = nil;
 	[onOffSwitch release];
+    
+    [self setDelegate:nil];
+    
     [super dealloc];
 }
 

@@ -17,9 +17,12 @@
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		
 		//body
-		bodyPanel = [[UIView alloc] init];
-		bodyPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		[self addSubview:bodyPanel];
+		UIView* view = [[UIView alloc] init];
+        self.bodyPanel = view;
+        [view release];
+        
+		self.bodyPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self addSubview:self.bodyPanel];
     }
 	return self;
 }
@@ -28,11 +31,12 @@
     NSLog(@"iPadInboxItemPanelPageLayoutView layoutSubviews");
 	[super layoutSubviews];
 
-	bodyPanel.frame = self.bounds;
+	self.bodyPanel.frame = self.bounds;
 }
 
 - (void)dealloc {
-	[bodyPanel release];
+	self.bodyPanel = nil;
+    
     [super dealloc];
 }
 

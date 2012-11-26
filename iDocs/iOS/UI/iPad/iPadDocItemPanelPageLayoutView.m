@@ -20,11 +20,11 @@
         UIView *view = [[UIView alloc] init];
 		self.bodyPanel = view;
         [view release];
-		bodyPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		[self addSubview:bodyPanel];
+		self.bodyPanel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[self addSubview:self.bodyPanel];
         
         self.openInExtAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [openInExtAppButton setImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"open_in_external_app_button"]]
+        [self.openInExtAppButton setImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"open_in_external_app_button"]]
                             forState:UIControlStateNormal];
 	}
 	return self;
@@ -32,9 +32,9 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	bodyPanel.frame = self.bounds;
-    openInExtAppButton.frame = CGRectMake(bodyPanel.bounds.origin.x + bodyPanel.bounds.size.width - 77, 
-                                          bodyPanel.bounds.origin.y + bodyPanel.bounds.size.height - 38, 
+	self.bodyPanel.frame = self.bounds;
+    self.openInExtAppButton.frame = CGRectMake(self.bodyPanel.bounds.origin.x + self.bodyPanel.bounds.size.width - 77,
+                                          self.bodyPanel.bounds.origin.y + self.bodyPanel.bounds.size.height - 38, 
                                           26, 22);
 }
 

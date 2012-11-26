@@ -122,6 +122,9 @@
     [attachmentFileNameLabel release];
 	[attachmentNameLabel release];
 	[attachmentSizeLabel release];
+    
+    [self setDelegate:nil];
+    
     [super dealloc];
 }
 

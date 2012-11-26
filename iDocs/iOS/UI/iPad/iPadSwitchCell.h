@@ -17,9 +17,9 @@
 
 @interface iPadSwitchCell : HFSUITableViewCell {
 	UISwitch *onOffSwitch;
-	UILabel *titleLabel;
 	id<iPadSwitchCellDelegate>delegate;
 }
+
 @property (nonatomic,retain) UILabel *titleLabel;
 
 - (void)setDelegate:(id<iPadSwitchCellDelegate>)newDelegate;

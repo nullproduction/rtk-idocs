@@ -25,20 +25,22 @@
         self.textLabel.font = [UIFont systemFontOfSize:constLargeFontSize];
         self.textLabel.textColor = [iPadThemeBuildHelper commonTextFontColor2];
         
-        UIImageView *tmpImageView = [[UIImageView alloc] init];
-        self.statusIcon = tmpImageView;
-        [tmpImageView release];
-        statusIcon.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        statusIcon.contentMode = UIViewContentModeCenter;
-        [self.contentView addSubview:statusIcon];
+        UIImageView* statusIcon_ = [[UIImageView alloc] init];
+        self.statusIcon = statusIcon_;
+        [statusIcon_ release];
+        self.statusIcon.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.statusIcon.contentMode = UIViewContentModeCenter;
+        [self.contentView addSubview:self.statusIcon];
         
-        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        activityIndicator.contentMode = UIViewContentModeCenter;
-        activityIndicator.hidesWhenStopped = YES;
+        UIActivityIndicatorView* activityIndicator_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self.activityIndicator = activityIndicator_;
+        [activityIndicator_ release];
+        self.activityIndicator.contentMode = UIViewContentModeCenter;
+        self.activityIndicator.hidesWhenStopped = YES;
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"5.0")) {
-            activityIndicator.color = [iPadThemeBuildHelper activityIndicatorColor];
+            self.activityIndicator.color = [iPadThemeBuildHelper activityIndicatorColor];
         }
-        [self.contentView addSubview:activityIndicator];
+        [self.contentView addSubview:self.activityIndicator];
         
     }
     return self;
@@ -52,14 +54,15 @@
     CGRectDivide(self.contentView.bounds, &statusIconFrame, &labelFrame, 60.0f, CGRectMinXEdge);
     
     self.textLabel.frame = CGRectOffset(CGRectInset(labelFrame, 4.0f, 0.0f), 4.0f, 0.0f);
-    statusIcon.frame = statusIconFrame;
-    activityIndicator.frame = statusIconFrame;
+    self.statusIcon.frame = statusIconFrame;
+    self.activityIndicator.frame = statusIconFrame;
 }
 
 
 - (void)dealloc {
     self.activityIndicator = nil;
     self.statusIcon = nil;
+    
     [super dealloc];
 }
 

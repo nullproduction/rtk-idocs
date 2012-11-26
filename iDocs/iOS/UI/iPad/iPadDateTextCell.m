@@ -60,8 +60,10 @@
 }
 
 - (void)dealloc {
-	[titleLabel release];
 	[dateTextLabel release];
+	[titleLabel release];
+
     [super dealloc];
 }
+
 @end

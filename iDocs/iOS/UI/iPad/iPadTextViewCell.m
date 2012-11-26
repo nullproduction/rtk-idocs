@@ -68,6 +68,7 @@
 - (void)dealloc {
 	[titleLabel release];
 	[valueLabel release];
+    
     [super dealloc];
 }
 

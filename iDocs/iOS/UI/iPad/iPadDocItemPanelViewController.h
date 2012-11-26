@@ -15,10 +15,8 @@
 
 @interface iPadDocItemPanelViewController : iPadBaseViewController <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {	
     NSDictionary *loadedItem; 	
-	UIView *body;
     UIWebView *attachmentWebView;
     HFSUILabel *placeholderLabel;
-    UIView *contentPanelCopy;
     
     UIDocumentInteractionController *docInteractionController;
 }

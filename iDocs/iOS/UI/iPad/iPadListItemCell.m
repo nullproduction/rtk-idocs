@@ -59,6 +59,7 @@
 - (void)dealloc {
 	[cellIdLabel release];	
 	[valueLabel release];
+    
     [super dealloc];
 }
 

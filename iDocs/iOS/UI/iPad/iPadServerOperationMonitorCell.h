@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface iPadServerOperationMonitorCell : UITableViewCell {
-    UIImageView *statusIcon;
-    UIActivityIndicatorView *activityIndicator;
-}
+@interface iPadServerOperationMonitorCell : UITableViewCell
+
 @property (nonatomic, retain) UIImageView *statusIcon;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 

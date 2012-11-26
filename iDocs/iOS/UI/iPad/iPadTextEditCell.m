@@ -111,6 +111,7 @@
 	[titleLabel release];
 	[dataTextView release];
 	[valueLabel release];
+    
     [super dealloc];
 }
 

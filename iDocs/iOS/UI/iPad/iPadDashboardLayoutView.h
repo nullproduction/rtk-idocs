@@ -34,4 +34,5 @@
 - (void)addContentPanel:(UIView *)contentPanelView;
 - (void)setCurrentPage:(int)pageNum;
 - (void) returnToEOffice;
+
 @end

@@ -302,15 +302,18 @@
 - (void)dealloc {
 	[errandIdLabel release];
 	[errandStatusImage release];
-	[errandNumberLabel release];
     [errandMajorExecutorImage release];
+	[errandNumberLabel release];
 	[errandAuthorLabel release];
 	[errandExecutorLabel release];
 	[errandTextLabel release];
 	[errandDueDateLabel release];
-    [errandOpenTreeButton release];
     
+    [errandOpenTreeButton release];
     [errandAttachmentFiles release];
+    
+    [self setDelegate:nil];
+    
     [super dealloc];
 }
 @end

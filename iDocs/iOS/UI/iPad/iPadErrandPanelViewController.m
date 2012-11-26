@@ -130,6 +130,10 @@
 - (void)dealloc {
 	self.errandViewController = nil;
 	self.errandNavigationController = nil;
+
+    if (self.container != nil)
+        self.container = nil;
+    
     [super dealloc];
 }
 

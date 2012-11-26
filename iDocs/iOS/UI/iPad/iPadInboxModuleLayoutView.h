@@ -11,14 +11,12 @@
 #import "iPadInboxModuleActionButtonsLayoutView.h"
 
 @interface iPadInboxModuleLayoutView : iPadBaseLayoutView {
-    //left top toolbars
 	UIView *leftTopToolbarButtonsPanel;
 	HFSUILabel *inboxModuleHeaderTitle;
 	HFSUIButton *showInboxListPopoverButton;
 	HFSUILabel *showInboxListPopoverButtonTitle;	
 	UIButton *navigateHomeButton;
     
-    //right top toolbar
 	UIView *rightTopToolbarButtonsPanel;
     HFSUIButton *actionsPopoverButton;
     HFSUIButton *upButton;
@@ -34,7 +32,6 @@
     
     iPadInboxModuleActionButtonsLayoutView *actionsPanel;
     
-    //sliding panel
 	UIView *leftSlidingPanel;
 	UIView *leftSliderFilter;
 	UIView *leftSliderBody;
@@ -46,18 +43,21 @@
 	BOOL slidingInProgress;
 }
 
+//left top toolbars
 @property(nonatomic,retain) UIView *leftTopToolbarButtonsPanel;
 @property(nonatomic,retain) HFSUILabel *inboxModuleHeaderTitle;
 @property(nonatomic,retain) HFSUIButton *showInboxListPopoverButton;
 @property(nonatomic,retain) HFSUILabel *showInboxListPopoverButtonTitle;
 @property(nonatomic,retain) UIButton *navigateHomeButton;
 
+//sliding panel
 @property(nonatomic,retain) UIView *leftSlidingPanel;
 @property(nonatomic,retain) UIView *leftSliderFilter;
 @property(nonatomic,retain) UIView *leftSliderButton;
 @property(nonatomic,retain) UIView *leftSliderBody;
 @property(nonatomic,retain) UIView *leftSliderFooter;
 
+//right top toolbar
 @property(nonatomic,retain) UIView *rightTopToolbarButtonsPanel;
 @property(nonatomic,retain) HFSUIButton *actionsPopoverButton;
 @property(nonatomic,retain) HFSUIButton *upButton;

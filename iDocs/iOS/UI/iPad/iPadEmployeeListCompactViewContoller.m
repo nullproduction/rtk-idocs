@@ -107,6 +107,8 @@
 }
 
 - (void)dealloc {
+    [employeeListTable release];
+    
     self.employees = nil;
     self.filteredEmployees = nil;
     

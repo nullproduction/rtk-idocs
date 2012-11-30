@@ -66,7 +66,7 @@
     
     if(cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
     ReportAttachment *currentReport = (ReportAttachment*)[self.attachmentsArray objectAtIndex:indexPath.row];
@@ -136,7 +136,7 @@
 
 - (void) dealloc
 {
-    [self.attachmentsArray release];
+    [attachmentsArray release];
     [super dealloc];
 }
 

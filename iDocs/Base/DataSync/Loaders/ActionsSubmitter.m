@@ -106,6 +106,7 @@
     [actionIds release];
     [parser release];
     [actionsEntity release];
+    
     [super dealloc];
 }
 

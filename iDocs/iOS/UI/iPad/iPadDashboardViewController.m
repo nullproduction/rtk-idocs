@@ -152,6 +152,9 @@
     
     iPadDashboardLayoutView *container = ((iPadDashboardLayoutView *)self.view);
     
+    if(widgetsPanelArray != nil) {
+        [widgetsPanelArray release];
+    }
     widgetsPanelArray = [[NSMutableArray alloc] init];
     [container clearContentPanel];
        

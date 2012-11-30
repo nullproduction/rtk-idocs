@@ -260,7 +260,7 @@
     [checkArray release];
     [attachArray release];
     
-    [self.reports release];
+    [reports release];
     
     [super dealloc];
 }

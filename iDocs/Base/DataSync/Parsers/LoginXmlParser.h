@@ -11,9 +11,9 @@
 #import "BaseXmlParser.h"
 
 @interface LoginXmlParser : BaseXmlParser {
-    
 }
 
 - (id)init;
 - (NSString *)parseLoginResponse:(NSData *)data;
+
 @end

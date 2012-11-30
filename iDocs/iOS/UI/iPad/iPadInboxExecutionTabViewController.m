@@ -87,7 +87,8 @@
     currentErrandId = newCurrentErrandId;
     if (errands != nil)
         [errands release];
-    errands = [newErrands copy];
+    if( newErrands != nil )
+        errands = [newErrands copy];
     ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton.enabled = ([errands count] > 0) ? YES : NO;
     HFSUIButton *tableFilterButton = ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton;
 	[tableFilterButton setSelected:YES];
@@ -101,6 +102,7 @@
     if( nil != childErrandDictionary ) {
         [childErrandDictionary release];
     }
+    
     childErrandDictionary = childErrands;
     
     [childErrandDictionary retain];
@@ -108,8 +110,11 @@
 
 - (void)loadErrandAttachmentsWithDocId:(NSString*)docId
 {
-    errandAttachments = [docEntity selectErrandAttachmentsWithDocId:docId];
-    [errandAttachments retain];
+    if( errandAttachments != nil ) {
+        [errandAttachments release];
+    }
+    
+    errandAttachments = [[docEntity selectErrandAttachmentsWithDocId:docId] retain];
 }
 
 #pragma mark custom methods - panel behavior
@@ -330,11 +335,11 @@
     NSIndexPath *selectedIndexPath = [errandsTableView indexPathForCell:cell];
     DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:selectedIndexPath.row]);
     
-    self.attPicker = [[AttachmentsPisker alloc] initWithStyle:UITableViewStylePlain];
+    self.attPicker = [[[AttachmentsPisker alloc] initWithStyle:UITableViewStylePlain] autorelease];
     self.attPicker.delegate = self;
     self.attPicker.attachmentsArray = [errandAttachments objectForKey:errand.id];
     
-    self.popController = [[UIPopoverController alloc] initWithContentViewController:self.attPicker];
+    self.popController = [[[UIPopoverController alloc] initWithContentViewController:self.attPicker] autorelease];
     self.popController.popoverContentSize = defaultPopoverSize;
     self.popController.delegate = self;
     [self.popController presentPopoverFromRect:[cell getAttachmentButtonRect] inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -437,7 +442,7 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {    
     [popoverController release];
-    [self.attPicker release];
+    [attPicker release];
 }
 
 #pragma mark AttachmentPickerController Delegate methods

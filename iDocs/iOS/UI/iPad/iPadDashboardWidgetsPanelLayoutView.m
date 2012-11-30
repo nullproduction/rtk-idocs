@@ -148,8 +148,8 @@
             [widget setOverdueItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontNormalColor]];
             
             //update widget current data with new values
-            if( ![item.id isEqualToString:constOnControlFolderId] ) {
             [widget setAllItemsQuantity:[item.countTotal intValue]];
+            if( ![item.id isEqualToString:constOnControlFolderId] ) {
                 [widget setNewItemsQuantity:[item.countNew intValue]];
                 if (item.countNew > 0) {
                     [widget setNewItemsQuantityTextColor:[iPadThemeBuildHelper dashboardWidgetTextFontNewColor]];

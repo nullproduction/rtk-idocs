@@ -85,6 +85,8 @@
 
 - (void)dealloc {
     [sortOptions release];
+    delegate = nil;
+    
     [super dealloc];
 }
 

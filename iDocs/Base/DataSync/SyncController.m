@@ -21,10 +21,11 @@
 
 - (id)initWithDelegate:(id<SyncDelegate>)newDelegate {
 	if ((self = [super init])) {
-        delegate = newDelegate; 
+        delegate = newDelegate;
+        abortSyncRequested = NO;
+        eventHandler = [[DataSyncEventHandler alloc] init];
 	}
-    abortSyncRequested = NO;
-    eventHandler = [[DataSyncEventHandler alloc] init];
+        
 	return self;
 }
 

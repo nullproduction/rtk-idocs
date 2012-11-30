@@ -143,6 +143,7 @@
     else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Приложение не найдено!" message:@"Вызываемое вами приложение не найдено на усройстве." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        [alertView release];
     }
 }
 

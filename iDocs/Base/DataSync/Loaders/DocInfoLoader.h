@@ -17,6 +17,7 @@
 }
 
 @property (nonatomic, retain) NSOperationQueue *queue;
+
 - (id)initWithLoaderDelegate:(id<BaseLoaderDelegate>)newDelegate 
                   andContext:(NSManagedObjectContext *)context 
                forSyncModule:(DataSyncModule)module;

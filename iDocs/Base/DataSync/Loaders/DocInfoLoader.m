@@ -129,6 +129,7 @@
 - (void)dealloc {
     self.queue = nil;
     [docEntity release];
+    
     [super dealloc];
 }
 

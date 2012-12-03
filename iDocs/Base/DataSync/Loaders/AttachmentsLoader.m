@@ -48,8 +48,7 @@
             NSString *error = nil;
             if ([downloadType isEqualToString:constORDAttachmentDownloadBase64Type] || useTestData == YES) {
                 AttachmentBase64Loader *loader = [[AttachmentBase64Loader alloc] init];
-                NSString *testDataXMLPath = 
-                    [self returnPathForMockXmlByAttachmentId:attachment.id andDocId:attachment.doc.id];
+                NSString *testDataXMLPath = [self returnPathForMockXmlByAttachmentId:attachment.id andDocId:attachment.doc.id];
                 loader.testDataXMLPath = (prepareTestData == YES) ? testDataXMLPath : nil;
                 
                 if (useTestData == NO) {
@@ -58,19 +57,19 @@
                 }
                 else {          
                     NSLog(@"AttachmentsLoader load test xml: %@", testDataXMLPath);
-                    NSMutableData *testDataXML = 
-                        [NSMutableData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:testDataXMLPath ofType:nil]];            
+                    NSMutableData *testDataXML = [NSMutableData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:testDataXMLPath ofType:nil]];            
                     error = [loader parseAndSaveXML:testDataXML withFileName:attachment.fileName];
                 }
+                [error retain];
                 [loader release]; 
             }
             else {
                 AttachmentServletLoader *loader = [[AttachmentServletLoader alloc] init];
                 NSDictionary *requestData  = [WebServiceRequests createRequestOfAttachmentFile:attachment.id forUser:[systemEntity userInfo]];
                 error = [loader downloadFileWithRequest:requestData andSaveWithFileName:attachment.fileName];
+                [error retain];
                 [loader release];
             }
-            
             
             if (error == nil) {
                 NSLog(@"AttachmentsLoader loading of attachment finished: %@ \n", attachment.fileName);
@@ -82,6 +81,8 @@
                                 status:DSEventStatusWarning 
                                message:[NSString stringWithFormat:@"%@ - %@", attachment.fileName, error]
                            usingPrefix:NSLocalizedString(@"AttachmentsLoadFailedMessage", nil)];       
+                [error release];
+                error = nil;
             }
         }
     }
@@ -91,6 +92,7 @@
 
 - (void)dealloc {
     [docEntity release];
+    
     [super dealloc];
 }
 

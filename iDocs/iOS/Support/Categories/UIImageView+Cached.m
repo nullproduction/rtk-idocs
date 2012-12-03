@@ -54,7 +54,6 @@
 		else {
 			NSLog(@"UIImageView:LoadImage Failed: %@", err);
         }
-		
 		[pool drain];
 	}
 	

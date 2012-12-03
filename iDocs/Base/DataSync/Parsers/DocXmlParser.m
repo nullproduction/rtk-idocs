@@ -112,7 +112,7 @@
 
 - (void)updateDocEntity:(Doc *)doc withInfoSectionInRecord:(SMXMLElement *)record {
     SMXMLElement *generalSection = [record descendantWithPath:@"Info.Properties"];
-    NSString *docDesc = [[[generalSection childWithAttribute:@"name" value:@"object_name:object_name"] childNamed:@"Value"] value];
+    NSString *docDesc = [[[generalSection childWithAttribute:@"name" value:@"ka_object_name:ka_object_name"] childNamed:@"Value"] value];
     doc.desc = docDesc;
  
     NSString *ownerId = [[[generalSection childWithAttribute:@"name" value:@"ka_owner_name:Владелец"] childNamed:@"Value"] value];    

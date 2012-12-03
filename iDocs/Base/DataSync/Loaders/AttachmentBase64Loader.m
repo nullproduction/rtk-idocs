@@ -214,6 +214,34 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     // save chunk data to buffer
     [characterBuffer appendBytes:charactersFound length:length];
 }
+
+- (void)dealloc {
+    if( self.fileName != nil ) {
+        self.fileName = nil;
+    }
+    if( self.testDataXMLPath != nil ) {
+        self.testDataXMLPath = nil;
+    }
+
+    if( self.loadingError != nil ) {
+        self.loadingError = nil;
+    }
+
+    if( self.connection != nil ) {
+        self.connection = nil;
+    }
+
+    if( self.responseData != nil ) {
+        self.responseData = nil;
+    }
+
+    if( self.characterBuffer != nil ) {
+        self.characterBuffer = nil;
+    }
+    
+    [super dealloc];
+}
+
 @end
 
 

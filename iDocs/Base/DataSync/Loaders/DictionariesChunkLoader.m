@@ -314,6 +314,35 @@ static xmlSAXHandler simpleSAXHandlerStruct;
         }
     }
 }
+
+- (void)dealloc {
+    if( self.conn != nil )
+        self.conn = nil;
+    
+    if( self.responseData != nil )
+        self.responseData = nil;
+
+    if( self.characterBuffer != nil )
+        self.characterBuffer = nil;
+    
+    if( self.recordData != nil )
+        self.recordData = nil;
+    
+    if( self.parsingFieldName != nil )
+        self.parsingFieldName = nil;
+    
+    if( self.employeeEntity != nil )
+        self.employeeEntity = nil;
+   
+    if( self.employeeGroupEntity != nil )
+        self.employeeGroupEntity = nil;
+    
+    if( self.resolutionTemplateEntity != nil )
+        self.resolutionTemplateEntity = nil;
+    
+    [super dealloc];
+}
+
 @end
 
 

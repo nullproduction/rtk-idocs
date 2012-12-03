@@ -146,6 +146,7 @@
     [clientEntity release];
     [taskEntity release];
     [taskActionTempalteEntity release];
+ 
     [super dealloc];
 }
 

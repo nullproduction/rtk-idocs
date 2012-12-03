@@ -102,9 +102,9 @@
         self.user = [systemEntity userInfo]; 
         [systemEntity release];
         
-        user.ORDListSortType = (user.ORDListSortType == nil) ? [NSNumber numberWithInt:0] : user.ORDListSortType;
+        self.user.ORDListSortType = (self.user.ORDListSortType == nil) ? [NSNumber numberWithInt:0] : self.user.ORDListSortType;
         itemsListSortOptions = [[NSArray alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"InboxModuleItemsListSortOptions" withExtension:@"plist"]];
-        inboxListPanel.sortFields = [[itemsListSortOptions objectAtIndex:[user.ORDListSortType intValue]] valueForKey:@"sortFields"];
+        inboxListPanel.sortFields = [[itemsListSortOptions objectAtIndex:[self.user.ORDListSortType intValue]] valueForKey:@"sortFields"];
         listSortViewController = [[iPadListSortViewController alloc] initWithSortOptionsDelegate:self];
         listSortViewControllerPopover = [[UIPopoverController alloc] initWithContentViewController:listSortViewController];
     }
@@ -115,13 +115,13 @@
 #pragma mark - sort options:
 - (void)showListSortOptions:(HFSUIButton *)sender {
     [listSortViewControllerPopover presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    [listSortViewController setSelectedItem:[user.ORDListSortType intValue]];
+    [listSortViewController setSelectedItem:[self.user.ORDListSortType intValue]];
 }
 
 
 #pragma mark - sort options - iPadInboxListSortViewControllerDelegate methods
 - (void)didSelectSortOptionWithIndex:(int)index {
-    user.ORDListSortType = [NSNumber numberWithInt:index];
+    self.user.ORDListSortType = [NSNumber numberWithInt:index];
     inboxListPanel.sortFields = [[itemsListSortOptions objectAtIndex:index] valueForKey:@"sortFields"];
     [listSortViewControllerPopover dismissPopoverAnimated:YES];
 
@@ -177,10 +177,10 @@
 }
 
 - (void)formatItemHeader:(int)numberOfRecords {
-	NSString *popoverTitle = [NSString stringWithFormat:@"%@ (%i)", inboxModuleTitle, numberOfRecords];
+	NSString *popoverTitle = [NSString stringWithFormat:@"%@ (%i)", self.inboxModuleTitle, numberOfRecords];
 	container.showInboxListPopoverButtonTitle.text = popoverTitle;
     
-    NSString *moduleTitle = [NSString stringWithFormat:@"%@ (%i)", inboxModuleTitle, numberOfRecords];
+    NSString *moduleTitle = [NSString stringWithFormat:@"%@ (%i)", self.inboxModuleTitle, numberOfRecords];
     if (self.loadedItem != nil) {
         NSString *itemTitle = constEmptyStringValue; 
         NSString *docDesc = (self.loadedItem.doc.desc != nil) ? self.loadedItem.doc.desc : constEmptyStringValue;
@@ -216,7 +216,7 @@
     self.user = [systemEntity userInfo];
     [systemEntity release];
     
-    container.toolsButtonValue.text = [[itemsListSortOptions objectAtIndex:[user.ORDListSortType intValue]] valueForKey:@"name"];
+    container.toolsButtonValue.text = [[itemsListSortOptions objectAtIndex:[self.user.ORDListSortType intValue]] valueForKey:@"name"];
     NSString *lastSyncDateString = [UserDefaults stringSettingByKey:constLastSuccessfullSyncDate];
     container.syncButtonValue.text = 
         ([lastSyncDateString length] ? lastSyncDateString : NSLocalizedString(@"UnknownLastSyncDateText", nil));        
@@ -227,9 +227,9 @@
 
     
 	self.inboxModuleTitle = item.name;
-	inboxModuleHeaderTitle.text = inboxModuleTitle;
+	inboxModuleHeaderTitle.text = self.inboxModuleTitle;
 
-	container.showInboxListPopoverButtonTitle.text = inboxModuleTitle;    
+	container.showInboxListPopoverButtonTitle.text = self.inboxModuleTitle;
 	
 	[inboxListPanel loadDataForDashboardItemId:item.id];
 }
@@ -299,19 +299,20 @@
 
 - (void)navigateHome {
 	NSLog(@"iPadInboxModule navigateHome");		
+    [inboxItemInfoPanel stopLoadingQL];
 	iDocAppDelegate *appDelegate = (iDocAppDelegate *)[[UIApplication sharedApplication] delegate];	
 	NSArray *controllers = [appDelegate.navigationController viewControllers];
 	UIViewController *rootController = [controllers objectAtIndex:0];
 	if ([rootController isMemberOfClass:iPadDashboardViewController.class]) {
 		[(iPadDashboardViewController *)rootController reloadWidgetData];
 	}
-	[appDelegate.navigationController popToRootViewControllerAnimated:YES];
-	
+	[appDelegate.navigationController popToRootViewControllerAnimated:YES];	
 }
 
 #pragma mark custom methods - delegate implementation methods
 - (void)didSelectItem:(Task *)item {
 	NSLog(@"iPadInboxModule didSelectItem:%@ %@", item.id, item.doc.id);
+    [inboxItemInfoPanel stopLoadingQL];
     
 	if (self.inboxListPopover.popoverVisible == YES) {
 		[self.inboxListPopover dismissPopoverAnimated:YES];
@@ -433,9 +434,9 @@
             [[ActionToSyncDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
         action = [actionsEntity createActionToSync];
         [actionsEntity release];
-        action.id = currentActionToSyncId;
-        action.docId = loadedItem.doc.id;
-        action.taskId = loadedItem.id;
+        action.id = self.currentActionToSyncId;
+        action.docId = self.loadedItem.doc.id;
+        action.taskId = self.loadedItem.id;
         action.actionId = actionId;
         action.actionType = actionType;
         action.actionIsFinal = actionIsFinal;
@@ -462,11 +463,11 @@
         DocDataEntity *docEntity = [[DocDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
 		DocErrand *errand = [docEntity createDocErrand];
         errand.id = [NSString stringWithFormat: @"%@_%.0f", @"errand", [NSDate timeIntervalSinceReferenceDate] * 1000.0];
-		errand.authorId = user.id;
-        errand.authorName = [SupportFunctions createShortFIO:user.fio]; 
-        errand.doc = loadedItem.doc;
+		errand.authorId = self.user.id;
+        errand.authorName = [SupportFunctions createShortFIO:self.user.fio];
+        errand.doc = self.loadedItem.doc;
         errand.status = constErrandStatusInProcess;
-        errand.systemActionToSyncId = currentActionToSyncId;
+        errand.systemActionToSyncId = self.currentActionToSyncId;
         errand.systemSortIndex = [NSNumber numberWithInt:[errand.doc.errands count]];
 		[self showErrand:errand forTaskAction:action orTaskId:nil usingMode:constModeCreate];
         [docEntity release];
@@ -484,7 +485,7 @@
     resolutionPanel = [[iPadResolutionPanelViewController alloc] initWithFrame:container.popupPanel.bounds];
     [resolutionPanel.resolutionViewController setDelegate:self];
     
-//    NSArray* errands = [[loadedItem.doc.errands allObjects] retain];
+//    NSArray* errands = [[self.loadedItem.doc.errands allObjects] retain];
     NSArray* errands = [[self selectOnlyMyErrands] retain];
     bool haveReadyReport = NO;
 
@@ -520,7 +521,7 @@
 }
 
 - (void)selectReportButtonPressed {
-//    NSArray* errands = [[loadedItem.doc.errands allObjects] retain];
+//    NSArray* errands = [[self.loadedItem.doc.errands allObjects] retain];
     NSArray* errands = [[self selectOnlyMyErrands] retain];
 
     NSMutableArray* reports = [[NSMutableArray alloc] initWithCapacity:1];
@@ -544,8 +545,8 @@
 
 - (NSArray *)selectOnlyMyErrands {
     NSMutableArray* filteredErrands = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-    NSString *userId = user.id;
-    NSArray* errands = [loadedItem.doc.errands allObjects];
+    NSString *userId = self.user.id;
+    NSArray* errands = [self.loadedItem.doc.errands allObjects];
     for(int i = 0; i < [errands count]; i++) {
         DocErrand *errand = ((DocErrand *)[errands objectAtIndex:i]);
         NSString *authorId = errand.authorId;
@@ -566,7 +567,7 @@
 
 - (void)showErrand:(DocErrand *)errand usingMode:(int)mode {
     NSLog(@"iPadInboxModule showErrand usingMode %i", mode);
-    [self showErrand:errand forTaskAction:nil orTaskId:loadedItem.id usingMode:mode];
+    [self showErrand:errand forTaskAction:nil orTaskId:self.loadedItem.id usingMode:mode];
 }
 
 - (void)showErrand:(DocErrand *)errand forTaskAction:(ActionToSync *)action orTaskId:(NSString *)taskId usingMode:(int)mode {
@@ -728,21 +729,51 @@
 }
 
 - (void)dealloc {
-    self.loadedItem = nil;
-    self.currentActionToSyncId = nil;
-    self.inboxModuleTitle = nil;
-    self.user = nil;
+    NSLog(@"iPadInboxModule dealloc");
+
+//    contentPanel = nil;
+//    contentBodyPanel = nil;
+//    buttonsPanel = nil;
+//    leftSlidingBodyPanel = nil;
     
-    if (currentDashboardItem != nil)
-        [currentDashboardItem release];
+//    if( showInboxListPopoverButton != nil )
+//        showInboxListPopoverButton = nil;
+
+//    if( inboxModuleHeaderTitle != nil )
+//        inboxModuleHeaderTitle = nil;
+
+//    if( actionsPopoverButton != nil )
+//        actionsPopoverButton = nil;
+    
+	[container release];
+    
+    [inboxListPanel release];
+    [inboxItemInfoPanel release];
+    
+    if( taskActionsPopover != nil )
+        [taskActionsPopover release];
     
     [listSortViewController release];
     [listSortViewControllerPopover release];
     [itemsListSortOptions release];
-	[inboxListPanel release];
-	[inboxListPopover release];	
-	[inboxItemInfoPanel release];
-	[container release];
+    
+    if (currentDashboardItem != nil)
+        currentDashboardItem = nil;
+
+    if( self.inboxListPopover != nil )
+        self.inboxListPopover = nil;
+    
+    if( self.loadedItem != nil )
+        self.loadedItem = nil;
+    
+    if( self.currentActionToSyncId != nil )
+        self.currentActionToSyncId = nil;
+    
+    if( self.inboxModuleTitle != nil )
+        self.inboxModuleTitle = nil;
+    
+    if( self.user != nil )
+        self.user = nil;
             
     [super dealloc];
 }

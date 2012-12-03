@@ -72,7 +72,8 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 	
-	if (!string) return;
+	if ( string == nil || [string length] == 0 )
+        return;
 
 	if (value)
 		[(NSMutableString *)value appendString:[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];

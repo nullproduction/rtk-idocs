@@ -32,6 +32,10 @@ static char encodingTable[64] = {
 		NSData *base64Data = nil;
 		const unsigned char *base64Bytes = nil;
         
+//        for(int i = 0; i < 4; ++i) {
+//            inbuf[i] = 0;
+//        }
+
 		// Convert the string to ASCII data.
 		base64Data = [string dataUsingEncoding:NSASCIIStringEncoding];
 		base64Bytes = [base64Data bytes];

@@ -334,31 +334,32 @@
 }
 
 - (void)dealloc {
-    [inboxModuleHeaderTitle release];
-    [showInboxListPopoverButton release];
-    [showInboxListPopoverButtonTitle release];
-    [navigateHomeButton release];
-    [actionsPopoverButton release];
-    [upButton release];
-    [downButton release];
-    
-    [syncButton release];
-    [syncButtonHint release];
-    [syncButtonValue release];
-
-    [toolsButton release];
-    [toolsButtonHint release];
-    [toolsButtonValue release];    
-    
-	[leftTopToolbarButtonsPanel release];
- 	[rightTopToolbarButtonsPanel release];   
-	[leftSliderFilter release];
-    [leftSliderFooter release];
-	[leftSliderBody release];
-	[leftSliderButton release];
 	[leftSliderButtonImage release];
-	[leftSlidingPanel release];
-    [actionsPanel release];
+
+    self.inboxModuleHeaderTitle = nil;
+    self.showInboxListPopoverButton = nil;
+    self.showInboxListPopoverButtonTitle = nil;
+    self.navigateHomeButton = nil;
+    self.actionsPopoverButton = nil;
+    self.upButton = nil;
+    self.downButton = nil;
+    
+    self.syncButton = nil;
+    self.syncButtonHint = nil;
+    self.syncButtonValue = nil;
+
+    self.toolsButton = nil;
+    self.toolsButtonHint = nil;
+    self.toolsButtonValue = nil;
+    
+	self.leftTopToolbarButtonsPanel = nil;
+ 	self.rightTopToolbarButtonsPanel = nil;
+	self.leftSliderFilter = nil;
+    self.leftSliderFooter = nil;
+	self.leftSliderBody = nil;
+	self.leftSliderButton = nil;
+	self.leftSlidingPanel = nil;
+    self.actionsPanel = nil;
     
     [super dealloc];
 }

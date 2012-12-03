@@ -73,11 +73,11 @@ static NSError *SMXMLDocumentError(NSXMLParser *parser, NSError *parseError) {
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 	
 	if (!string) return;
-	
+
 	if (value)
-		[(NSMutableString *)value appendString:string];
+		[(NSMutableString *)value appendString:[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 	else
-		self.value = [NSMutableString stringWithString:string];
+		self.value = [NSMutableString stringWithString:[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {

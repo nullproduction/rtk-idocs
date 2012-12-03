@@ -46,4 +46,6 @@
 
 - (void)reloadExecutionTab;
 
+- (void)stopLoadingQL;
+
 @end

@@ -197,6 +197,14 @@
     [docEntity release];
 }
 
+- (void)stopLoadingQL {
+    if( attachmentsTab != nil ) {
+        iPadInboxAttachmentsTabLayoutView *layout = (iPadInboxAttachmentsTabLayoutView *)attachmentsTab.view;
+        [layout removeQLView];
+    }
+}
+
+
 #pragma mark other methods
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxItemPanel didReceiveMemoryWarning");		

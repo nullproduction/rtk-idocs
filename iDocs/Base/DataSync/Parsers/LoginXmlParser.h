@@ -10,8 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "BaseXmlParser.h"
 
-@interface LoginXmlParser : BaseXmlParser {
-}
+@interface LoginXmlParser : BaseXmlParser 
 
 - (id)init;
 - (NSString *)parseLoginResponse:(NSData *)data;

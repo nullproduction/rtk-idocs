@@ -46,7 +46,7 @@ extern NSString *const SMXMLDocumentErrorDomain;
 @property (nonatomic, assign) SMXMLDocument *document;
 @property (nonatomic, assign) SMXMLElement *parent;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain) NSString *value;
+@property (nonatomic, retain) NSMutableString *value;
 @property (nonatomic, retain) NSArray *children;
 @property (nonatomic, readonly) SMXMLElement *firstChild, *lastChild;
 @property (nonatomic, retain) NSDictionary *attributes;

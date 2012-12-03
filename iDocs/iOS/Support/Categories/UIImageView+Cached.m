@@ -49,6 +49,7 @@
 				[[self cache] removeAllObjects];
 			
 			[[self cache] setValue:newImage forKey:url.description];
+            [newImage release];
 		}
 		else {
 			NSLog(@"UIImageView:LoadImage Failed: %@", err);

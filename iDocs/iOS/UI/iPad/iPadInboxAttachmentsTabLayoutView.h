@@ -66,6 +66,7 @@
 - (void)setDelegate:(id<iPadInboxAttachmentsTabLayoutViewDelegate>)newDelegate;
 
 - (void)setupPages:(int)numberOfPages;
+- (void)removeQLView;
 
 @property(nonatomic, retain) UIView *attachmentViewPlaceHolder;
 @property(nonatomic, retain) UIDocumentInteractionController *docInteractionController;

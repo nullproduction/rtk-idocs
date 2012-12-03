@@ -137,6 +137,7 @@
 - (void) dealloc
 {
     [attachmentsArray release];
+    
     [super dealloc];
 }
 

@@ -44,6 +44,7 @@
 @synthesize navController;
 
 - (void)removeQLView {
+    NSLog(@"removeQLView");
     if (previewer != nil) {
         [previewer setDataSource:nil];
         [previewer.view removeFromSuperview];

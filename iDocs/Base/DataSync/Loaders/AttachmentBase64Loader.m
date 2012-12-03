@@ -109,6 +109,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     xmlFreeParserCtxt(context);
     
     [stream close];
+    [stream release];
     self.stream = nil;
     
     self.characterBuffer = nil;
@@ -147,6 +148,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     // close stream
     self.loadingError = [error localizedDescription];
     [stream close];
+    [stream release];
     self.stream = nil;
     downloadInProcess = NO;
 }
@@ -160,6 +162,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
         [SupportFunctions createMockOutputFile:testDataXMLPath withData:responseData];
 #endif
     [stream close];
+    [stream release];
     self.stream = nil;
     downloadInProcess = NO; 
 }

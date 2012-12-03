@@ -31,7 +31,7 @@ static char encodingTable[64] = {
 		BOOL flendtext = NO;
 		NSData *base64Data = nil;
 		const unsigned char *base64Bytes = nil;
-		
+        
 		// Convert the string to ASCII data.
 		base64Data = [string dataUsingEncoding:NSASCIIStringEncoding];
 		base64Bytes = [base64Data bytes];
@@ -63,13 +63,13 @@ static char encodingTable[64] = {
 					flbreak = YES;
 				}
 				
-				inbuf [ixinbuf++] = ch;
+				inbuf[ixinbuf++] = ch;
 				
 				if( ixinbuf == 4 ) {
 					ixinbuf = 0;
-					outbuf [0] = ( inbuf[0] << 2 ) | ( ( inbuf[1] & 0x30) >> 4 );
-					outbuf [1] = ( ( inbuf[1] & 0x0F ) << 4 ) | ( ( inbuf[2] & 0x3C ) >> 2 );
-					outbuf [2] = ( ( inbuf[2] & 0x03 ) << 6 ) | ( inbuf[3] & 0x3F );
+					outbuf[0] = ( inbuf[0] << 2 ) | ( ( inbuf[1] & 0x30) >> 4 );
+					outbuf[1] = ( ( inbuf[1] & 0x0F ) << 4 ) | ( ( inbuf[2] & 0x3C ) >> 2 );
+					outbuf[2] = ( ( inbuf[2] & 0x03 ) << 6 ) | ( inbuf[3] & 0x3F );
 					
 					for( i = 0; i < ctcharsinbuf; i++ )
 						[mutableData appendBytes:&outbuf[i] length:1];
@@ -108,13 +108,13 @@ static char encodingTable[64] = {
 		for( i = 0; i < 3; i++ ) {
 			ix = ixtext + i;
 			if( ix < lentext ) inbuf[i] = bytes[ix];
-			else inbuf [i] = 0;
+			else inbuf[i] = 0;
 		}
 		
-		outbuf [0] = (inbuf [0] & 0xFC) >> 2;
-		outbuf [1] = ((inbuf [0] & 0x03) << 4) | ((inbuf [1] & 0xF0) >> 4);
-		outbuf [2] = ((inbuf [1] & 0x0F) << 2) | ((inbuf [2] & 0xC0) >> 6);
-		outbuf [3] = inbuf [2] & 0x3F;
+		outbuf[0] = (inbuf[0] & 0xFC) >> 2;
+		outbuf[1] = ((inbuf[0] & 0x03) << 4) | ((inbuf[1] & 0xF0) >> 4);
+		outbuf[2] = ((inbuf[1] & 0x0F) << 2) | ((inbuf[2] & 0xC0) >> 6);
+		outbuf[3] = inbuf[2] & 0x3F;
 		ctcopy = 4;
 		
 		switch( ctremaining ) {

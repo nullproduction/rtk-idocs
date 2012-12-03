@@ -53,6 +53,9 @@
         [SupportFunctions setNetworkActivityIndicatorVisible:NO];
     }
     
+    if(self.conn != nil) {
+        [conn release];
+    }
     self.conn = nil;
     downloadInProcess = NO;
     [downloadPool release];

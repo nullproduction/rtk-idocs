@@ -368,19 +368,21 @@ NSInteger sortDocAttachBySize(id docAttach1, id docAttach2, void *context) {
     
     for (DocErrand *currentErrand in items)
     {
-            NSMutableArray *errandsArray = [dictWithChilds objectForKey:currentErrand.parentId];
-        
-            if(errandsArray != nil)
-            {
-                [errandsArray addObject:currentErrand];
-            }
-            else
-            {
-                errandsArray = [[[NSMutableArray alloc] init] autorelease];
-                [errandsArray addObject:currentErrand];
-            }
-
-            [dictWithChilds setObject:errandsArray forKey:currentErrand.parentId];
+//        NSMutableArray *errandsArray = nil;
+//        if( (dictWithChilds != nil) && [dictWithChilds count] )
+          NSMutableArray* errandsArray  = [dictWithChilds objectForKey:currentErrand.parentId];
+    
+        if(errandsArray != nil)
+        {
+            [errandsArray addObject:currentErrand];
+        }
+        else
+        {
+            errandsArray = [[[NSMutableArray alloc] init] autorelease];
+            [errandsArray addObject:currentErrand];
+        }
+//        if( currentErrand.parentId != nil )
+        [dictWithChilds setObject:errandsArray forKey:currentErrand.parentId];
     }
     
     NSDictionary *returnDict = [NSDictionary dictionaryWithDictionary:dictWithChilds];

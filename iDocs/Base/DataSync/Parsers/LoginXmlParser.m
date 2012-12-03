@@ -20,22 +20,30 @@
 
 - (NSString *)parseLoginResponse:(NSData *)data {
     NSLog(@"LoginXmlParser parseContent");
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+    
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error != nil) {
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
     
     NSString *dmTicket = [[document.root descendantWithPath:@"Body.getLoginTicketResponse.return"] value];
     if ([dmTicket length] == 0) {
-        return NSLocalizedString(@"NoDMTicketMessage", nil);        
+        [parseErr setString:NSLocalizedString(@"NoDMTicketMessage", nil)];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
     
     [parserPool release];
     self.parserPool = nil;
-    
     return nil;
 }
+
 @end

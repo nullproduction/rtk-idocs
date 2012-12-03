@@ -38,13 +38,18 @@
 
 - (NSString *)parseAndInsertDocListData:(NSData *)data {
     NSLog(@"DocListOnControlXmlParser parseAndInsertDocsData started");  
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+    
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"DocListOnControlXmlParser parseAndInsertDocData error: %@", [error localizedDescription]);
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
     
     SMXMLElement *returnPacket = [document.root descendantWithPath:@"Body.getMyDocumentsResponse.return"];    

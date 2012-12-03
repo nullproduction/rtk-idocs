@@ -60,13 +60,18 @@
 
 - (NSString *)parseAndInsertClientSettingsData:(NSData *)data { 
     NSLog(@"ClientSettingsXmlParser parseAndInsertClientSettingsData started");    
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+   
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"ClientSettingsXmlParser parseTaskGroupData error: %@", [error localizedDescription]);
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
 
     NSArray *settingsList = [[document.root childNamed:@"general_settings"] childrenNamed:@"setting"];

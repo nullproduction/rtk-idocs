@@ -68,6 +68,7 @@
 - (void)dealloc {
 	[textEditView release];
 	[backgroundTiledView release];
+    
     [super dealloc];
 }
 

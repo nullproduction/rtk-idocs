@@ -123,7 +123,7 @@
 	[attachmentNameLabel release];
 	[attachmentSizeLabel release];
     
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

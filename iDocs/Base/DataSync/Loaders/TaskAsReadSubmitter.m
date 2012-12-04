@@ -37,14 +37,16 @@
         else {
             if( nil != parseError ) {
                 NSLog(@"TaskAsReadSubmitter parsing failed:%@", [parseError localizedDescription]);                
+//                [self logEventWithCode:DSEventCodeLoaderSubevent
+//                                status:DSEventStatusWarning
+//                               message:[parseError localizedDescription]
+//                           usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadParseFailedMessage", nil)];
+//                [parseError release];
+                parseError = nil;
             }
             else {
                 NSLog(@"TaskAsReadSubmitter parsing failed");
             }
-//            [self logEventWithCode:DSEventCodeLoaderSubevent
-//                            status:DSEventStatusWarning
-//                           message:[parseError localizedDescription]
-//                       usingPrefix:NSLocalizedString(@"ActionsSubmitTaskAsReadParseFailedMessage", nil)];
         }
     }
     else {

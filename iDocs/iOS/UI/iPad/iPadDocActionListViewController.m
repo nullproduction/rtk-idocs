@@ -98,7 +98,8 @@
 
 - (void)dealloc {
     [actions release];
-    [self setActionsDelegate:nil];
+    
+//    [self setActionsDelegate:nil];
     
     [super dealloc];
 }

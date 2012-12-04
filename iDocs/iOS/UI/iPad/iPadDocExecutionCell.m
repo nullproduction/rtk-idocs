@@ -312,7 +312,7 @@
     [errandOpenTreeButton release];
     [errandAttachmentFiles release];
     
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

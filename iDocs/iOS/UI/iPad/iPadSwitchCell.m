@@ -76,7 +76,7 @@
 	self.titleLabel = nil;
 	[onOffSwitch release];
     
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

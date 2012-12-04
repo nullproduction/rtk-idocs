@@ -144,7 +144,8 @@
 
 - (void)dealloc {
 	[widgetIconImageView release];
-    [self setDelegate:nil];
+    
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

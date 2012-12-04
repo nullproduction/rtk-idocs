@@ -224,7 +224,7 @@
         [requisites release];
 	[requisitesTableView release];
     
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
 	[super dealloc];
 }

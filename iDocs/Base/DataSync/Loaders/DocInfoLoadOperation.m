@@ -239,7 +239,7 @@
     if( self.operationContext != nil )
         self.operationContext = nil;
 
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

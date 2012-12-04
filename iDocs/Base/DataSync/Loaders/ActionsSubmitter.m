@@ -48,6 +48,8 @@
                             status:DSEventStatusError 
                            message:[parseError localizedDescription]
                        usingPrefix:NSLocalizedString(@"ActionsSubmitParseFailedMessage", nil)];            
+//            [parseError release];
+            parseError = nil;
         }
     }  
     else {

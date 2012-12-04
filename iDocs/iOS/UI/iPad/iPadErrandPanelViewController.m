@@ -134,7 +134,7 @@
     if (self.container != nil)
         self.container = nil;
     
-    [self setDelegate:nil];
+//    [self setDelegate:nil];
     
     [super dealloc];
 }

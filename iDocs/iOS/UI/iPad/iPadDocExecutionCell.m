@@ -155,7 +155,7 @@
         
         c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 120.0f, c5Frame.size.height);
         c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - 160.0f, c5Frame.size.height);
-        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, 120.0f, c5Frame.size.height);
+        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, 125.0f, c5Frame.size.height);
         c8Frame = CGRectMake(c7Frame.origin.x + c7Frame.size.width, c5Frame.origin.y, 40.0f, c5Frame.size.height);
 	}
     else {

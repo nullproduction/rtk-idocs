@@ -48,8 +48,8 @@
 		[tableHeaderPlaceholder addSubview:headerBottomBorder];
 		
 		
-		tableHeader0 = [self tableHeaderLabelWithFrame:CGRectZero forText:constEmptyStringValue];
-		tableHeader1 = [self tableHeaderLabelWithFrame:CGRectZero forText:constEmptyStringValue];
+		tableHeader0 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ErrandStatusCellTitle", nil)];
+//		tableHeader1 = [self tableHeaderLabelWithFrame:CGRectZero forText:constEmptyStringValue];
 		tableHeader2 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"NumberCellTitle", nil)];
 		tableHeader3 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AuthorCellTitle", nil)];
         tableHeader4 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"IsMajorExecutorCellTitle", nil)];
@@ -59,7 +59,7 @@
         tableHeader8 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AttachmentFilesCellTitle", nil)];
 				
 		[tableHeaderPlaceholder addSubview:tableHeader0];
-		[tableHeaderPlaceholder addSubview:tableHeader1];
+//		[tableHeaderPlaceholder addSubview:tableHeader1];
 		[tableHeaderPlaceholder addSubview:tableHeader2];
 		[tableHeaderPlaceholder addSubview:tableHeader3];
 		[tableHeaderPlaceholder addSubview:tableHeader4];
@@ -91,8 +91,11 @@
 
 	NSArray *cellFrames = [iPadDocExecutionCell prepareCellFrames:tableHeaderBounds];
 		
-	tableHeader0.frame = [[cellFrames objectAtIndex:0] CGRectValue];
-	tableHeader1.frame = [[cellFrames objectAtIndex:1] CGRectValue];
+	CGRect frameStatus = [[cellFrames objectAtIndex:0] CGRectValue];
+    CGRect frameTreeButton = [[cellFrames objectAtIndex:1] CGRectValue];
+    frameStatus.size.width += frameTreeButton.size.width;
+    tableHeader0.frame = frameStatus;
+//	tableHeader1.frame = [[cellFrames objectAtIndex:1] CGRectValue];
 	tableHeader2.frame = [[cellFrames objectAtIndex:2] CGRectValue];
 	tableHeader3.frame = [[cellFrames objectAtIndex:3] CGRectValue];
 	tableHeader4.frame = [[cellFrames objectAtIndex:4] CGRectValue];

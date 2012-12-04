@@ -335,11 +335,11 @@
     NSIndexPath *selectedIndexPath = [errandsTableView indexPathForCell:cell];
     DocErrand *errand = ((DocErrand *)[filteredErrands objectAtIndex:selectedIndexPath.row]);
     
-    self.attPicker = [[[AttachmentsPisker alloc] initWithStyle:UITableViewStylePlain] autorelease];
+    self.attPicker = [[AttachmentsPisker alloc] initWithStyle:UITableViewStylePlain];
     self.attPicker.delegate = self;
     self.attPicker.attachmentsArray = [errandAttachments objectForKey:errand.id];
     
-    self.popController = [[[UIPopoverController alloc] initWithContentViewController:self.attPicker] autorelease];
+    self.popController = [[UIPopoverController alloc] initWithContentViewController:self.attPicker];
     self.popController.popoverContentSize = defaultPopoverSize;
     self.popController.delegate = self;
     [self.popController presentPopoverFromRect:[cell getAttachmentButtonRect] inView:cell.contentView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -441,7 +441,7 @@
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {    
-    [popoverController release];
+    [popController release];
     [attPicker release];
 }
 

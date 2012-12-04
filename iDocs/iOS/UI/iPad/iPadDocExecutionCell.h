@@ -44,7 +44,6 @@
 	UILabel *errandDueDateLabel;
 
     OpenTreeButton *errandOpenTreeButton;
-
     
     UIButton* errandAttachmentFiles;
     id<iPadDocAttachmentCellDelegate> delegate;

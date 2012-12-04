@@ -65,7 +65,7 @@
 		errandStatusImage.contentMode = UIViewContentModeCenter;
 		errandStatusImage.backgroundColor = [UIColor clearColor];
 		errandStatusImage.autoresizingMask = UIViewAutoresizingNone;		
-		//[[self contentView] addSubview:errandStatusImage];
+		[[self contentView] addSubview:errandStatusImage];
         
         errandOpenTreeButton = [[OpenTreeButton alloc] initWithFrame:CGRectZero];
         [errandOpenTreeButton setDelegate:self];
@@ -130,43 +130,45 @@
 	
 	NSArray *cellFrames = [iPadDocExecutionCell prepareCellFrames:self.bounds];
 	
-    errandOpenTreeButton.frame = [[cellFrames objectAtIndex:0] CGRectValue];
-	//errandStatusImage.frame = [[cellFrames objectAtIndex:0] CGRectValue];
-	errandNumberLabel.frame = [[cellFrames objectAtIndex:1] CGRectValue];
-	errandAuthorLabel.frame = [[cellFrames objectAtIndex:2] CGRectValue];
-    errandMajorExecutorImage.frame = [[cellFrames objectAtIndex:3] CGRectValue];
-	errandExecutorLabel.frame = [[cellFrames objectAtIndex:4] CGRectValue];
-	errandTextLabel.frame = [[cellFrames objectAtIndex:5] CGRectValue];
-	errandDueDateLabel.frame = [[cellFrames objectAtIndex:6] CGRectValue];
-    errandAttachmentFiles.frame = [[cellFrames objectAtIndex:7] CGRectValue];
+	errandStatusImage.frame = [[cellFrames objectAtIndex:0] CGRectValue];
+    errandOpenTreeButton.frame = [[cellFrames objectAtIndex:1] CGRectValue];
+	errandNumberLabel.frame = [[cellFrames objectAtIndex:2] CGRectValue];
+	errandAuthorLabel.frame = [[cellFrames objectAtIndex:3] CGRectValue];
+    errandMajorExecutorImage.frame = [[cellFrames objectAtIndex:4] CGRectValue];
+	errandExecutorLabel.frame = [[cellFrames objectAtIndex:5] CGRectValue];
+	errandTextLabel.frame = [[cellFrames objectAtIndex:6] CGRectValue];
+	errandDueDateLabel.frame = [[cellFrames objectAtIndex:7] CGRectValue];
+    errandAttachmentFiles.frame = [[cellFrames objectAtIndex:8] CGRectValue];
 
 }
 
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame {
-	CGRect c0Frame, c1Frame, c2Frame, c3Frame, c4Frame, c5Frame, c6Frame, c7Frame;
+	CGRect c0Frame, c1Frame, c2Frame, c3Frame, c4Frame, c5Frame, c6Frame, c7Frame, c8Frame;
     
     ClientSettingsDataEntity *settingsEntity = [[ClientSettingsDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
     if ([settingsEntity showMajorExecutorErrandSign] == NO) {
-        CGRectDivide(rowFrame, &c0Frame, &c1Frame, 70.0f, CGRectMinXEdge);
+        CGRectDivide(rowFrame, &c0Frame, &c1Frame, 40.0f, CGRectMinXEdge);
         CGRectDivide(c1Frame, &c1Frame, &c2Frame, 50.0f, CGRectMinXEdge);
-        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 110.0f, CGRectMinXEdge);
-        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 0.0f, CGRectMinXEdge);
-        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 120.0f, CGRectMinXEdge);
+        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 50.0f, CGRectMinXEdge);
+        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 120.0f, CGRectMinXEdge);
+        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 0.0f, CGRectMinXEdge);
         
-        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
-        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
-        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
+        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 120.0f, c5Frame.size.height);
+        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - 160.0f, c5Frame.size.height);
+        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, 120.0f, c5Frame.size.height);
+        c8Frame = CGRectMake(c7Frame.origin.x + c7Frame.size.width, c5Frame.origin.y, 40.0f, c5Frame.size.height);
 	}
     else {
-        CGRectDivide(rowFrame, &c0Frame, &c1Frame, 70.0f, CGRectMinXEdge);
+        CGRectDivide(rowFrame, &c0Frame, &c1Frame, 40.0f, CGRectMinXEdge);
         CGRectDivide(c1Frame, &c1Frame, &c2Frame, 50.0f, CGRectMinXEdge);
-        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 110.0f, CGRectMinXEdge);
-        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 0.0f, CGRectMinXEdge);
-        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 120.0f, CGRectMinXEdge);
+        CGRectDivide(c2Frame, &c2Frame, &c3Frame, 50.0f, CGRectMinXEdge);
+        CGRectDivide(c3Frame, &c3Frame, &c4Frame, 120.0f, CGRectMinXEdge);
+        CGRectDivide(c4Frame, &c4Frame, &c5Frame, 0.0f, CGRectMinXEdge);
         
-        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 130.0f, c5Frame.size.height);
-        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, 155.0f, c5Frame.size.height);
-        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - c6Frame.size.width, c5Frame.size.height);
+        c5Frame = CGRectMake(c5Frame.origin.x, c5Frame.origin.y, 120.0f, c5Frame.size.height);
+        c6Frame = CGRectMake(c5Frame.origin.x + c5Frame.size.width, c5Frame.origin.y, rowFrame.size.width - c0Frame.size.width - c1Frame.size.width - c2Frame.size.width - c3Frame.size.width - c4Frame.size.width - c5Frame.size.width - 160.0f, c5Frame.size.height);
+        c7Frame = CGRectMake(c6Frame.origin.x + c6Frame.size.width, c5Frame.origin.y, 120.0f, c5Frame.size.height);
+        c8Frame = CGRectMake(c7Frame.origin.x + c7Frame.size.width, c5Frame.origin.y, 50.0f, c5Frame.size.height);
     }
         
     [settingsEntity release];
@@ -180,6 +182,7 @@
 			[NSValue valueWithCGRect:CGRectInset(c5Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c6Frame, 5.0f, 0.0f)],
 			[NSValue valueWithCGRect:CGRectInset(c7Frame, 5.0f, 0.0f)],
+			[NSValue valueWithCGRect:CGRectInset(c8Frame, 5.0f, 0.0f)],
             nil];
 }
 
@@ -277,7 +280,7 @@
 
 - (void)filesButtonSelect
 {
-    if([delegate respondsToSelector:@selector(showFileListWithCell:)])
+    if(delegate != nil && [delegate respondsToSelector:@selector(showFileListWithCell:)])
     {
         [delegate performSelector:@selector(showFileListWithCell:) withObject:self];
     }
@@ -286,7 +289,7 @@
 - (void)showAttachmentButtonPressed {
 	NSLog(@"iPadDocExecutionCell showAttachmentButtonPressed");
     
-    if ([delegate respondsToSelector:@selector(showFileListWithCell:)])
+    if (delegate != nil && [delegate respondsToSelector:@selector(showFileListWithCell:)])
     {
         [delegate performSelector:@selector(showFileListWithCell:) withObject:self];
     }

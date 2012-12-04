@@ -27,15 +27,14 @@
 
 		widgetInfo = data;
 		
-		CGRect widgetIconImageViewFrame = CGRectMake(10.0f, (height - 81.0f)/2, 81.0f, 81.0f);
+		CGRect widgetIconImageViewFrame = CGRectMake(10.0f, roundf((height - 81.0f)/2), 81.0f, 81.0f);
 		widgetIconImageView = [[UIImageView alloc] initWithFrame:widgetIconImageViewFrame];
         UIImage *widgetImage = [UIImage imageNamed:[iPadThemeBuildHelper nameForImage:widgetInfo.dashboardIcon]];
         if (widgetImage == nil)
             widgetImage = [UIImage imageNamed:[iPadThemeBuildHelper nameForImage:constDefaultWidgetIcon]];
 		widgetIconImageView.image = widgetImage;
 		[self addSubview:widgetIconImageView];
-		
-		CGRect widgetNameLabelFrame = CGRectMake(101.0f, (height - 81.0f)/2, width - 111.0f, 40.0f);		
+		CGRect widgetNameLabelFrame = CGRectMake(101.0f, roundf((height - 81.0f)/2), width - 111.0f, 40.0f);
 		widgetNameLabel = 
 			[HFSUILabel labelWithFrame:widgetNameLabelFrame forText:nil withColor:[iPadThemeBuildHelper dashboardWidgetTitleFontColor] andShadow:nil];
         [self setAllItemsQuantity:0];
@@ -44,14 +43,14 @@
 		widgetNameLabel.font = [UIFont boldSystemFontOfSize:constLargeFontSize];								  
 		[self addSubview:widgetNameLabel];		
 		
-		CGRect newItemsQuantityLabelFrame = CGRectMake(101.0f, (height - 81.0f)/2 + 40.0f, width - 111.0f, 20.0f);		
+		CGRect newItemsQuantityLabelFrame = CGRectMake(101.0f, roundf((height - 81.0f)/2) + 40.0f, width - 111.0f, 20.0f);
 		newItemsQuantityLabel = 
 			[HFSUILabel labelWithFrame:newItemsQuantityLabelFrame forText:nil withColor:[iPadThemeBuildHelper dashboardWidgetTextFontNormalColor] andShadow:nil];
 		[self setNewItemsQuantity:0];
         newItemsQuantityLabel.font = [UIFont boldSystemFontOfSize:constMediumFontSize];								  
 		[self addSubview:newItemsQuantityLabel];
 		
-		CGRect overdueItemsQuantityLabelFrame = CGRectMake(101.0f, (height - 81.0f)/2 + 60.0f, width - 111.0f, 20.0f);		
+		CGRect overdueItemsQuantityLabelFrame = CGRectMake(101.0f, roundf((height - 81.0f)/2) + 60.0f, width - 111.0f, 20.0f);
 		overdueItemsQuantityLabel = 
 			[HFSUILabel labelWithFrame:overdueItemsQuantityLabelFrame forText:nil withColor:[iPadThemeBuildHelper dashboardWidgetTextFontNormalColor] andShadow:nil];
         [self setOverdueItemsQuantity:0];

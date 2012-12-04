@@ -48,6 +48,10 @@
 	NSLog(@"iPadInboxItemPanel initWithContentPlaceholderView");	
 	if ((self = [super initWithNibName:nil bundle:nil])) {
 		//body
+//		UIView* view = [[UIView alloc] init];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        view.frame = contentPanel.bounds;
+//        body = view;
 		iPadInboxItemPanelPageLayoutView *container = [[iPadInboxItemPanelPageLayoutView alloc] init];
 		container.frame = contentPanel.bounds;
 		body = container.bodyPanel;
@@ -81,6 +85,8 @@
 				
 		[contentPanel addSubview:container];				
 		[container release];
+//		[contentPanel addSubview:view];
+//		[view release];
 		[buttonsPanel addSubview:buttons];
 		[buttons release];
 	}

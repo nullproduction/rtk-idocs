@@ -11,11 +11,6 @@
 
 @interface iPadDocEndorsementCell: HFSUITableViewCell {
 	UIImageView *statusImage;
-	UILabel *positionLabel;
-	UILabel *personLabel;
-	UILabel *decisionLabel;
-	UILabel *dateLabel;
-	UILabel *commentLabel;
 }
 
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame;

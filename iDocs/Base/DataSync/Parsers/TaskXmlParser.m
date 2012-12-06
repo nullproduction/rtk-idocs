@@ -163,13 +163,18 @@
 
 - (NSString *)parseAndInsertTaskData:(NSData *)data forTaskBlock:(NSString *)block { 
     NSLog(@"TaskXmlParser parseAndInsertDocsData forTaskBlock:%@ started", block); 
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+    
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"TaskXmlParser parseAndInsertTaskData error: %@", [error localizedDescription]);
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
 
     SMXMLElement *returnPacket = [document.root descendantWithPath:@"Body.getMyTasksResponse.return"];
@@ -206,13 +211,18 @@
 #pragma mark task info methods
 - (NSString *)parseAndInsertTaskData:(NSData *)data forTaskId:(NSString *)taskId {   
     NSLog(@"TaskXmlParser parseAndInsertTaskData for forTaskId:%@", taskId); 
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"TaskXmlParser parseAndInsertTaskData error: %@", [error localizedDescription]);
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
     
     SMXMLElement *returnPacket = [document.root descendantWithPath:@"Body.getTaskDescriptionResponse.return"];

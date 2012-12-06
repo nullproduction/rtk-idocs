@@ -143,7 +143,7 @@
     NSDate *date = endorsement.endorsementDate;
     if (date != nil) {
         NSString *dateFormatted = [SupportFunctions convertDateToString:date withFormat:constDateTimeFormat]; 
-        cell.dateLabel.text = dateFormatted;		
+        cell.dateLabel.text = dateFormatted;
     }
     else {
         cell.dateLabel.text = constEmptyStringValue;

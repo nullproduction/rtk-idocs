@@ -87,7 +87,8 @@
     currentErrandId = newCurrentErrandId;
     if (errands != nil)
         [errands release];
-    errands = [newErrands copy];
+    if( newErrands != nil )
+        errands = [newErrands copy];
     ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton.enabled = ([errands count] > 0) ? YES : NO;
     HFSUIButton *tableFilterButton = ((iPadInboxExecutionTabLayoutView *)self.view).tableFilterButton;
 	[tableFilterButton setSelected:YES];
@@ -101,6 +102,7 @@
     if( nil != childErrandDictionary ) {
         [childErrandDictionary release];
     }
+    
     childErrandDictionary = childErrands;
     
     [childErrandDictionary retain];
@@ -108,8 +110,11 @@
 
 - (void)loadErrandAttachmentsWithDocId:(NSString*)docId
 {
-    errandAttachments = [docEntity selectErrandAttachmentsWithDocId:docId];
-    [errandAttachments retain];
+    if( errandAttachments != nil ) {
+        [errandAttachments release];
+    }
+    
+    errandAttachments = [[docEntity selectErrandAttachmentsWithDocId:docId] retain];
 }
 
 #pragma mark custom methods - panel behavior
@@ -437,8 +442,8 @@
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {    
-    [popoverController release];
-    [self.attPicker release];
+    [popController release];
+    [attPicker release];
 }
 
 #pragma mark AttachmentPickerController Delegate methods

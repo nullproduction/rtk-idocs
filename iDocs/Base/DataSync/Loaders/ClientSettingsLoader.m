@@ -187,6 +187,10 @@
 
 - (void)dealloc {
     [parser release];
+    if( self.serverCheckSum != nil ) {
+        self.serverCheckSum = nil;
+    }
+    
     [super dealloc];
 }
 

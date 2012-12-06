@@ -226,6 +226,21 @@
 
 - (void)dealloc {
 	[packageData release];
+    
+    if( self.wsProxy != nil )
+         self.wsProxy = nil;
+    
+    if( self.wsError != nil )
+        self.wsError = nil;
+
+    if( self.responseData != nil )
+        self.responseData = nil;
+
+    if( self.operationContext != nil )
+        self.operationContext = nil;
+
+//    [self setDelegate:nil];
+    
     [super dealloc];
 }
 

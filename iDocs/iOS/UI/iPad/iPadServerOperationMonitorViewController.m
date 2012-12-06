@@ -129,6 +129,7 @@
     titleLabel.backgroundColor = [iPadThemeBuildHelper syncHeaderBackColor];
     titleLabel.text = NSLocalizedString(@"ServerOperationInitialisationTitle", nil);
     [veil addSubview:titleLabel];
+    [titleLabel release];
     
     [veil release];
 }

@@ -27,55 +27,65 @@
 		self.backgroundColor = [UIColor clearColor];
 		self.opaque = NO;
 				
-		statusImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        statusImage = [[UIImageView alloc] initWithFrame:CGRectZero];;
 		statusImage.contentMode = UIViewContentModeCenter;
 		statusImage.backgroundColor = [UIColor clearColor];
 		[[self contentView] addSubview:statusImage];
 		
-		positionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		positionLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
-		positionLabel.numberOfLines = 0;
-		positionLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
-		positionLabel.textAlignment = UITextAlignmentLeft;
-		positionLabel.backgroundColor = [UIColor clearColor];
-		positionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
-		[[self contentView] addSubview:positionLabel];
+		UILabel* positionLabel_ = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.positionLabel = positionLabel_;
+        [positionLabel_ release];
+		self.positionLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		self.positionLabel.numberOfLines = 0;
+		self.positionLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
+		self.positionLabel.textAlignment = UITextAlignmentLeft;
+		self.positionLabel.backgroundColor = [UIColor clearColor];
+		self.positionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		[[self contentView] addSubview:self.positionLabel];
 		
-		personLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		personLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
-		personLabel.numberOfLines = 0;
-		personLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
-		personLabel.textAlignment = UITextAlignmentLeft;
-		personLabel.backgroundColor = [UIColor clearColor];
-		personLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
-		[[self contentView] addSubview:personLabel];
+		UILabel* personLabel_ = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.personLabel = personLabel_;
+        [personLabel_ release];
+		self.personLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		self.personLabel.numberOfLines = 0;
+		self.personLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
+		self.personLabel.textAlignment = UITextAlignmentLeft;
+		self.personLabel.backgroundColor = [UIColor clearColor];
+		self.personLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
+		[[self contentView] addSubview:self.personLabel];
 		
-		decisionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		decisionLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
-		decisionLabel.numberOfLines = 0;
-		decisionLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
-		decisionLabel.textAlignment = UITextAlignmentLeft;
-		decisionLabel.backgroundColor = [UIColor clearColor];
-		decisionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
-		[[self contentView] addSubview:decisionLabel];
+		UILabel* decisionLabel_ = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.decisionLabel = decisionLabel_;
+        [decisionLabel_ release];
+		self.decisionLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		self.decisionLabel.numberOfLines = 0;
+		self.decisionLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
+		self.decisionLabel.textAlignment = UITextAlignmentLeft;
+		self.decisionLabel.backgroundColor = [UIColor clearColor];
+		self.decisionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		[[self contentView] addSubview:self.decisionLabel];
 		
-		dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		dateLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];		
-		dateLabel.numberOfLines = 0;
-		dateLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
-		dateLabel.textAlignment = UITextAlignmentLeft;
-		dateLabel.backgroundColor = [UIColor clearColor];
-		dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
-		[[self contentView] addSubview:dateLabel];
+		UILabel* dateLabel_ = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.dateLabel = dateLabel_;
+        [dateLabel_ release];
+		self.dateLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		self.dateLabel.numberOfLines = 0;
+		self.dateLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
+		self.dateLabel.textAlignment = UITextAlignmentLeft;
+		self.dateLabel.backgroundColor = [UIColor clearColor];
+		self.dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		[[self contentView] addSubview:self.dateLabel];
 
-		commentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		commentLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];	
-		commentLabel.numberOfLines = 0;
-		commentLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
-		commentLabel.textAlignment = UITextAlignmentLeft;
-		commentLabel.backgroundColor = [UIColor clearColor];
-		commentLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;			
-		[[self contentView] addSubview:commentLabel];
+		UILabel* commentLabel_ = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.commentLabel = commentLabel_;
+        [commentLabel_ release];
+		self.commentLabel.textColor = [iPadThemeBuildHelper commonTextFontColor1];
+		self.commentLabel.numberOfLines = 0;
+		self.commentLabel.font = [UIFont systemFontOfSize:constMediumFontSize];
+		self.commentLabel.textAlignment = UITextAlignmentLeft;
+		self.commentLabel.backgroundColor = [UIColor clearColor];
+		self.commentLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+		[[self contentView] addSubview:self.commentLabel];
 		
 		
     }
@@ -97,11 +107,11 @@
 	NSArray *cellFrames = [iPadDocEndorsementCell prepareCellFrames:tgtFrame];
 	
 	statusImage.frame = [[cellFrames objectAtIndex:0] CGRectValue];
-	positionLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:1] CGRectValue] forText:positionLabel.text andFont:positionLabel.font];
-	personLabel.frame =	[self resizeLabelFrame:[[cellFrames objectAtIndex:2] CGRectValue] forText:personLabel.text andFont:personLabel.font];
-	decisionLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:3] CGRectValue] forText:decisionLabel.text andFont:decisionLabel.font];
-	dateLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:4] CGRectValue] forText:dateLabel.text andFont:dateLabel.font];
-	commentLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:5] CGRectValue] forText:commentLabel.text andFont:commentLabel.font];
+	self.positionLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:1] CGRectValue] forText:self.positionLabel.text andFont:self.positionLabel.font];
+	self.personLabel.frame =	[self resizeLabelFrame:[[cellFrames objectAtIndex:2] CGRectValue] forText:self.personLabel.text andFont:self.personLabel.font];
+	self.decisionLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:3] CGRectValue] forText:self.decisionLabel.text andFont:self.decisionLabel.font];
+	self.dateLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:4] CGRectValue] forText:self.dateLabel.text andFont:self.dateLabel.font];
+	self.commentLabel.frame = [self resizeLabelFrame:[[cellFrames objectAtIndex:5] CGRectValue] forText:self.commentLabel.text andFont:self.commentLabel.font];
 }
 
 + (NSArray *)prepareCellFrames:(CGRect)rowFrame {
@@ -129,13 +139,15 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)dealloc {	
+- (void)dealloc {
 	[statusImage release];
-	[personLabel release];
-	[positionLabel release];
-	[decisionLabel release];
-	[dateLabel release]; 
-	[commentLabel release];
+    
+    self.positionLabel = nil;
+	self.personLabel = nil;
+	self.decisionLabel = nil;
+	self.dateLabel = nil;
+	self.commentLabel = nil;
+    
     [super dealloc];
 }
 

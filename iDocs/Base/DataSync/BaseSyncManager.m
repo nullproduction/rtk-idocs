@@ -67,6 +67,7 @@
 - (void)dealloc {
 	[syncQueueEntity release];
     syncContext = nil;
+    
     [super dealloc];
 }
 @end

@@ -32,14 +32,16 @@
     if (results == nil)    
         results = [[NSMutableArray alloc] initWithCapacity:0];
     
+    NSError *error = nil;
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"ActionsSubmitResultXMLParser parseContent error: %@", [error localizedDescription]);
         if (parseError)
-            *parseError = error;
+            *parseError = [error retain];
+        [parserPool release];
+        self.parserPool = nil;
         return nil;
     }
     
@@ -84,32 +86,36 @@
     if (results == nil)
         results = [[NSMutableArray alloc] initWithCapacity:0];
     
+    NSError *error = nil;
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"ActionsSubmitResultXMLParser parseContent error: %@", [error localizedDescription]);
         if (parseError)
-            *parseError = error;
+            *parseError = [error retain];
+        [parserPool release];
+        self.parserPool = nil;
         return NO;
     }
     
     SMXMLElement *resultPacket = [document.root descendantWithPath:@"Body.setTaskAsReadResponse"];
     NSLog(@"resultPacket %@", resultPacket);
     if( resultPacket ) {
+        [parserPool release];
+        self.parserPool = nil;
         return YES;
     }
     else {
+        [parserPool release];
+        self.parserPool = nil;
         return NO;
     }
-    
-    [parserPool release];
-    self.parserPool = nil;
 }
 
 - (void)dealloc {
     [results release];
+    
     [super dealloc];
 }
 

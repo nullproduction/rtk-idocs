@@ -54,7 +54,7 @@
                      andAttachments:(NSArray *)newAttachments {
 	NSLog(@"iPadInboxRequisitesTab loadTabDataWithExecutorName");
 	executorName.text = name;
-	taskDocDescription.text = description;
+    taskDocDescription.text = description;
     if ([newRequisites count] > 0) {
         requisites = [newRequisites copy]; 
         hasRequisites = YES;
@@ -62,7 +62,13 @@
     else {
         hasRequisites = NO;        
     }
+    if( attachments != nil ) {
+        [attachments release];
+    }
 	attachments = [newAttachments copy];
+    iPadInboxRequisitesTabLayoutView *container = (iPadInboxRequisitesTabLayoutView *)self.view;
+    [container setNeedsLayout];
+
 	[requisitesTableView reloadData];
 }
 
@@ -217,6 +223,9 @@
     if (requisites != nil)
         [requisites release];
 	[requisitesTableView release];
+    
+//    [self setDelegate:nil];
+    
 	[super dealloc];
 }
 @end

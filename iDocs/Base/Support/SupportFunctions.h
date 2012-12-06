@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SupportFunctions : NSObject {
-}
+@interface SupportFunctions : NSObject
 
 + (NSDate *)currentDate;
 + (NSDate *)dateTime;
@@ -55,4 +54,5 @@
 + (void)createMockOutputFile:(NSString *)fileName withData:(NSMutableData *)data;
 
 + (void)setNetworkActivityIndicatorVisible:(BOOL)visible;
+
 @end

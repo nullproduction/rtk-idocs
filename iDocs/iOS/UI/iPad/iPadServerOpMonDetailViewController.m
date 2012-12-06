@@ -58,8 +58,12 @@
 }
 
 - (void)dealloc {
-    detailOperationQueue = nil;
-    contentView = nil;
+    if( detailOperationQueue != nil ) {
+        [detailOperationQueue release];
+    }
+    
+    [contentView release];
+
     [super dealloc];
 }
 

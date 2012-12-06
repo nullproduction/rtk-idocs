@@ -55,6 +55,7 @@
 - (void)dealloc {
 	[requisiteName release];	
 	[requisiteValue release];
+    
     [super dealloc];
 }
 

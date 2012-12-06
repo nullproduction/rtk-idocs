@@ -24,10 +24,7 @@
     NSArray *treatmentItems;
 }
 
-
 - (id)initWithPlaceholderPanel:(UIView *)placeholderPanel;
 - (void)loadTabData:(NSArray *)newAttachments;
-
-@property(nonatomic,retain) NSArray *treatmentItems;
 
 @end

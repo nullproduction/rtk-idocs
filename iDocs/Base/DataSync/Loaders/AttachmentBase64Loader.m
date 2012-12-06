@@ -109,6 +109,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     xmlFreeParserCtxt(context);
     
     [stream close];
+    [stream release];
     self.stream = nil;
     
     self.characterBuffer = nil;
@@ -147,6 +148,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     // close stream
     self.loadingError = [error localizedDescription];
     [stream close];
+    [stream release];
     self.stream = nil;
     downloadInProcess = NO;
 }
@@ -160,6 +162,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
         [SupportFunctions createMockOutputFile:testDataXMLPath withData:responseData];
 #endif
     [stream close];
+    [stream release];
     self.stream = nil;
     downloadInProcess = NO; 
 }
@@ -211,6 +214,34 @@ static xmlSAXHandler simpleSAXHandlerStruct;
     // save chunk data to buffer
     [characterBuffer appendBytes:charactersFound length:length];
 }
+
+- (void)dealloc {
+    if( self.fileName != nil ) {
+        self.fileName = nil;
+    }
+    if( self.testDataXMLPath != nil ) {
+        self.testDataXMLPath = nil;
+    }
+
+    if( self.loadingError != nil ) {
+        self.loadingError = nil;
+    }
+
+    if( self.connection != nil ) {
+        self.connection = nil;
+    }
+
+    if( self.responseData != nil ) {
+        self.responseData = nil;
+    }
+
+    if( self.characterBuffer != nil ) {
+        self.characterBuffer = nil;
+    }
+    
+    [super dealloc];
+}
+
 @end
 
 

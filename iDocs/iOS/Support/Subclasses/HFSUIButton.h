@@ -11,27 +11,15 @@
 #import "iPadThemeBuildHelper.h"
 
 @interface HFSUIButton : UIButton {
-	NSString *buttonId;
-	HFSUILabel *buttonTitle;
-	UIImageView *buttonIconView;
 	BOOL buttonSelected;
-	float leftMargin;
-    float buttonTitleOffset;
-	
-	UIImage *normalStateIconImage;
-	UIImage *selectedStateIconImage;
-	
-	NSDictionary *selectorData;
 }
 
-@property (nonatomic, retain) NSString *buttonId;
 @property (nonatomic, retain) HFSUILabel *buttonTitle;
 @property (nonatomic, retain) UIImageView *buttonIconView;
 @property (nonatomic, retain) UIImage *normalStateIconImage;
 @property (nonatomic, retain) UIImage *selectedStateIconImage;
 @property float leftMargin;
 @property float buttonTitleOffset;
-@property (nonatomic, retain) NSDictionary *selectorData; 
 
 + (HFSUIButton *)prepareButtonWithBackImageForNormalState:(NSString *)buttonNormalBack 
                                 backImageForSelectedState:(NSString *)buttonSelectedBack 

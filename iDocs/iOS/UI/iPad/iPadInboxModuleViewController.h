@@ -41,11 +41,9 @@
 	UIView *contentPanel;
 	UIView *contentBodyPanel;
 	UIView *buttonsPanel;
-	UIView *leftSlidingPanel;
 	UIView *leftSlidingBodyPanel;
 	
 	iPadInboxListPanelViewController *inboxListPanel;
-	UIPopoverController *inboxListPopover;																	
 	iPadInboxItemPanelViewController *inboxItemInfoPanel;
 
 	UIButton *showInboxListPopoverButton;
@@ -55,8 +53,6 @@
 	iPadErrandPanelViewController *errandPanel;
 	iPadResolutionPanelViewController *resolutionPanel;
 		     
-	NSString *inboxModuleTitle;
-
 	iPadInboxModuleLayoutView *container;
     
     UIPopoverController *taskActionsPopover;
@@ -66,11 +62,7 @@
     iPadListSortViewController *listSortViewController;
     UIPopoverController *listSortViewControllerPopover;
     
-    Task *loadedItem; 
-    NSString *currentActionToSyncId;
-      
     NSArray *itemsListSortOptions;
-    UserInfo *user;
     
     DashboardItem *currentDashboardItem;
 }

@@ -34,8 +34,8 @@
 //        tableFilterButton.buttonTitle.font = [UIFont systemFontOfSize:constMediumFontSize];
 //		tableFilterButton.buttonTitle.textAlignment = UITextAlignmentCenter;
 //		tableFilterButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-		
-		//[tableFilterPlaceholder addSubview:tableFilterButton];
+//		
+//		[tableFilterPlaceholder addSubview:tableFilterButton];
 		
 		[self addSubview:tableFilterPlaceholder];
 		
@@ -49,22 +49,24 @@
 		
 		
 		tableHeader0 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ErrandStatusCellTitle", nil)];
-		tableHeader1 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"NumberCellTitle", nil)];
-		tableHeader2 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AuthorCellTitle", nil)];
-		tableHeader3 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"IsMajorExecutorCellTitle", nil)];
-        tableHeader4 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutorCellTitle", nil)];
-		tableHeader5 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ErrandTextCellTitle", nil)];
-		tableHeader6 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutionPeriodCellTitle", nil)];
-        tableHeader7 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AttachmentFilesCellTitle", nil)];
+//		tableHeader1 = [self tableHeaderLabelWithFrame:CGRectZero forText:constEmptyStringValue];
+		tableHeader2 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"NumberCellTitle", nil)];
+		tableHeader3 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AuthorCellTitle", nil)];
+        tableHeader4 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"IsMajorExecutorCellTitle", nil)];
+		tableHeader5 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutorCellTitle", nil)];
+		tableHeader6 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ErrandTextCellTitle", nil)];
+        tableHeader7 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"ExecutionPeriodCellTitle", nil)];
+        tableHeader8 = [self tableHeaderLabelWithFrame:CGRectZero forText:NSLocalizedString(@"AttachmentFilesCellTitle", nil)];
 				
 		[tableHeaderPlaceholder addSubview:tableHeader0];
-		[tableHeaderPlaceholder addSubview:tableHeader1];
+//		[tableHeaderPlaceholder addSubview:tableHeader1];
 		[tableHeaderPlaceholder addSubview:tableHeader2];
 		[tableHeaderPlaceholder addSubview:tableHeader3];
 		[tableHeaderPlaceholder addSubview:tableHeader4];
 		[tableHeaderPlaceholder addSubview:tableHeader5];
         [tableHeaderPlaceholder addSubview:tableHeader6];
         [tableHeaderPlaceholder addSubview:tableHeader7];
+        [tableHeaderPlaceholder addSubview:tableHeader8];
 								
 		tablePlaceholder = [[UIView alloc] initWithFrame:CGRectZero];
 		tablePlaceholder.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -89,14 +91,18 @@
 
 	NSArray *cellFrames = [iPadDocExecutionCell prepareCellFrames:tableHeaderBounds];
 		
-	tableHeader0.frame = [[cellFrames objectAtIndex:0] CGRectValue];
-	tableHeader1.frame = [[cellFrames objectAtIndex:1] CGRectValue];
+	CGRect frameStatus = [[cellFrames objectAtIndex:0] CGRectValue];
+    CGRect frameTreeButton = [[cellFrames objectAtIndex:1] CGRectValue];
+    frameStatus.size.width += frameTreeButton.size.width;
+    tableHeader0.frame = frameStatus;
+//	tableHeader1.frame = [[cellFrames objectAtIndex:1] CGRectValue];
 	tableHeader2.frame = [[cellFrames objectAtIndex:2] CGRectValue];
 	tableHeader3.frame = [[cellFrames objectAtIndex:3] CGRectValue];
 	tableHeader4.frame = [[cellFrames objectAtIndex:4] CGRectValue];
 	tableHeader5.frame = [[cellFrames objectAtIndex:5] CGRectValue];
     tableHeader6.frame = [[cellFrames objectAtIndex:6] CGRectValue];
     tableHeader7.frame = [[cellFrames objectAtIndex:7] CGRectValue];
+    tableHeader8.frame = [[cellFrames objectAtIndex:8] CGRectValue];
 
 	CGRect executionTablePlaceholderFrame = CGRectMake(10.0f, 100.0f, self.frame.size.width - 20.0f, self.frame.size.height - 100.0f);
 	tablePlaceholder.frame = executionTablePlaceholderFrame;
@@ -118,6 +124,7 @@
 	[headerBottomBorder release];
 	[tableHeaderPlaceholder release];
 	[tablePlaceholder release];
+    
     [super dealloc];
 }
 

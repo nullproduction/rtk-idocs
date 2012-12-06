@@ -50,7 +50,7 @@
         while (downloadInProcess == YES) {
             [[NSRunLoop currentRunLoop] runUntilDate:[[NSDate date] dateByAddingTimeInterval:0.1]];
         } 
-        [SupportFunctions setNetworkActivityIndicatorVisible:NO];
+        [SupportFunctions setNetworkActivityIndicatorVisible:NO];        
     }
     
     self.conn = nil;
@@ -72,6 +72,10 @@
 
 - (void)dealloc {
 	self.filePath = nil;
+    if( self.loadingError != nil ) {
+        self.loadingError = nil;
+    }
+    
 	[super dealloc];
 }
 
@@ -109,7 +113,7 @@
     [stream close];
 	[stream release];
     self.stream = nil;
-    [connection release];
+    [conn release];
     downloadInProcess = NO;
 }
 
@@ -120,7 +124,7 @@
     [stream close];
 	[stream release];
     self.stream = nil;
-    [connection release];
+    [conn release];
     downloadInProcess = NO;
 }
 

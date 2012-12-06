@@ -33,36 +33,36 @@
         NSString *applicationTitle = [SupportFunctions addQuatationMarksToString:NSLocalizedString(@"ApplicationTitle", nil)];
           
 		appTitleLabel = [HFSUILabel labelWithFrame:CGRectZero 
-                                           forText:applicationTitle 
-                                        withColor:[iPadThemeBuildHelper infoTextFontColor1]
+                                           forText:applicationTitle
+                                         withColor:[iPadThemeBuildHelper infoTextFontColor1]
                                          andShadow:[iPadThemeBuildHelper commonShadowColor1]
                                           fontSize:constXLargeFontSize];
-		appTitleLabel.autoresizingMask = UIViewAutoresizingNone;
+        appTitleLabel.autoresizingMask = UIViewAutoresizingNone;
 		[self addSubview:appTitleLabel];
              
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[iPadThemeBuildHelper nameForImage:@"icon_user.png"]]];
 		self.userIcon = icon;
         [icon release];
-        userIcon.contentMode = UIViewContentModeCenter;
-		userIcon.autoresizingMask = UIViewAutoresizingNone;
-		[self addSubview:userIcon];
+        self.userIcon.contentMode = UIViewContentModeCenter;
+		self.userIcon.autoresizingMask = UIViewAutoresizingNone;
+		[self addSubview:self.userIcon];
         
 		NSString *userTitle = [NSString stringWithFormat:@"%@:", NSLocalizedString(@"UserTitle", nil)];
 		userTitleLabel = [HFSUILabel labelWithFrame:CGRectZero 
-                                            forText:userTitle 
+                                            forText:userTitle
                                           withColor:[iPadThemeBuildHelper commonTextFontColor5]
                                           andShadow:nil
                                            fontSize:constSmallFontSize];
-		userTitleLabel.autoresizingMask = UIViewAutoresizingNone;
+        userTitleLabel.autoresizingMask = UIViewAutoresizingNone;
 		[self addSubview:userTitleLabel];
 		
 		self.userNameLabel = [HFSUILabel labelWithFrame:CGRectZero 
-                                           forText:nil 
-                                         withColor:[iPadThemeBuildHelper commonTextFontColor5]
+                                                forText:nil
+                                              withColor:[iPadThemeBuildHelper commonTextFontColor5]
                                               andShadow:nil
                                                fontSize:constSmallFontSize];
-		userNameLabel.autoresizingMask = UIViewAutoresizingNone;
-		[self addSubview:userNameLabel];  
+        self.userNameLabel.autoresizingMask = UIViewAutoresizingNone;
+		[self addSubview:self.userNameLabel];
 
         companyLogoIcon = [[UIImageView alloc] init];
         companyLogoIcon.autoresizingMask = UIViewAutoresizingNone;
@@ -81,38 +81,40 @@
         
         
         self.backButton = [HFSUIButton prepareButtonWithBackImage:[iPadThemeBuildHelper nameForImage:@"icon_home.png"] 
-                                                     caption:nil 
-                                                captionColor:nil
-                                          captionShadowColor:nil
-                                                        icon:nil];
-        backButton.hidden = YES;
-        [self addSubview:backButton];
+                                                          caption:nil 
+                                                     captionColor:nil
+                                               captionShadowColor:nil
+                                                             icon:nil];
+        self.backButton.hidden = YES;
+        [self addSubview:self.backButton];
         
         self.syncButton = [HFSUIButton prepareButtonWithBackImageForNormalState:[iPadThemeBuildHelper nameForImage:@"sync_button.png"] 
                                                       backImageForSelectedState:[iPadThemeBuildHelper nameForImage:@"sync_button.png"]]; 
-        syncButton.hidden = YES;
-        [self addSubview:syncButton];        
-        self.syncButtonHint = [HFSUILabel labelWithFrame:CGRectZero 
-                                                 forText:NSLocalizedString(@"SyncButtonHint", nil) 
+        self.syncButton.hidden = YES;
+        [self addSubview:self.syncButton];
+
+        self.syncButtonHint = [HFSUILabel labelWithFrame:CGRectZero
+                                                 forText:NSLocalizedString(@"SyncButtonHint", nil)
                                                withColor:[iPadThemeBuildHelper commonTextFontColor5]
                                                andShadow:nil
                                                 fontSize:constSmallFontSize];
-		syncButtonHint.autoresizingMask = UIViewAutoresizingNone;
-        syncButtonHint.hidden = YES;
-        [self addSubview:syncButtonHint];
-        self.syncButtonValue = [HFSUILabel labelWithFrame:CGRectZero 
-                                                  forText:constEmptyStringValue 
+        self.syncButtonHint.autoresizingMask = UIViewAutoresizingNone;
+        self.syncButtonHint.hidden = YES;
+        [self addSubview:self.syncButtonHint];
+ 
+        self.syncButtonValue = [HFSUILabel labelWithFrame:CGRectZero
+                                                  forText:constEmptyStringValue
                                                 withColor:[iPadThemeBuildHelper commonTextFontColor5]
                                                 andShadow:nil
                                                  fontSize:constSmallFontSize];
-		syncButtonValue.autoresizingMask = UIViewAutoresizingNone;
-        syncButtonValue.hidden = YES;
-        [self addSubview:syncButtonValue];
+        self.syncButtonValue.autoresizingMask = UIViewAutoresizingNone;
+        self.syncButtonValue.hidden = YES;
+        [self addSubview:self.syncButtonValue];
         
         self.settingsButton = [HFSUIButton prepareButtonWithBackImageForNormalState:[iPadThemeBuildHelper nameForImage:@"tools_btn.png"] 
                                                       backImageForSelectedState:[iPadThemeBuildHelper nameForImage:@"tools_btn.png"]]; 
-        settingsButton.hidden = YES;
-        [self addSubview:settingsButton];        
+        self.settingsButton.hidden = YES;
+        [self addSubview:self.settingsButton];
 
         contentScrollView = [[UIScrollView alloc] initWithFrame:contentBodyPanel.bounds];
         contentScrollView.showsHorizontalScrollIndicator = NO;
@@ -124,8 +126,8 @@
         UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:contentPanelBack.bounds];
         self.dashboardPager = pageControl;
         [pageControl release];
-        dashboardPager.userInteractionEnabled = NO;
-        [contentPanelBack addSubview:dashboardPager];
+        self.dashboardPager.userInteractionEnabled = NO;
+        [contentPanelBack addSubview:self.dashboardPager];
 	}
 	return self;
 }
@@ -141,6 +143,7 @@
     else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Приложение не найдено!" message:@"Вызываемое вами приложение не найдено на усройстве." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        [alertView release];
     }
 }
 
@@ -188,12 +191,12 @@
     contentScrollView.contentSize = CGSizeMake(offset, contentBodyPanel.bounds.size.height);
     
     if (subviewsCount > 1) {
-        dashboardPager.hidden = NO;
-        dashboardPager.frame = CGRectInset(CGRectMake(0, contentPanelBack.bounds.size.height-80, contentPanelBack.bounds.size.width, 80), 250, 5);
-        dashboardPager.numberOfPages = subviewsCount;
+        self.dashboardPager.hidden = NO;
+        self.dashboardPager.frame = CGRectInset(CGRectMake(0, contentPanelBack.bounds.size.height-80, contentPanelBack.bounds.size.width, 80), 250, 5);
+        self.dashboardPager.numberOfPages = subviewsCount;
     } 
     else {
-        dashboardPager.hidden = YES;
+        self.dashboardPager.hidden = YES;
     }
 
     ClientSettingsDataEntity *settingsEntity = [[ClientSettingsDataEntity alloc] initWithContext:[[CoreDataProxy sharedProxy] workContext]];
@@ -213,24 +216,24 @@
     appTitleLabel.frame = appTitleLabelFrame;
       
     backButtonFrame = CGRectMake(10.0f, 12.0f, 41.0f, 42.0f);
-    backButton.frame = backButtonFrame;
+    self.backButton.frame = backButtonFrame;
     
     settingsButtonFrame = CGRectMake(12.0f, self.frame.size.height - 49.0f, 41.0f, 42.0f);
-    settingsButton.frame = settingsButtonFrame;
+    self.settingsButton.frame = settingsButtonFrame;
 
     syncButtonFrame = CGRectMake(56.0f, self.frame.size.height - 49.0f, 41.0f, 42.0f);
-    syncButton.frame = syncButtonFrame;
+    self.syncButton.frame = syncButtonFrame;
     syncHintFrame = CGRectMake(100.0f, self.frame.size.height - 47.0f, 157.0f, 21.0f);
-    syncButtonHint.frame = syncHintFrame;
+    self.syncButtonHint.frame = syncHintFrame;
     syncValueFrame = CGRectMake(100.0f, self.frame.size.height - 30.0f, 157.0f, 21.0f);
-    syncButtonValue.frame = syncValueFrame;
+    self.syncButtonValue.frame = syncValueFrame;
     
 	userIconFrame = CGRectMake(self.frame.size.width - 197.0f, self.frame.size.height - 47.0f, 27.0f, 36.0f);
-    userIcon.frame = userIconFrame;
+    self.userIcon.frame = userIconFrame;
     userTitleLabelFrame = CGRectMake(self.frame.size.width - 160.0f, self.frame.size.height - 47.0f, 157.0f, 21.0f);
     userTitleLabel.frame = userTitleLabelFrame;        
     userNameLabelFrame = CGRectMake(self.frame.size.width - 160.0f, self.frame.size.height - 30.0f, 157.0f, 21.0f);
-    userNameLabel.frame = userNameLabelFrame;  
+    self.userNameLabel.frame = userNameLabelFrame;
             
     [contentScrollView setContentOffset:CGPointMake((contentBodyPanel.bounds.size.width * currentPage), 0.0f) animated:NO];  
 }
@@ -238,17 +241,24 @@
 #pragma mark UIScrollViewDelegate methods:
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     // Switch the indicator when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = dashboardPager.frame.size.width;
+    CGFloat pageWidth = self.dashboardPager.frame.size.width;
     int page = floor((contentScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    dashboardPager.currentPage = page;	
+    self.dashboardPager.currentPage = page;
 }
 
-- (void)dealloc {
-    [dashboardPager release];
-    
-    [contentScrollView release];
+- (void)dealloc {    
     [companyLogoIcon release];
-	[userIcon release];
+    [contentScrollView release];
+ 
+    self.userNameLabel = nil;
+	self.userIcon = nil;
+    self.backButton = nil;
+    self.syncButton = nil;
+    self.settingsButton = nil;
+    self.syncButtonHint = nil;
+    self.syncButtonValue = nil;
+    self.dashboardPager = nil;
+
     [super dealloc];
 }
 

@@ -81,6 +81,7 @@
 	[viewLabel release];	
 	[titleLabel release];
 	[valueLabel release];
+    
     [super dealloc];
 }
 

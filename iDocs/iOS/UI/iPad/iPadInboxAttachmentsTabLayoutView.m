@@ -44,6 +44,7 @@
 @synthesize navController;
 
 - (void)removeQLView {
+    NSLog(@"removeQLView");
     if (previewer != nil) {
         [previewer setDataSource:nil];
         [previewer.view removeFromSuperview];
@@ -286,10 +287,13 @@
 }
 
 - (id <QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
-    NSArray *attachmentInfo = [delegate itemForPage:index];
-    NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
+    if( delegate != nil && [delegate respondsToSelector:@selector(itemForPage:)] ) {
+        NSArray *attachmentInfo = [delegate itemForPage:index];
+        NSString *attachmentPath = [SupportFunctions createPathForAttachment:[attachmentInfo objectAtIndex:1]];
     
-    return [NSURL fileURLWithPath:attachmentPath];
+        return [NSURL fileURLWithPath:attachmentPath];
+    }
+    return nil;
 }
 
 
@@ -381,7 +385,7 @@
             pageControl = nil;
         }
     }
-    
+    [attachmentInfoLabel release];
     openInExtAppButton = nil;
     self.docInteractionController = nil;
     self.delegate = nil;

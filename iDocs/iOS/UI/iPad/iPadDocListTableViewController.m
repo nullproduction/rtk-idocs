@@ -282,11 +282,13 @@ NSInteger sortFilesByModificationDate(id file1, id file2, void *ascending) {
 }
 
 - (void)dealloc {
-    self.currentPath = nil;
-    self.currentSearchString = nil;
     self.items = nil;
     self.tableView = nil;
+    self.currentPath = nil;
+    self.currentSearchString = nil;
     self.sortField = nil;
+    [iconsMap release];
+    
     [super dealloc];
 }
 @end

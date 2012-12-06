@@ -59,6 +59,7 @@
 - (void)dealloc {	
 	[docTypeNameLabel release];
 	[docDescLabel release];
+    
     [super dealloc];
 }
 

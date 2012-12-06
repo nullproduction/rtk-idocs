@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseLayoutView.h"
 
-@interface iPadInboxItemPanelPageLayoutView : BaseLayoutView {
-	UIView *bodyPanel;
-}
+@interface iPadInboxItemPanelPageLayoutView : BaseLayoutView
 
 @property (nonatomic,retain) UIView *bodyPanel;
 

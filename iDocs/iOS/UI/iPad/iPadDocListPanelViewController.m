@@ -217,10 +217,14 @@
 
 - (void)dealloc {
     [navController release];
+    [coreDataProxy release];
+    [systemEntity release];
+    
     self.containerController = nil;
     self.docListTableViewController = nil;
     self.sortField = nil;
     self.searchString = nil;
+    
     [super dealloc];
 }
 

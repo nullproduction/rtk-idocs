@@ -14,7 +14,6 @@
 @end
 
 @interface iPadDocListTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
-    UITableView *docListTableView;
     NSMutableArray *items;
     AttachmentTypeIconsDictionaryEntity *iconsMap;
     id<iPadDocListTableViewControllerDelegate> delegate;

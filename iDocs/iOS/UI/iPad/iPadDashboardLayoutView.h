@@ -13,24 +13,11 @@
 @interface iPadDashboardLayoutView : iPadBaseLayoutView <UIScrollViewDelegate> {
 	UIImageView *companyLogoIcon;
 	HFSUILabel *appTitleLabel;
-	HFSUILabel *appDescriptionLabel;
-	HFSUILabel *copyrightTitle1Label;
-	HFSUILabel *copyrightTitle2Label;
-	UIImageView *userIcon;
 	HFSUILabel *userTitleLabel;
-	HFSUILabel *userNameLabel;
     
     UIScrollView *contentScrollView;
-    UIPageControl *dashboardPager;
-    
-    HFSUIButton *backButton;
-    NSInteger currentPage;
-    
-    HFSUIButton *syncButton;
-    HFSUILabel *syncButtonHint;
-    HFSUILabel *syncButtonValue;
 
-    HFSUIButton *settingsButton;
+    NSInteger currentPage;
 }
 
 @property(nonatomic, retain) HFSUILabel *userNameLabel;
@@ -47,4 +34,5 @@
 - (void)addContentPanel:(UIView *)contentPanelView;
 - (void)setCurrentPage:(int)pageNum;
 - (void) returnToEOffice;
+
 @end

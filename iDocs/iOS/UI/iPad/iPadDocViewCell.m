@@ -92,10 +92,15 @@
 }
 
 - (void)dealloc {
-	[fileName release];	
-	timeValue = nil;
-    sizeValue = nil;
+	[fileName release];
+    
+    if( timeValue != nil )
+        [timeValue release];
+    if( sizeValue != nil )
+        [sizeValue release];
+    
     [selectionBack release];
+    
     [super dealloc];
 }
 

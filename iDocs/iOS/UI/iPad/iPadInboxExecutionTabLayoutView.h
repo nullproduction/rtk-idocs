@@ -22,6 +22,7 @@
 	HFSUILabel *tableHeader5;
 	HFSUILabel *tableHeader6;
 	HFSUILabel *tableHeader7;
+	HFSUILabel *tableHeader8;
 	
 	UIView *tablePlaceholder;
 	HFSUIButton *tableFilterButton;

@@ -48,6 +48,10 @@
 	NSLog(@"iPadInboxItemPanel initWithContentPlaceholderView");	
 	if ((self = [super initWithNibName:nil bundle:nil])) {
 		//body
+//		UIView* view = [[UIView alloc] init];
+//        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        view.frame = contentPanel.bounds;
+//        body = view;
 		iPadInboxItemPanelPageLayoutView *container = [[iPadInboxItemPanelPageLayoutView alloc] init];
 		container.frame = contentPanel.bounds;
 		body = container.bodyPanel;
@@ -81,6 +85,8 @@
 				
 		[contentPanel addSubview:container];				
 		[container release];
+//		[contentPanel addSubview:view];
+//		[view release];
 		[buttonsPanel addSubview:buttons];
 		[buttons release];
 	}
@@ -197,6 +203,14 @@
     [docEntity release];
 }
 
+- (void)stopLoadingQL {
+    if( attachmentsTab != nil ) {
+        iPadInboxAttachmentsTabLayoutView *layout = (iPadInboxAttachmentsTabLayoutView *)attachmentsTab.view;
+        [layout removeQLView];
+    }
+}
+
+
 #pragma mark other methods
 - (void)didReceiveMemoryWarning {
 	NSLog(@"iPadInboxItemPanel didReceiveMemoryWarning");		
@@ -209,7 +223,11 @@
 	[attachmentsTab release];
 	[endorsementTab release];
 	[executionTab release];
-	[requisitesTab release];    
+	[requisitesTab release];
+    
+    if(self.loadedItem != nil)
+        self.loadedItem = nil;
+    
 	[super dealloc];
 }
 @end

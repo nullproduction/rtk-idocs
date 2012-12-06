@@ -139,13 +139,14 @@
 }
 
 - (void)dealloc {	
-    [selectionBack release];
 	[taskIdLabel release];
     [taskNewIcon release];
 	[docTypeNameLabel release];
-	[taskStageDueDateLabel release];	
+	[taskStageDueDateLabel release];
 	[docDescLabel release];
-	[taskProcessedStatusIcon release];	
+	[taskProcessedStatusIcon release];
+    [selectionBack release];
+    
     [super dealloc];
 }
 

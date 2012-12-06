@@ -159,6 +159,8 @@
     self.inboxListTableViewController = nil;
     self.sortFields = nil;
     self.itemsGroupId = nil;
+    delegate = nil;
+    
     [super dealloc];
 }
 

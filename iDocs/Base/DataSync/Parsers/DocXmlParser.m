@@ -51,13 +51,18 @@
 
 - (NSString *)parseAndInsertDocsData:(NSData *)data {
     NSLog(@"DocXmlParser parseAndInsertDocsData started");  
+    NSMutableString* parseErr = [NSMutableString string];
+    NSError *error = nil;
+    
     self.parserPool = [[NSAutoreleasePool alloc] init];
     
-    NSError *error = nil;
     SMXMLDocument *document = [SMXMLDocument documentWithData:data RPCError:&error];
     if (error) {
         NSLog(@"DocXmlParser parseAndInsertDocData error: %@", [error localizedDescription]);
-        return [error localizedDescription];
+        [parseErr setString:[error localizedDescription]];
+        [parserPool release];
+        self.parserPool = nil;
+        return (NSString *)parseErr;
     }
         
     SMXMLElement *returnPacket = [document.root descendantWithPath:@"Body.getDocDescriptionWithContentPackageResponse"];    
@@ -66,7 +71,7 @@
         NSString *docId = [self getDocIdFromRecord:record]; 
         Doc *doc = [docEntity selectDocById:docId];
         
-        NSLog(@"%@",record);
+        NSLog(@"parseAndInsertDocsData %@",record);
         
         //add doc info
         if ([constSyncStatusToLoad isEqualToString:doc.systemSyncStatus]) {
@@ -112,7 +117,7 @@
 
 - (void)updateDocEntity:(Doc *)doc withInfoSectionInRecord:(SMXMLElement *)record {
     SMXMLElement *generalSection = [record descendantWithPath:@"Info.Properties"];
-    NSString *docDesc = [[[generalSection childWithAttribute:@"name" value:@"object_name:object_name"] childNamed:@"Value"] value];
+    NSString *docDesc = [[[generalSection childWithAttribute:@"name" value:@"ka_object_name:ka_object_name"] childNamed:@"Value"] value];
     doc.desc = docDesc;
  
     NSString *ownerId = [[[generalSection childWithAttribute:@"name" value:@"ka_owner_name:Владелец"] childNamed:@"Value"] value];    

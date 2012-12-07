@@ -127,7 +127,7 @@
     }
     [UserDefaults saveValue:syncedDate forSetting:constLastSuccessfullSyncDate];
     
-    if (restartSyncModule == DSModuleActionsOnly || restartSyncModule == DSModuleTaskAsRead) {
+    if (restartSyncModule == DSModuleActionsOnly) {
         if ([errors count] > 0 || [warnings count] > 0) {
             [self prepareSyncProcessMonitor];
             [syncProcessMonitor performFetch];
@@ -136,6 +136,9 @@
         else {
             [self onSyncFinished];
         }
+    }
+    else if (restartSyncModule == DSModuleTaskAsRead) {
+        [self onSyncFinished];        
     }
     else {
         if ([UserDefaults intSettingByKey:constSyncStatus] == SyncStatusAbortedInBackground) {
